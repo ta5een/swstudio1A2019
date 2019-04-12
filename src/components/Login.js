@@ -1,6 +1,21 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import fire from '../config/Fire';
+import styled, { css } from 'styled-components'
+
+const Button = styled.button`
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid palevioletred;
+  color: palevioletred;
+  margin: 0.5em 1em;
+  padding: 0.25em 1em;
+
+  ${props => props.primary && css`
+    background: palevioletred;
+    color: white;
+  `}
+`;
 
 class Login extends Component {
   constructor(props) {
@@ -47,8 +62,8 @@ class Login extends Component {
             <label for="exampleInputPassword1">Password</label>
             <input  value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
           </div>
-          <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
-          <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</button>
+          <Button type="submit" onClick={this.login} class="btn btn-primary">Login</Button>
+          <Button primary onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</Button>
         </form>
       
       </div>
