@@ -15,10 +15,11 @@ const Button = styled.button`
     color: white;
   `}
 `;
+
 const Wrapper = styled.section`
     padding: 4em;
     background: #5698FF;
-    `;
+`;
 
 class Home extends Component {
     constructor(props) {
@@ -26,25 +27,21 @@ class Home extends Component {
         this.logout = this.logout.bind(this);
     }
 
-
     logout() {
         fire.auth().signOut();
     }
 
-    //GUI
+    // GUI
     render() {
         return (
-         <Wrapper>
+          <Wrapper>
             <div>
-                <h1>TimeAid</h1>
-                <Button onClick={this.logout}>Logout</Button>
+              <h1>TimeAid</h1>
+              <Button onClick={this.logout}>Logout</Button>
             </div>
-        </Wrapper>   
-
+          </Wrapper>
         );
-
     }
-
 }
 
 export default Home;

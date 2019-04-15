@@ -7,9 +7,11 @@ import Login from './components/Login';
 class App extends Component {
   constructor() {
     super();
+
     this.state = ({
       user: null,
     });
+    
     this.authListener = this.authListener.bind(this);
   }
 
