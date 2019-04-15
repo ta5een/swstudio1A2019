@@ -15,6 +15,10 @@ const Button = styled.button`
     color: white;
   `}
 `;
+const Wrapper = styled.section`
+    padding: 4em;
+    background: #5698FF;
+    `;
 
 class Home extends Component {
     constructor(props) {
@@ -27,12 +31,16 @@ class Home extends Component {
         fire.auth().signOut();
     }
 
+    //GUI
     render() {
         return (
+         <Wrapper>
             <div>
-                <h1>Welcome to Home</h1>
+                <h1>Timeaide</h1>
                 <Button onClick={this.logout}>Logout</Button>
             </div>
+        </Wrapper>   
+
         );
 
     }

@@ -33,6 +33,9 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  //Calls Firebases signInWithEmailAndPassword()
+  //Uses email and password passed by user
+  //Changes auth state on app.js and redirects to home.js
   login(e) {
     e.preventDefault();
     fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
@@ -41,6 +44,8 @@ class Login extends Component {
       });
   }
 
+  //Creates the user with specified email and password
+  //Changes auth state on app.js and redirects to home.js
   signup(e){
     e.preventDefault();
     fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
@@ -49,9 +54,12 @@ class Login extends Component {
         console.log(error);
       })
   }
+
+
   render() {
     return (
       <div className="col-md-6">
+      <h1>Timeaid</h1>
         <form>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
