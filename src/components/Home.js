@@ -36,7 +36,7 @@ class Home extends Component {
         return (
          <Wrapper>
             <div>
-                <h1>Timeaide</h1>
+                <h1>TimeAid</h1>
                 <Button onClick={this.logout}>Logout</Button>
             </div>
         </Wrapper>   
