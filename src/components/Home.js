@@ -27,6 +27,10 @@ class Home extends Component {
         this.logout = this.logout.bind(this);
     }
 
+    componentDidMount() {
+      document.title = "TimeAid – Home"
+    }
+
     logout() {
         fire.auth().signOut();
     }
