@@ -20,13 +20,19 @@ const Button = styled.button`
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.login = this.login.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.signup = this.signup.bind(this);
+
     this.state = {
       email: '',
       password: ''
     };
+
+    this.login = this.login.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.signup = this.signup.bind(this);
+  }
+
+  componentDidMount() {
+    document.title = "TimeAid – Login"
   }
 
   handleChange(e) {
@@ -38,10 +44,11 @@ class Login extends Component {
   // Changes auth state on app.js and redirects to home.js
   login(e) {
     e.preventDefault();
-    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
+    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user)=>{
+      console.log("Signing in with user... ", user);
     }).catch((error) => {
-        console.log(error);
-      });
+      console.log(error);
+    });
   }
 
   // Creates the user with specified email and password
