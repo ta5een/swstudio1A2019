@@ -59,7 +59,7 @@ class Login extends Component {
   render() {
     return (
       <div className="col-md-6">
-      <h1>Timeaid</h1>
+      <h1>Time-Aid</h1>
         <form>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
