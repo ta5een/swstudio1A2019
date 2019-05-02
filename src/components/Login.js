@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import fire from '../config/Fire';
+import Defaults from '../AppDefaults'
 import './Login.css'
 
 import { Button, HintButton } from '../controls/Button';
 import { TextField } from '../controls/TextField';
+import { Heading } from '../controls/Heading';
 
 class Login extends Component {
   constructor(props) {
@@ -14,8 +16,8 @@ class Login extends Component {
       password: ""
     };
 
-    this.login = this.handleLogin.bind(this);
-    this.signup = this.handleSignUp.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
   }
 
   componentDidMount() {
@@ -91,7 +93,7 @@ class Login extends Component {
     return (
       <div className="wrapper">
         <div className="form-container">
-          <h1>Time Aid</h1>
+          <Heading>{Defaults.app.name}</Heading>
           <form>
             <div className="form-group">
               <label htmlFor="form-group">email</label>
