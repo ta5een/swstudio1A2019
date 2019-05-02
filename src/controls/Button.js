@@ -51,7 +51,7 @@ const Button = styled.button`
   border: 0.5px solid ${BtnClr.default.normal.BORDER};
   color: ${BtnClr.default.normal.TEXT};
   flex-grow: 1;
-  padding: 0.6em 1.2em;
+  padding: 0.8em 1.2em;
   box-shadow: none;
 
   text-align: center;
