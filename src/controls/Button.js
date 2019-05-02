@@ -91,8 +91,6 @@ const Button = styled.button`
       background: ${BtnClr.primary.disabled.BACKGROUND}
       border: 0.5px solid ${BtnClr.primary.disabled.BORDER};
       color: ${BtnClr.primary.disabled.TEXT}
-      box-shadow: none;
-      cursor: not-allowed;
     }
   `}
 `;
