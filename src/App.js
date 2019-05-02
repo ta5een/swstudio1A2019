@@ -21,7 +21,7 @@ class App extends Component {
 
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
-      console.log(user);
+      console.log("Currently signed in user: " + user);
       if (user) {
         this.setState({ user });
         localStorage.setItem('user', user.uid);
