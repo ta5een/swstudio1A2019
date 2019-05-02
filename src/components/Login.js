@@ -14,9 +14,8 @@ class Login extends Component {
       password: ""
     };
 
-    this.login = this.login.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
-    this.signup = this.signup.bind(this);
+    this.login = this.handleLogin.bind(this);
+    this.signup = this.handleSignUp.bind(this);
   }
 
   componentDidMount() {
@@ -34,12 +33,12 @@ class Login extends Component {
   // Calls Firebases signInWithEmailAndPassword()
   // Uses email and password passed by user
   // Changes auth state on app.js and redirects to home.js
-  login(e) {
+  handleLogin(e) {
     e.preventDefault();
-    this.manageLogin();
+    this.commitLogin();
   }
 
-  manageLogin() {
+  commitLogin() {
     var emailTFLength = document.getElementById('emailTextField').value.length;
     var passwordTFLength = document.getElementById('passwordTextField').value.length;
 
@@ -60,7 +59,7 @@ class Login extends Component {
 
   // Creates the user with specified email and password
   // Changes auth state on app.js and redirects to home.js
-  signup(e) {
+  handleSignUp(e) {
     e.preventDefault();
     fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
       // Do something here...
@@ -77,26 +76,38 @@ class Login extends Component {
   render() {
     const isEnabled = this.state.email.length >= 3 && this.state.password.length >= 6;
 
+    const focusPasswordField = e => {
+      if (e.key === 'Enter') {
+        document.getElementById('passwordTextField').focus();
+      }
+    }
+
+    const submitForm = e => {
+      if (e.key === 'Enter') {
+        this.handleLogin(e);
+      }
+    }
+
     return (
       <div className="wrapper">
         <div className="form-container">
           <h1>Time Aid</h1>
-          <form onSubmit={() => alert('Form submitted')} noValidate>
+          <form>
             <div className="form-group">
               <label htmlFor="form-group">email</label>
-              <TextField id="emailTextField" className="emailTextField" name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailTextFieldChange.bind(this)} noValidate/>
+              <TextField id="emailTextField" name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
             </div>
             <div className="form-group">
               <label htmlFor="form-group">password</label>
-              <TextField id="passwordTextField" name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordTextFieldChange.bind(this)} noValidate/>
+              <TextField id="passwordTextField" name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
             </div>
           </form>
           <div>
             <div className="button-group">
-              <Button className="signUpButton" disabled={!isEnabled} onClick={this.signup}>Sign up</Button>
-              <Button primary type="submit" disabled={!isEnabled} onClick={this.login}>Login</Button>
+              <Button type="button" className="signUpButton" disabled={!isEnabled} onClick={this.handleSignUp}>Sign up</Button>
+              <Button primary type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</Button>
             </div>
-            <HintButton onClick={this.forgotPassword}>Forgot your password?</HintButton>
+            <HintButton type="button" onClick={this.forgotPassword}>Forgot your password?</HintButton>
           </div>
         </div>
       </div>
