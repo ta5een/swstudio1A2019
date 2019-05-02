@@ -46,8 +46,10 @@ h1 {
 }
 
 label {
+  margin-left: 5px;
+
+  color: grey;
   text-align: left;
   font-variant: small-caps;
-  margin-left: 5px;
   font-weight: 500;
 }
