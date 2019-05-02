@@ -7,7 +7,7 @@ const Defaults = Object.freeze({
     font: {
       sizes: {
         normal: '16px',
-        heading: '60px'
+        heading: '70px'
       }
     }
   }
