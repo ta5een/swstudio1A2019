@@ -70,7 +70,7 @@ class Login extends Component {
             </div>
             <Button type="submit" disabled={true} onClick={this.login}>Login</Button>
             <Button primary disabled={true} onClick={this.signup}>Sign up</Button>
-            <HintButton hint>Forgot your password?</HintButton>
+            <HintButton>Forgot your password?</HintButton>
           </form>
           </div>
         </div>
