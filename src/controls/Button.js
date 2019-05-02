@@ -47,8 +47,8 @@ const buttonHintFontSize = Defaults.constants.font.sizes.normal;
 
 const Button = styled.button`
   background: ${BtnClr.default.normal.BACKGROUND};
-  border-radius: 5px;
   border: 0.5px solid ${BtnClr.default.normal.BORDER};
+  border-radius: 5px;
   color: ${BtnClr.default.normal.TEXT};
   flex-grow: 1;
   padding: 0.8em 1.2em;
