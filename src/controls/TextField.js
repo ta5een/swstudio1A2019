@@ -1,6 +1,7 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components';
+import Defaults from '../AppDefaults';
 
-const textFieldFontSize = '14px'
+const textFieldFontSize = Defaults.constants.font.sizes.normal;
 
 const TextField = styled.input`
   border-radius: 5px;
