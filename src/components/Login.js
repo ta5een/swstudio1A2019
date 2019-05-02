@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import fire from '../config/Fire';
-// import styled, { css } from 'styled-components'
+import './Login.css'
 
 import Button from '../controls/Button'
 
@@ -52,40 +52,29 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="col-md-6">
-      <h1>Time-Aid</h1>
-        {/*
-        <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input  value={this.state.email} onChange={this.handleChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      <div className="outer">
+        <div className="middle">
+        <div className="inner">
+          <h1>Time-Aid</h1>
+          <form>
+            <div className="label-textfield">
+              <label>
+                Email address{" "}
+                <input value={this.state.email} type="email" onChange={this.handleChange} name="email" id="emailTextField"/>
+              </label>
+            </div>
+            <div className="label-textfield">
+              <label>
+                Password{" "}
+                <input value={this.state.password} type="password" onChange={this.handleChange} name="password" id="passwordTextField"/>
+              </label>
+            </div>
+            <Button type="submit" onClick={this.login}>Login</Button>
+            <Button primary disabled={true} onClick={this.signup}>Sign up</Button>
+            <Button hint>Forgot password?</Button>
+          </form>
           </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input  value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
-          </div>
-          <Button type="submit" onClick={this.login} class="btn btn-primary">Login</Button>
-          <Button primary onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</Button>
-        </form>
-        */}
-        <form>
-          <div class="form-group">
-            <label>
-              Email address{" "}
-              <input value={this.state.email} type="email" onChange={this.handleChange} name="email" class="form-control" id="emailTextField"/>
-            </label>
-          </div>
-          <div class="form-group">
-            <label>
-              Password{" "}
-              <input value={this.state.password} type="password" onChange={this.handleChange} name="password" class="form-control" id="passwordTextField"/>
-            </label>
-          </div>
-          <Button type="submit" onClick={this.login} class="btn btn-primary">Login</Button>
-          <Button primary disabled={true} onClick={this.signup} className="btn btn-success">Sign up</Button>
-          <Button hint class="btn btn-primary">Forgot password?</Button>
-        </form>
+        </div>
       </div>
     );
   }
