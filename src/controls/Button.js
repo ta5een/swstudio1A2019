@@ -41,18 +41,6 @@ var BtnClr = Object.freeze({
   }
 })
 
-// const buttonTextColor = BtnClr.default.normal.TEXT
-// const buttonPrimaryTextColor = BtnClr.primary.normal.TEXT
-
-// const buttonBackgroundColor = '#ffffff'
-// const buttonDisabledBackgroundColor = ''
-// const buttonPrimaryBackgroundColor = '#1976d2'
-// const buttonPrimaryDisabledBackgroundColor = '#63a4ff'
-
-// const buttonBorderColor = '#d8d8d8'
-// const buttonHintTextColor = 'grey'
-// const buttonPrimaryBorderColor = buttonPrimaryBackgroundColor
-
 const buttonFontSize = '14px'
 const buttonHintFontSize = '12px'
 
