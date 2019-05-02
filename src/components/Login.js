@@ -93,7 +93,10 @@ class Login extends Component {
     return (
       <div className="wrapper">
         <div className="form-container">
-          <Heading>{Defaults.app.name}</Heading>
+          <div className="title-group">
+            <Heading>{Defaults.app.name}</Heading>
+            <p className="caption">Your time for good causes</p>
+          </div>
           <form>
             <div className="form-group">
               <label htmlFor="form-group">email</label>
@@ -106,7 +109,7 @@ class Login extends Component {
           </form>
           <div>
             <div className="button-group">
-              <Button type="button" className="signUpButton" disabled={!isEnabled} onClick={this.handleSignUp}>Sign up</Button>
+              <Button type="button" className="sign-up-button" disabled={!isEnabled} onClick={this.handleSignUp}>Sign up</Button>
               <Button primary type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</Button>
             </div>
             <HintButton type="button" onClick={this.forgotPassword}>Forgot your password?</HintButton>
