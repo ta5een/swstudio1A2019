@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import fire from '../config/Fire';
 import './Login.css'
 
@@ -69,9 +68,9 @@ class Login extends Component {
                 <input value={this.state.password} type="password" onChange={this.handleChange} name="password" id="passwordTextField"/>
               </label>
             </div>
-            <Button type="submit" onClick={this.login}>Login</Button>
+            <Button type="submit" disabled={true} onClick={this.login}>Login</Button>
             <Button primary disabled={true} onClick={this.signup}>Sign up</Button>
-            <Button hint>Forgot password?</Button>
+            <Button hint>Forgot your password?</Button>
           </form>
           </div>
         </div>
