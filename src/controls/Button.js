@@ -95,12 +95,13 @@ const Button = styled.button`
       cursor: not-allowed;
     }
   `}
+`;
 
-  ${props => props.hint && css`
+const HintButton = styled(Button)`
     background: ${BtnClr.hint.normal.BACKGROUND};
     border: ${BtnClr.hint.normal.BORDER};
     color: ${BtnClr.hint.normal.TEXT};
-    
+
     font-size: ${buttonHintFontSize}
     font-weight: 500;
 
@@ -108,7 +109,6 @@ const Button = styled.button`
       box-shadow: none;
       font-weight: 600;
     }
-  `}
 `;
 
-export default Button;
+export { Button, HintButton };
