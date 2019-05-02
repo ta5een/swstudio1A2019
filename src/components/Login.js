@@ -54,7 +54,27 @@ class Login extends Component {
       fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
         console.log("Signing in with user: ", user);
       }).catch((error) => {
-        alert(error);
+        document.getElementById('passwordTextField').value = "";
+        document.getElementById('loginButton').disabled = true;
+        document.getElementById('signUpButton').disabled = true;
+        console.log(error.code);
+
+        switch (error.code) {
+          case 'auth/invalid-email':
+            alert("Hmm, that email doesn't look right. Check that you've entered it correctly and try again.");
+            break;
+          case 'auth/user-not-found':
+            alert("Hmm, that's not right. Perhaps you've entered your email or password incorrectly?");
+            break;
+          case 'auth/user-disabled':
+            alert("Seems like this login has been disabled. Please contact support for more informaiton.");
+            break;
+          case 'auth/too-many-requests':
+            alert("Woah, slow down! Try again after some time.");
+            break;
+          default:
+            alert(error);
+        }
       });
     }
   }
@@ -109,8 +129,8 @@ class Login extends Component {
           </form>
           <div>
             <div className="button-group">
-              <Button type="button" className="sign-up-button" disabled={!isEnabled} onClick={this.handleSignUp}>Sign up</Button>
-              <Button primary type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</Button>
+              <Button id="signUpButton" type="button" className="sign-up-button" disabled={!isEnabled} onClick={this.handleSignUp}>Sign up</Button>
+              <Button id="loginButton" primary type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</Button>
             </div>
             <HintButton type="button" onClick={this.forgotPassword}>Forgot your password?</HintButton>
           </div>
