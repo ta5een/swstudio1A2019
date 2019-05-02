@@ -51,6 +51,10 @@
   font-weight: 500;
 }
 
+.error-box {
+  margin-bottom: 10px;
+}
+
 h1 {
   margin: 0px;
   text-align: left;
