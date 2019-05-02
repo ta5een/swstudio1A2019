@@ -40,8 +40,8 @@ class Home extends Component {
         return (
           <Wrapper>
             <div>
-              <h1>TimeAid</h1>
-              <Button onClick={this.logout}>Logout</Button>
+                <h1>Time-Aid</h1>
+                <Button onClick={this.logout}>Logout</Button>
             </div>
           </Wrapper>
         );

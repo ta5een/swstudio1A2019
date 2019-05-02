@@ -1,21 +1,9 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import fire from '../config/Fire';
-import styled, { css } from 'styled-components'
+// import styled, { css } from 'styled-components'
 
-const Button = styled.button`
-  background: transparent;
-  border-radius: 3px;
-  border: 2px solid palevioletred;
-  color: palevioletred;
-  margin: 0.5em 1em;
-  padding: 0.25em 1em;
-
-  ${props => props.primary && css`
-    background: palevioletred;
-    color: white;
-  `}
-`;
+import Button from '../controls/Button'
 
 class Login extends Component {
   constructor(props) {
@@ -65,7 +53,8 @@ class Login extends Component {
   render() {
     return (
       <div className="col-md-6">
-      <h1>TimeAid</h1>
+      <h1>Time-Aid</h1>
+        {/*
         <form>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
@@ -78,6 +67,24 @@ class Login extends Component {
           </div>
           <Button type="submit" onClick={this.login} class="btn btn-primary">Login</Button>
           <Button primary onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</Button>
+        </form>
+        */}
+        <form>
+          <div class="form-group">
+            <label>
+              Email address{" "}
+              <input value={this.state.email} type="email" onChange={this.handleChange} name="email" class="form-control" id="emailTextField"/>
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Password{" "}
+              <input value={this.state.password} type="password" onChange={this.handleChange} name="password" class="form-control" id="passwordTextField"/>
+            </label>
+          </div>
+          <Button type="submit" onClick={this.login} class="btn btn-primary">Login</Button>
+          <Button primary disabled={true} onClick={this.signup} className="btn btn-success">Sign up</Button>
+          <Button hint class="btn btn-primary">Forgot password?</Button>
         </form>
       </div>
     );
