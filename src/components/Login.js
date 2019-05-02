@@ -31,34 +31,51 @@ class Login extends Component {
   // Changes auth state on app.js and redirects to home.js
   login(e) {
     e.preventDefault();
-    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user)=>{
-      console.log("Signing in with user... ", user);
-    }).catch((error) => {
-      console.log(error);
-    });
+
+    var emailTFLength = document.getElementById('emailTextField').value.length;
+    var passwordTFLength = document.getElementById('passwordTextField').value.length;
+
+    if (emailTFLength === 0 && passwordTFLength === 0) {
+      alert('Please enter your email and password.');
+    } else if (emailTFLength === 0) {
+      alert('Please enter your email.');
+    } else if (passwordTFLength === 0) {
+      alert('Please enter your password.');
+    } else {
+      fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
+        console.log("Signing in with user: ", user);
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
   }
 
   // Creates the user with specified email and password
   // Changes auth state on app.js and redirects to home.js
-  signup(e){
+  signup(e) {
     e.preventDefault();
-    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-    }).then((u)=>{console.log(u)})
-    .catch((error) => {
-        console.log(error);
-      })
+    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
+      // Do something here...
+    }).catch((error) => {
+      console.log(error);
+      alert(error);
+    })
+  }
+
+  forgotPassword(e) {
+    alert('This button does nothing now');
   }
 
   render() {
     return (
       <div className="outer">
         <div className="middle">
+        <h1>Time Aid</h1>
         <div className="inner">
-          <h1>Time-Aid</h1>
           <form>
             <div className="label-textfield">
               <label>
-                Email address{" "}
+                Email{" "}
                 <input value={this.state.email} type="email" onChange={this.handleChange} name="email" id="emailTextField"/>
               </label>
             </div>
@@ -68,9 +85,13 @@ class Login extends Component {
                 <input value={this.state.password} type="password" onChange={this.handleChange} name="password" id="passwordTextField"/>
               </label>
             </div>
-            <Button type="submit" disabled={true} onClick={this.login}>Login</Button>
-            <Button primary disabled={true} onClick={this.signup}>Sign up</Button>
-            <HintButton>Forgot your password?</HintButton>
+            <div>
+              <div>
+                <Button type="submit" disabled={true} onClick={this.login}>Login</Button>
+                <Button primary disabled={true} onClick={this.signup}>Sign up</Button>
+              </div>
+              <HintButton onClick={this.forgotPassword}>Forgot your password?</HintButton>
+            </div>
           </form>
           </div>
         </div>
