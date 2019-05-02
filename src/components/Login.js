@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import fire from '../config/Fire';
 import './Login.css'
 
-import Button from '../controls/Button'
+import { Button, HintButton } from '../controls/Button'
 
 class Login extends Component {
   constructor(props) {
@@ -70,7 +70,7 @@ class Login extends Component {
             </div>
             <Button type="submit" disabled={true} onClick={this.login}>Login</Button>
             <Button primary disabled={true} onClick={this.signup}>Sign up</Button>
-            <Button hint>Forgot your password?</Button>
+            <HintButton hint>Forgot your password?</HintButton>
           </form>
           </div>
         </div>
