@@ -5,12 +5,12 @@ var BtnClr = Object.freeze({
     normal: {
       TEXT: '#000000',
       BACKGROUND: '#ffffff',
-      BORDER: '#d8d8d8'
+      BORDER: '#b2b2b2'
     },
     disabled: {
-      TEXT: 'grey',
+      TEXT: '#b2b2b2',
       BACKGROUND: '#ffffff',
-      BORDER: '#d8d8d8'
+      BORDER: '#b2b2b2'
     }
   },
 
@@ -49,7 +49,7 @@ const Button = styled.button`
   border-radius: 5px;
   border: 0.5px solid ${BtnClr.default.normal.BORDER};
   color: ${BtnClr.default.normal.TEXT};
-  margin: 0.5em 1em;
+  flex-grow: 1;
   padding: 0.6em 1.2em;
   box-shadow: none;
 
