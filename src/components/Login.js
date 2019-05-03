@@ -21,7 +21,9 @@ class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      errorEmail: false,
+      errorPassword: false
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -44,6 +46,7 @@ class Login extends Component {
 
   collapseErrorBox() {
     document.getElementById('infoBoxDiv').hidden = true;
+    this.setState({ errorEmail: false, errorPassword: false });
   }
 
   // Calls Firebases signInWithEmailAndPassword()
@@ -65,10 +68,13 @@ class Login extends Component {
 
     if (emailTextFieldLength === 0 && passwordTextFieldLength === 0) {
       this.showInfoBox("Please enter your email and password.", InfoBoxType.WARNING);
+      this.setState({ errorEmail: true, errorPassword: true });
     } else if (emailTextFieldLength === 0) {
       this.showInfoBox("Please enter your email.", InfoBoxType.WARNING);
+      this.setState({ errorEmail: true });
     } else if (passwordTextFieldLength === 0) {
       this.showInfoBox("Please enter your password.", InfoBoxType.WARNING);
+      this.setState({ errorPassword: true });
     } else {
       fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
         console.log("Signing in with user: ", user);
@@ -87,6 +93,7 @@ class Login extends Component {
     switch (error.code) {
       case 'auth/invalid-email':
         this.showInfoBox("Hmm, that email doesn't look right. Check that you've entered it correctly and try again.", InfoBoxType.ERROR);
+        this.setState({ errorEmail: true });
         break;
       case 'auth/user-not-found': // Fallthrough
       case 'auth/wrong-password':
@@ -162,18 +169,18 @@ class Login extends Component {
           <form>
             <div className="form-group">
               <label htmlFor="form-group">email</label>
-              <TextField id="emailTextField" name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
+              <TextField id="emailTextField" className={this.state.errorEmail ? "error-text-field" : null} name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
             </div>
             <div className="form-group">
               <label htmlFor="form-group">password</label>
-              <TextField id="passwordTextField" name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
+              <TextField id="passwordTextField" className={this.state.errorPassword ? "error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
             </div>
           </form>
           <div id="infoBoxDiv" className="info-box-div" hidden={true}/>
           <div>
             <div className="button-group">
-              <Button id="signUpButton" type="button" className="sign-up-button" disabled={!isEnabled} onClick={this.handleSignUp}>Sign up</Button>
-              <Button id="loginButton" primary type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</Button>
+              <Button id="signUpButton" className="sign-up-button" type="button" disabled={!isEnabled} onClick={this.handleSignUp}>Sign up</Button>
+              <Button primary id="loginButton" type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</Button>
             </div>
             <HintButton type="button" onClick={this.forgotPassword}>Forgot your password?</HintButton>
           </div>
