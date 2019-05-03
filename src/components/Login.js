@@ -5,7 +5,7 @@ import './Login.css'
 
 import { Button, HintButton } from '../controls/Button';
 import { TextField } from '../controls/TextField';
-import { Heading } from '../controls/Heading';
+import { H1, Title } from '../controls/Headings';
 import { ErrorBox } from '../controls/ErrorBox';
 
 class Login extends Component {
@@ -151,7 +151,7 @@ class Login extends Component {
       <div className="wrapper">
         <div className="form-container">
           <div className="title-group">
-            <Heading>{Defaults.app.name}</Heading>
+            <Title>{Defaults.app.name}</Title>
             <p className="caption">{Defaults.app.caption}</p>
           </div>
           <form>
