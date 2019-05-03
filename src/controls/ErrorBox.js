@@ -17,7 +17,7 @@ const ErrorBox = styled.div`
   border: 0.5px solid ${ErrorBoxClr.default.border};
   border-radius: 5px;
   color: white;
-  padding: 2px 10px;
+  padding: 5px 20px;
 
   text-align: left;
   font-weight: 600;
