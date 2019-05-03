@@ -85,13 +85,13 @@ class Login extends Component {
         break;
       case 'auth/user-not-found': // Fallthrough
       case 'auth/wrong-password':
-        this.showErrorBox("Hmm, that's not right. Perhaps you've entered your email or password incorrectly?", "warning");
+        this.showErrorBox("Something's not right... Perhaps you've entered your email or password incorrectly?", "warning");
         break;
       case 'auth/user-disabled':
-        this.showErrorBox("Seems like this login has been disabled. Please contact support for more informaiton.", "warning");
+        this.showErrorBox("Seems like this account has been disabled. Please contact support for more information.", "warning");
         break;
       case 'auth/too-many-requests':
-        this.showErrorBox("Woah, slow down! Try again after some time.", "warning");
+        this.showErrorBox("Woah, slow down! Look's like you've requested too many requests.", "warning");
         break;
       default:
         this.showErrorBox(error.message);
