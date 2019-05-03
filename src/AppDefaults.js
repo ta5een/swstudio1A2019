@@ -1,7 +1,7 @@
 const Defaults = Object.freeze({
   app: {
     name: 'Time Aid',
-    caption: 'Your time for good causes',
+    caption: 'Your time spent on good causes',
     version: '0.1.0'
   },
   constants: {
