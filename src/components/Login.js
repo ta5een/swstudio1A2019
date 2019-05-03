@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import fire from '../config/Fire';
-import Defaults from '../AppDefaults'
-import './Login.css'
+import Defaults from '../AppDefaults';
+import './Login.css';
 
 import { Button, HintButton } from '../controls/Button';
 import { TextField } from '../controls/TextField';
 import { Title } from '../controls/Headings';
-import { ErrorBox } from '../controls/ErrorBox';
+import { InfoBox, WarningBox, ErrorBox } from '../controls/InfoBox';
+
+const InfoBoxType = Object.freeze({
+  DEFAULT: 0,
+  WARNING: 1,
+  ERROR: 2
+});
 
 class Login extends Component {
   constructor(props) {
@@ -36,14 +43,7 @@ class Login extends Component {
   }
 
   collapseErrorBox() {
-    var errorBox = document.getElementById('errorBox');
-    var childNodes = errorBox.childNodes;
-
-    for (var node = 0; node < childNodes.length; node++) {
-      errorBox.removeChild(childNodes[node]);
-    }
-
-    errorBox.hidden = true;
+    document.getElementById('infoBoxDiv').hidden = true;
   }
 
   // Calls Firebases signInWithEmailAndPassword()
@@ -59,11 +59,11 @@ class Login extends Component {
     var passwordTextFieldLength = document.getElementById('passwordTextField').value.length;
 
     if (emailTextFieldLength === 0 && passwordTextFieldLength === 0) {
-      this.showErrorBox("Please enter your email and password.");
+      this.showInfoBox("Please enter your email and password.", InfoBoxType.WARNING);
     } else if (emailTextFieldLength === 0) {
-      this.showErrorBox("Please enter your email.");
+      this.showInfoBox("Please enter your email.", InfoBoxType.WARNING);
     } else if (passwordTextFieldLength === 0) {
-      this.showErrorBox("Please enter your password.");
+      this.showInfoBox("Please enter your password.", InfoBoxType.WARNING);
     } else {
       fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
         console.log("Signing in with user: ", user);
@@ -81,39 +81,39 @@ class Login extends Component {
 
     switch (error.code) {
       case 'auth/invalid-email':
-        this.showErrorBox("Hmm, that email doesn't look right. Check that you've entered it correctly and try again.", "warning");
+        this.showInfoBox("Hmm, that email doesn't look right. Check that you've entered it correctly and try again.", InfoBoxType.ERROR);
         break;
       case 'auth/user-not-found': // Fallthrough
       case 'auth/wrong-password':
-        this.showErrorBox("Something's not right... Perhaps you've entered your email or password incorrectly?", "warning");
+        this.showInfoBox("Something's not right... Perhaps you've entered your email or password incorrectly?", InfoBoxType.ERROR);
         break;
       case 'auth/user-disabled':
-        this.showErrorBox("Seems like this account has been disabled. Please contact support for more information.", "warning");
+        this.showInfoBox("Seems like this account has been disabled. Please contact support for more information.", InfoBoxType.ERROR);
         break;
       case 'auth/too-many-requests':
-        this.showErrorBox("Woah, slow down! Look's like you've requested too many requests.", "warning");
+        this.showInfoBox("Woah, slow down! Look's like you've requested too many requests.", InfoBoxType.ERROR);
         break;
       default:
-        this.showErrorBox(error.message);
+        this.showInfoBox(error.message);
         return;
     }
   }
 
-  showErrorBox(message, attribute="warning") {
-    // TODO: Add safety; 'errorBox' may not exist in the DOM. Consider
-    // `if (document.getElementById)`.
-    var errorBox = document.getElementById('errorBox');
-    var textElement = document.createElement('p');
-    var errorMessage = document.createTextNode(message);
-    textElement.appendChild(errorMessage);
+  showInfoBox(message, type=InfoBoxType.DEFAULT) {
+    var infoBoxDiv = document.getElementById('infoBoxDiv');
 
-    // Remove existing child nodes of the info box before appending.
-    errorBox.childNodes.forEach(function(node) {
-      errorBox.removeChild(node);
-    });
+    switch (type) {
+      case 1:
+        ReactDOM.render(<WarningBox>{message}</WarningBox>, infoBoxDiv);
+        break;
+      case 2:
+        ReactDOM.render(<ErrorBox>{message}</ErrorBox>, infoBoxDiv);
+        break;
+      default:
+        ReactDOM.render(<InfoBox>{message}</InfoBox>, infoBoxDiv);
+    }
 
-    errorBox.appendChild(textElement);
-    errorBox.hidden = false;
+    infoBoxDiv.hidden = false;
   }
 
   // Creates the user with specified email and password
@@ -164,7 +164,7 @@ class Login extends Component {
               <TextField id="passwordTextField" name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
             </div>
           </form>
-          <ErrorBox id="errorBox" className="error-box" hidden={true}/>
+          <div id="infoBoxDiv" className="info-box-div" hidden={true}/>
           <div>
             <div className="button-group">
               <Button id="signUpButton" type="button" className="sign-up-button" disabled={!isEnabled} onClick={this.handleSignUp}>Sign up</Button>
