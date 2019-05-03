@@ -56,6 +56,10 @@
   margin-bottom: 10px;
 }
 
+.error-text-field {
+  border: 1.5px solid #D4242C;
+}
+
 h1 {
   margin: 0px;
   text-align: left;
