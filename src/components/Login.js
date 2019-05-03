@@ -71,12 +71,15 @@ class Login extends Component {
     if (emailTextFieldLength === 0 && passwordTextFieldLength === 0) {
       this.showInfoBox("Please enter your email and password.", InfoBoxType.WARNING);
       this.setState({ errorEmail: true, errorPassword: true });
+      document.getElementById('emailTextField').focus();
     } else if (emailTextFieldLength === 0) {
       this.showInfoBox("Please enter your email.", InfoBoxType.WARNING);
       this.setState({ errorEmail: true });
+      document.getElementById('emailTextField').focus();
     } else if (passwordTextFieldLength === 0) {
       this.showInfoBox("Please enter your password.", InfoBoxType.WARNING);
       this.setState({ errorPassword: true });
+      document.getElementById('passwordTextField').focus();
     } else {
       fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
         console.log("Signing in with user: ", user);
