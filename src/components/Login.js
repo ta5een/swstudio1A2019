@@ -99,7 +99,9 @@ class Login extends Component {
     }
   }
 
-  showErrorBox(message, attribute=null) {
+  showErrorBox(message, attribute="warning") {
+    // TODO: Add safety; 'errorBox' may not exist in the DOM. Consider
+    // `if (document.getElementById)`.
     var errorBox = document.getElementById('errorBox');
     var textElement = document.createElement('p');
     var errorMessage = document.createTextNode(message);
@@ -111,12 +113,6 @@ class Login extends Component {
     });
 
     errorBox.appendChild(textElement);
-
-    // TODO: This isn't working
-    if (attribute !== null) {
-      errorBox.setAttribute(attribute, "");
-    }
-
     errorBox.hidden = false;
   }
 
