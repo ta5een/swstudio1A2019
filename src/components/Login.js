@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+
 import fire from '../config/Fire';
+
 import Defaults from '../AppDefaults';
 import './Login.css';
 
@@ -168,11 +170,11 @@ class Login extends Component {
           </div>
           <form>
             <div className="form-group">
-              <label htmlFor="form-group">email</label>
+              <label htmlFor="form-group" className={this.state.errorEmail ? "error-text-field-label" : null}>email</label>
               <TextField id="emailTextField" className={this.state.errorEmail ? "error-text-field" : null} name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
             </div>
             <div className="form-group">
-              <label htmlFor="form-group">password</label>
+              <label htmlFor="form-group" className={this.state.errorPassword ? "error-text-field-label" : null}>password</label>
               <TextField id="passwordTextField" className={this.state.errorPassword ? "error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
             </div>
           </form>
