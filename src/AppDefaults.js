@@ -1,18 +1,18 @@
-const Defaults = Object.freeze({
+const AppDefaults = Object.freeze({
   app: {
-    name: 'Time Aid',
-    caption: 'Your time spent on good causes',
-    version: '0.1.0'
+    name: "Time Aid",
+    caption: "Your time spent on good causes",
+    version: "0.1.0"
   },
   constants: {
     font: {
       sizes: {
-        normal: '16px',
-        heading: '50px',
-        title: '70px'
+        normal: "16px",
+        heading: "50px",
+        title: "70px"
       }
     }
   }
 });
 
-export default Defaults;
+export default AppDefaults;

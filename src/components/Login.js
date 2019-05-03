@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import fire from '../config/Fire';
 
-import Defaults from '../AppDefaults';
+import AppDefaults from '../AppDefaults';
 import './Login.css';
 
 import { Button, HintButton } from '../controls/Button';
@@ -168,8 +168,8 @@ class Login extends Component {
       <div className="wrapper">
         <div className="form-container">
           <div className="title-group">
-            <Title>{Defaults.app.name}</Title>
-            <p className="caption">{Defaults.app.caption}</p>
+            <Title>{AppDefaults.app.name}</Title>
+            <p className="caption">{AppDefaults.app.caption}</p>
           </div>
           <form>
             <div className="form-group">

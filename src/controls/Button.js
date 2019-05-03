@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import Defaults from '../AppDefaults';
+import AppDefaults from '../AppDefaults';
 
 var BtnClr = Object.freeze({
   default: {
@@ -42,8 +42,8 @@ var BtnClr = Object.freeze({
   }
 });
 
-const buttonFontSize = Defaults.constants.font.sizes.normal;
-const buttonHintFontSize = Defaults.constants.font.sizes.normal;
+const buttonFontSize = AppDefaults.constants.font.sizes.normal;
+const buttonHintFontSize = AppDefaults.constants.font.sizes.normal;
 const buttonBorderSize = '1px';
 
 const Button = styled.button`

@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import Defaults from '../AppDefaults';
+import AppDefaults from '../AppDefaults';
 
 const Title = styled.h1`
-  font-size: ${Defaults.constants.font.sizes.title};
+  font-size: ${AppDefaults.constants.font.sizes.title};
 `;
 
 const H1 = styled.h1`
-  font-size: ${Defaults.constants.font.sizes.heading};
+  font-size: ${AppDefaults.constants.font.sizes.heading};
 `;
 
 export { Title, H1 };
