@@ -5,7 +5,7 @@ import './Login.css'
 
 import { Button, HintButton } from '../controls/Button';
 import { TextField } from '../controls/TextField';
-import { H1, Title } from '../controls/Headings';
+import { Title } from '../controls/Headings';
 import { ErrorBox } from '../controls/ErrorBox';
 
 class Login extends Component {
@@ -99,12 +99,16 @@ class Login extends Component {
     }
   }
 
-  // TODO: Don't append if there's already an existing child node
   showErrorBox(message, attribute=null) {
     var errorBox = document.getElementById('errorBox');
     var textElement = document.createElement('p');
     var errorMessage = document.createTextNode(message);
     textElement.appendChild(errorMessage);
+
+    // Remove existing child nodes of the info box before appending.
+    errorBox.childNodes.forEach(function(node) {
+      errorBox.removeChild(node);
+    });
 
     errorBox.appendChild(textElement);
 
