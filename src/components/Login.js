@@ -99,6 +99,7 @@ class Login extends Component {
       case 'auth/invalid-email':
         this.showInfoBox("Hmm, that email doesn't look right. Check that you've entered it correctly and try again.", InfoBoxType.ERROR);
         this.setState({ errorEmail: true });
+        document.getElementById('emailTextField').focus();
         break;
       case 'auth/user-not-found': // Fallthrough
       case 'auth/wrong-password':
