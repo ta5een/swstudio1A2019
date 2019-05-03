@@ -51,6 +51,11 @@ class Login extends Component {
   // Changes auth state on app.js and redirects to home.js
   handleLogin(e) {
     e.preventDefault();
+
+    document.getElementById('loginButton').blur();
+    document.getElementById('signUpButton').blur();
+
+    this.showInfoBox("Logging you in...");
     this.commitLogin();
   }
 
