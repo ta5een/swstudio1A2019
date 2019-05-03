@@ -4,7 +4,7 @@ import Defaults from '../AppDefaults';
 var InfoBoxClr = Object.freeze({
   default: {
     background: '#E0E0E0',
-    border: '#C6C6C6'
+    border: '#848484'
   },
   warning: {
     background: '#F99F5E',
