@@ -24,7 +24,7 @@ var BtnClr = Object.freeze({
     disabled: {
       text: '#FFFFFF',
       background: '#63A4ff',
-      border: '#1976D2'
+      border: '#5790e0'
     }
   },
 
@@ -80,7 +80,7 @@ const Button = styled.button`
     background: ${BtnClr.primary.normal.background};
     border: ${buttonBorderSize} solid ${BtnClr.primary.normal.border};
     color: ${BtnClr.primary.normal.text};
-    
+
     font-weight: 500;
 
     &:disabled {
