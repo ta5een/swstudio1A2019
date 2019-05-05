@@ -5,6 +5,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  background: #F4F4F4;
 }
 
 .login-form-container {
