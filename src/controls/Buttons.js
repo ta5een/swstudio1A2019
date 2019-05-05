@@ -55,9 +55,10 @@ const Button = styled.button`
   padding: 0.8em 1.2em;
   box-shadow: none;
 
+  font-family: ${AppDefaults.constants.font.family.default};
+  font-size: ${buttonFontSize};
   text-align: center;
-  font-size: ${buttonFontSize}
-  font-weight: 600;
+  font-weight: 400;
 
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
@@ -69,8 +70,8 @@ const Button = styled.button`
   }
 
   &:disabled {
-    color: ${BtnClr.default.disabled.text}
     border: ${buttonBorderSize} solid ${BtnClr.default.disabled.border};
+    color: ${BtnClr.default.disabled.text};
     box-shadow: none;
     cursor: not-allowed;
   }
@@ -79,11 +80,13 @@ const Button = styled.button`
     background: ${BtnClr.primary.normal.background};
     border: ${buttonBorderSize} solid ${BtnClr.primary.normal.border};
     color: ${BtnClr.primary.normal.text};
+    
+    font-weight: 500;
 
     &:disabled {
-      background: ${BtnClr.primary.disabled.background}
+      background: ${BtnClr.primary.disabled.background};
       border: ${buttonBorderSize} solid ${BtnClr.primary.disabled.border};
-      color: ${BtnClr.primary.disabled.text}
+      color: ${BtnClr.primary.disabled.text};
     }
   `}
 `;
@@ -93,7 +96,7 @@ const HintButton = styled(Button)`
     border: ${BtnClr.hint.normal.border};
     color: ${BtnClr.hint.normal.text};
 
-    font-size: ${buttonHintFontSize}
+    font-size: ${buttonHintFontSize};
     font-weight: 500;
 
     &:hover,

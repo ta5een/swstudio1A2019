@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import AppDefaults from '../AppDefaults';
 
 var InfoBoxClr = Object.freeze({
   default: {
@@ -22,8 +23,9 @@ const InfoBox = styled.div`
   color: black;
   padding: 15px 20px;
 
+  font-family: ${AppDefaults.constants.font.family.default};
+  font-weight: 500;
   text-align: left;
-  font-weight: 600;
 `;
 
 const WarningBox = styled(InfoBox)`
