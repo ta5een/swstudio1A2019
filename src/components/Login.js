@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { ReactLoading } from 'react-loading';
 
 import fire from '../config/Fire';
 import AppDefaults from '../AppDefaults';
