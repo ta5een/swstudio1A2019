@@ -161,26 +161,26 @@ class Login extends Component {
     }
 
     return (
-      <div className="wrapper">
-        <div className="form-container">
-          <div className="title-group">
+      <div className="login-wrapper">
+        <div className="login-form-container">
+          <div className="login-title-group">
             <UI.Title>{AppDefaults.app.name}</UI.Title>
             <UI.Caption>{AppDefaults.app.caption}</UI.Caption>
           </div>
           <form>
-            <div className="form-group">
-              <UI.Label htmlFor="form-group" className={this.state.errorEmail ? "error-text-field-label" : null}>email</UI.Label>
-              <UI.TextField id="emailTextField" className={this.state.errorEmail ? "error-text-field" : null} name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
+            <div className="login-form-group">
+              <UI.Label htmlFor="form-group" className={this.state.errorEmail ? "login-error-text-field-label" : null}>email</UI.Label>
+              <UI.TextField id="emailTextField" className={this.state.errorEmail ? "login-error-text-field" : null} name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
             </div>
-            <div className="form-group">
-              <UI.Label htmlFor="form-group" className={this.state.errorPassword ? "error-text-field-label" : null}>password</UI.Label>
-              <UI.TextField id="passwordTextField" className={this.state.errorPassword ? "error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
+            <div className="login-form-group">
+              <UI.Label htmlFor="form-group" className={this.state.errorPassword ? "login-error-text-field-label" : null}>password</UI.Label>
+              <UI.TextField id="passwordTextField" className={this.state.errorPassword ? "login-error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
             </div>
           </form>
-          <div id="infoBoxDiv" className="info-box-div" hidden={true}/>
+          <div id="infoBoxDiv" className="login-info-box-div" hidden={true}/>
           <div>
-            <div className="button-group">
-              <UI.Button id="signUpButton" className="sign-up-button" type="button" disabled={!isEnabled} onClick={this.handleSignUp}>Sign up</UI.Button>
+            <div className="login-button-group">
+              <UI.Button id="signUpButton" className="login-sign-up-button" type="button" disabled={!isEnabled} onClick={this.handleSignUp}>Sign up</UI.Button>
               <UI.Button primary id="loginButton" type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</UI.Button>
             </div>
             <UI.HintButton type="button" onClick={this.forgotPassword}>Forgot your password?</UI.HintButton>
