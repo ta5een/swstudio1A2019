@@ -44,12 +44,12 @@ var BtnClr = Object.freeze({
   hint: {
     normal: {
       text: '#1976D2',
-      background: '#ffffff',
+      background: 'none',
       border: 'none'
     },
     disabled: {
       text: '#848484',
-      background: '#ffffff',
+      background: 'none',
       border: 'none'
     }
   }
