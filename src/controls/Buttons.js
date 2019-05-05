@@ -4,40 +4,40 @@ import AppDefaults from '../AppDefaults';
 var BtnClr = Object.freeze({
   default: {
     normal: {
-      TEXT: '#000000',
-      BACKGROUND: '#FFFFFF',
-      BORDER: '#848484'
+      text: '#000000',
+      background: '#FFFFFF',
+      border: '#848484'
     },
     disabled: {
-      TEXT: '#848484',
-      BACKGROUND: '#FFFFFF',
-      BORDER: '#B2B2B2'
+      text: '#848484',
+      background: '#FFFFFF',
+      border: '#B2B2B2'
     }
   },
 
   primary: {
     normal: {
-      TEXT: '#FFFFFF',
-      BACKGROUND: '#1976D2',
-      BORDER: '#1976D2'
+      text: '#FFFFFF',
+      background: '#1976D2',
+      border: '#1976D2'
     },
     disabled: {
-      TEXT: '#FFFFFF',
-      BACKGROUND: '#63A4ff',
-      BORDER: '#1976D2'
+      text: '#FFFFFF',
+      background: '#63A4ff',
+      border: '#1976D2'
     }
   },
 
   hint: {
     normal: {
-      TEXT: '#1976D2',
-      BACKGROUND: '#ffffff',
-      BORDER: 'none'
+      text: '#1976D2',
+      background: '#ffffff',
+      border: 'none'
     },
     disabled: {
-      TEXT: '#848484',
-      BACKGROUND: '#ffffff',
-      BORDER: 'none'
+      text: '#848484',
+      background: '#ffffff',
+      border: 'none'
     }
   }
 });
@@ -47,10 +47,10 @@ const buttonHintFontSize = AppDefaults.constants.font.sizes.normal;
 const buttonBorderSize = '1px';
 
 const Button = styled.button`
-  background: ${BtnClr.default.normal.BACKGROUND};
-  border: ${buttonBorderSize} solid ${BtnClr.default.normal.BORDER};
+  background: ${BtnClr.default.normal.background};
+  border: ${buttonBorderSize} solid ${BtnClr.default.normal.border};
   border-radius: 5px;
-  color: ${BtnClr.default.normal.TEXT};
+  color: ${BtnClr.default.normal.text};
   flex-grow: 1;
   padding: 0.8em 1.2em;
   box-shadow: none;
@@ -67,29 +67,29 @@ const Button = styled.button`
   }
 
   &:disabled {
-    color: ${BtnClr.default.disabled.TEXT}
-    border: ${buttonBorderSize} solid ${BtnClr.default.disabled.BORDER};
+    color: ${BtnClr.default.disabled.text}
+    border: ${buttonBorderSize} solid ${BtnClr.default.disabled.border};
     box-shadow: none;
     cursor: not-allowed;
   }
 
   ${props => props.primary && css`
-    background: ${BtnClr.primary.normal.BACKGROUND};
-    border: ${buttonBorderSize} solid ${BtnClr.primary.normal.BORDER};
-    color: ${BtnClr.primary.normal.TEXT};
+    background: ${BtnClr.primary.normal.background};
+    border: ${buttonBorderSize} solid ${BtnClr.primary.normal.border};
+    color: ${BtnClr.primary.normal.text};
 
     &:disabled {
-      background: ${BtnClr.primary.disabled.BACKGROUND}
-      border: ${buttonBorderSize} solid ${BtnClr.primary.disabled.BORDER};
-      color: ${BtnClr.primary.disabled.TEXT}
+      background: ${BtnClr.primary.disabled.background}
+      border: ${buttonBorderSize} solid ${BtnClr.primary.disabled.border};
+      color: ${BtnClr.primary.disabled.text}
     }
   `}
 `;
 
 const HintButton = styled(Button)`
-    background: ${BtnClr.hint.normal.BACKGROUND};
-    border: ${BtnClr.hint.normal.BORDER};
-    color: ${BtnClr.hint.normal.TEXT};
+    background: ${BtnClr.hint.normal.background};
+    border: ${BtnClr.hint.normal.border};
+    color: ${BtnClr.hint.normal.text};
 
     font-size: ${buttonHintFontSize}
     font-weight: 500;
