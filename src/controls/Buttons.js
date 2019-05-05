@@ -28,6 +28,19 @@ var BtnClr = Object.freeze({
     }
   },
 
+  danger: {
+    normal: {
+      text: '#FFFFFF',
+      background: '#D14A32',
+      border: '#D4242C'
+    },
+    disabled: {
+      text: '#FFFFFF',
+      background: '#D4242C',
+      border: '#D4242C'
+    }
+  },
+
   hint: {
     normal: {
       text: '#1976D2',
@@ -87,6 +100,20 @@ const Button = styled.button`
       background: ${BtnClr.primary.disabled.background};
       border: ${buttonBorderSize} solid ${BtnClr.primary.disabled.border};
       color: ${BtnClr.primary.disabled.text};
+    }
+  `}
+
+  ${props => props.danger && css`
+    background: ${BtnClr.danger.normal.background};
+    border: ${buttonBorderSize} solid ${BtnClr.danger.normal.border};
+    color: ${BtnClr.danger.normal.text};
+
+    font-weight: 500;
+
+    &:disabled {
+      background: ${BtnClr.danger.disabled.background};
+      border: ${buttonBorderSize} solid ${BtnClr.danger.disabled.border};
+      color: ${BtnClr.danger.disabled.text};
     }
   `}
 `;
