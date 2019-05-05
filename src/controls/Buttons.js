@@ -62,8 +62,9 @@ const Button = styled.button`
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
 
+  &:hover,
   &:active,
-  &:hover {
+  &:focus {
     box-shadow: 0px 5px 10px -4px rgba(153,153,153,1);
   }
 
@@ -95,7 +96,9 @@ const HintButton = styled(Button)`
     font-size: ${buttonHintFontSize}
     font-weight: 500;
 
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
       box-shadow: none;
     }
 `;
