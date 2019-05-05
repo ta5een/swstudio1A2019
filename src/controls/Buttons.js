@@ -96,7 +96,6 @@ const HintButton = styled(Button)`
 
     &:hover {
       box-shadow: none;
-      font-weight: 600;
     }
 `;
 
