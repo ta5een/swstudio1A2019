@@ -167,15 +167,15 @@ class Login extends Component {
         <div className="form-container">
           <div className="title-group">
             <UI.Title>{AppDefaults.app.name}</UI.Title>
-            <p className="caption">{AppDefaults.app.caption}</p>
+            <UI.Caption>{AppDefaults.app.caption}</UI.Caption>
           </div>
           <form>
             <div className="form-group">
-              <label htmlFor="form-group" className={this.state.errorEmail ? "error-text-field-label" : null}>email</label>
+              <UI.Label htmlFor="form-group" className={this.state.errorEmail ? "error-text-field-label" : null}>email</UI.Label>
               <UI.TextField id="emailTextField" className={this.state.errorEmail ? "error-text-field" : null} name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
             </div>
             <div className="form-group">
-              <label htmlFor="form-group" className={this.state.errorPassword ? "error-text-field-label" : null}>password</label>
+              <UI.Label htmlFor="form-group" className={this.state.errorPassword ? "error-text-field-label" : null}>password</UI.Label>
               <UI.TextField id="passwordTextField" className={this.state.errorPassword ? "error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
             </div>
           </form>
