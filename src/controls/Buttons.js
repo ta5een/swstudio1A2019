@@ -62,6 +62,7 @@ const Button = styled.button`
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
 
+  &:active,
   &:hover {
     box-shadow: 0px 5px 10px -4px rgba(153,153,153,1);
   }
