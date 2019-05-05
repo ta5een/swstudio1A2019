@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { ReactLoading } from 'react-loading';
 
 import fire from '../config/Fire';
-
 import AppDefaults from '../AppDefaults';
-import './Login.css';
-
 import * as UI from '../controls/UI';
+import './Login.css';
 
 const DialogType = Object.freeze({
   DEFAULT: 0,
