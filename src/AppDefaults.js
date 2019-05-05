@@ -18,7 +18,7 @@ const AppDefaults = Object.freeze({
       sizes: {
         normal: "16px",
         caption: "24px",
-        heading: "50px",
+        heading: "45px",
         title: "70px"
       }
     }
