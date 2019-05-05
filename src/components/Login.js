@@ -183,7 +183,7 @@ class Login extends Component {
           <div>
             <div className="button-group">
               <UI.Button id="signUpButton" className="sign-up-button" type="button" disabled={!isEnabled} onClick={this.handleSignUp}>Sign up</UI.Button>
-              <UI.Button primary id="loginButton" type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</UI.Button>
+              <UI.Button primary id="loginButton" type="submit" disabled={!isEnabled} onClick={this.handleLogin} ontouchstart="">Login</UI.Button>
             </div>
             <UI.HintButton type="button" onClick={this.forgotPassword}>Forgot your password?</UI.HintButton>
           </div>
