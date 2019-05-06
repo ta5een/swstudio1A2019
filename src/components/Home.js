@@ -1,51 +1,36 @@
 import React, { Component } from 'react';
+
 import fire from '../config/Fire';
-import styled, { css } from 'styled-components'
-
-const Button = styled.button`
-  background: transparent;
-  border-radius: 3px;
-  border: 2px solid palevioletred;
-  color: palevioletred;
-  margin: 0.5em 1em;
-  padding: 0.25em 1em;
-
-  ${props => props.primary && css`
-    background: palevioletred;
-    color: white;
-  `}
-`;
-
-const Wrapper = styled.section`
-    padding: 4em;
-    background: #5698FF;
-`;
+import AppDefaults from '../AppDefaults';
+import * as UI from '../controls/UI';
+import './Home.css';
 
 class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.logout = this.logout.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+  }
 
-    componentDidMount() {
-      document.title = "TimeAid – Home"
-    }
+  componentDidMount() {
+    document.title = "TimeAid – Home"
+  }
 
-    logout() {
-        fire.auth().signOut();
-    }
+  logout() {
+    fire.auth().signOut();
+  }
 
-    // GUI
-    render() {
-        return (
-          <Wrapper>
-            <div>
-                <h1>Time-Aid</h1>
-                <Button onClick={this.logout}>Logout</Button>
-            </div>
-          </Wrapper>
-        );
-    }
+  render() {
+    return (
+      <div className="home-wrapper">
+        <div className="home-content">
+          <div className="home-header">
+            <UI.H1>Home</UI.H1>
+            <UI.Button danger onClick={this.logout}>Logout</UI.Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Home;
