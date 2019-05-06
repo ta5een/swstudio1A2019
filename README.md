@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/955a447c-4c53-4b58-83a4-1066fa478a33/deploy-status)](https://app.netlify.com/sites/timeaid-taseen-master/deploys)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
