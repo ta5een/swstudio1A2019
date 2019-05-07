@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import AppDefaults from '../AppDefaults';
+// import AppDefaults from '../AppDefaults';
 
 var InfoBoxClr = Object.freeze({
   default: {
