@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { withRouter } from 'react-router-dom';
 
 import fire from '../config/Fire';
 import AppDefaults from '../AppDefaults';
@@ -24,7 +25,6 @@ class Login extends Component {
     };
 
     this.handleLogin = this.handleLogin.bind(this);
-    this.handleSignUp = this.handleSignUp.bind(this);
   }
 
   componentDidMount() {
@@ -88,7 +88,6 @@ class Login extends Component {
     this.setState({ password: "" });
 
     document.getElementById('loginButton').disabled = true;
-    document.getElementById('signUpButton').disabled = true;
 
     switch (error.code) {
       case 'auth/invalid-email':
@@ -127,18 +126,6 @@ class Login extends Component {
     }
 
     infoBoxDiv.hidden = false;
-  }
-
-  // Creates the user with specified email and password
-  // Changes auth state on app.js and redirects to home.js
-  handleSignUp(e) {
-    e.preventDefault();
-    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
-      // Do something here...
-    }).catch((error) => {
-      console.log(error);
-      alert(error);
-    })
   }
 
   forgotPassword(e) {
@@ -180,10 +167,10 @@ class Login extends Component {
           <div id="infoBoxDiv" className="login-info-box-div" hidden={true}/>
           <div>
             <div className="login-button-group">
-              <UI.Button id="signUpButton" className="login-sign-up-button" type="button" disabled={!isEnabled} onClick={this.handleSignUp}>Sign up</UI.Button>
-              <UI.Button primary id="loginButton" type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</UI.Button>
+              <UI.Button primary id="loginButton" className="login-button" type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</UI.Button>
             </div>
-            <UI.HintButton type="button" onClick={this.forgotPassword}>Forgot your password?</UI.HintButton>
+            <UI.HintButton id="signUpButton" type="button" onClick={() => this.props.history.push('/sign-up')}>Don't have an account?</UI.HintButton>
+            {/* <UI.HintButton type="button" onClick={this.forgotPassword}>Forgot your password?</UI.HintButton> */}
           </div>
         </div>
       </div>
@@ -191,4 +178,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);
