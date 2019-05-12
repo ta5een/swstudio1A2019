@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import fire from '../config/Fire';
 import AppDefaults from '../AppDefaults';
 import * as UI from '../controls/UI';
-import './Login.css';
+import './styles/Login.css';
 
 const DialogType = Object.freeze({
   DEFAULT: 0,
@@ -151,8 +151,8 @@ class Login extends Component {
       <div className="login-wrapper">
         <div className="login-form-container">
           <div className="login-title-group">
-            <UI.Title>{AppDefaults.app.name}</UI.Title>
-            <UI.Caption>{AppDefaults.app.caption}</UI.Caption>
+            <UI.Title /* className="login-title" */>{AppDefaults.app.name}</UI.Title>
+            <UI.Caption /* className="login-caption" */>{AppDefaults.app.caption}</UI.Caption>
           </div>
           <form>
             <div className="login-form-group">
@@ -165,13 +165,11 @@ class Login extends Component {
             </div>
           </form>
           <div id="infoBoxDiv" className="login-info-box-div" hidden={true}/>
-          <div>
-            <div className="login-button-group">
-              <UI.Button primary id="loginButton" className="login-button" type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</UI.Button>
-            </div>
-            <UI.HintButton id="signUpButton" type="button" onClick={() => this.props.history.push('/sign-up')}>Don't have an account?</UI.HintButton>
-            {/* <UI.HintButton type="button" onClick={this.forgotPassword}>Forgot your password?</UI.HintButton> */}
+          <div className="login-button-group">
+            <UI.Button primary id="loginButton" className="login-button" type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</UI.Button>
           </div>
+          <UI.HintButton id="signUpButton" type="button" onClick={() => this.props.history.push('/sign-up')}>Don't have an account?</UI.HintButton>
+          {/* <UI.HintButton type="button" onClick={this.forgotPassword}>Forgot your password?</UI.HintButton> */}
         </div>
       </div>
     );
