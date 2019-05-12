@@ -28,7 +28,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    document.title = "TimeAid – Login"
+    document.title = `${AppDefaults.app.name} – Login`;
   }
 
   handleEmailTextFieldChange(e) {

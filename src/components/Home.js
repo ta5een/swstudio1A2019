@@ -12,7 +12,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    document.title = "TimeAid – Home"
+    document.title = `${AppDefaults.app.name} – Home`;
   }
 
   logout() {
