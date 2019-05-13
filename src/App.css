@@ -1,4 +1,6 @@
-a {
+@import url('https://fonts.googleapis.com/css?family=Rubik:400,500,700');
+
+a:link {
   color: #FFFFFF;
 }
 
