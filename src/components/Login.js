@@ -31,21 +31,6 @@ class Login extends Component {
     document.title = `${AppDefaults.app.name} – Login`;
   }
 
-  handleEmailTextFieldChange(e) {
-    this.collapseErrorBox();
-    this.setState({ email: e.target.value })
-  }
-
-  handlePasswordTextFieldChange(e) {
-    this.collapseErrorBox();
-    this.setState({ password: e.target.value })
-  }
-
-  collapseErrorBox() {
-    document.getElementById('infoBoxDiv').hidden = true;
-    this.setState({ errorEmail: false, errorPassword: false });
-  }
-
   // Calls Firebases signInWithEmailAndPassword()
   // Uses email and password passed by user
   // Changes auth state on app.js and redirects to home.js
@@ -112,7 +97,7 @@ class Login extends Component {
   }
 
   showInfoBox(message, type=DialogType.DEFAULT) {
-    var infoBoxDiv = document.getElementById('infoBoxDiv');
+    const infoBoxDiv = document.getElementById('infoBoxDiv');
 
     switch (type) {
       case 1:
@@ -126,6 +111,11 @@ class Login extends Component {
     }
 
     infoBoxDiv.hidden = false;
+  }
+
+  collapseErrorBox() {
+    document.getElementById('infoBoxDiv').hidden = true;
+    this.setState({ errorEmail: false, errorPassword: false });
   }
 
   forgotPassword(e) {
@@ -147,6 +137,16 @@ class Login extends Component {
       }
     }
 
+    const handleEmailTextFieldChange = e => {
+      this.collapseErrorBox();
+      this.setState({ email: e.target.value })
+    }
+
+    const handlePasswordTextFieldChange = e => {
+      this.collapseErrorBox();
+      this.setState({ password: e.target.value })
+    }
+
     return (
       <div className="login-wrapper">
         <div className="login-form-container">
@@ -157,11 +157,11 @@ class Login extends Component {
           <form>
             <div className="login-form-group">
               <UI.Label htmlFor="form-group" className={this.state.errorEmail ? "login-error-text-field-label" : null}>email</UI.Label>
-              <UI.TextField id="emailTextField" className={this.state.errorEmail ? "login-error-text-field" : null} name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
+              <UI.TextField id="emailTextField" className={this.state.errorEmail ? "login-error-text-field" : null} name="email" type="email" placeholder="Email" value={this.state.email} onChange={handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
             </div>
             <div className="login-form-group">
               <UI.Label htmlFor="form-group" className={this.state.errorPassword ? "login-error-text-field-label" : null}>password</UI.Label>
-              <UI.TextField id="passwordTextField" className={this.state.errorPassword ? "login-error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
+              <UI.TextField id="passwordTextField" className={this.state.errorPassword ? "login-error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
             </div>
           </form>
           <div id="infoBoxDiv" className="login-info-box-div" hidden={true}/>
