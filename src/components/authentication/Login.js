@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { withRouter } from 'react-router-dom';
 
-import fire from '../config/Fire';
-import AppDefaults from '../AppDefaults';
-import * as UI from '../controls/UI';
+import fire from '../../config/Fire';
+import AppDefaults from '../../AppDefaults';
+import * as UI from '../../controls/UI';
 import './styles/Login.css';
 
 const DialogType = Object.freeze({

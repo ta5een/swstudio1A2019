@@ -4,11 +4,10 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import App from './App';
-import Login from './components/Login';
-import SignUp from './components/SignUp';
-import Home from './components/Home';
-
-import './index.css';
+import Login from './components/authentication/Login';
+import SignUp from './components/authentication/SignUp';
+import AccountDetails from './components/authentication/AccountDetails';
+import Home from './components/main-interface/Home';
 
 const history = createBrowserHistory();
 
@@ -18,6 +17,7 @@ const routes = (
       <Route exact path="/" component={App}/>
       <Route path="/login" component={Login}/>
       <Route path="/sign-up" component={SignUp}/>
+      <Route path="/account-details" component={AccountDetails}/>
       <Route path="/home" component={Home}/>
     </Switch>
   </Router>

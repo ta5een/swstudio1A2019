@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import fire from './config/Fire';
-import Home from './components/Home';
-import Login from './components/Login';
+import Home from './components/main-interface/Home';
+import Login from './components/authentication/Login';
 import './App.css';
 
 class App extends Component {
