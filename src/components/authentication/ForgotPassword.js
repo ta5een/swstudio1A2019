@@ -5,14 +5,14 @@ import AppDefaults from '../../AppDefaults';
 import * as UI from '../../controls/UI';
 // import './styles/SignUp.css';
 
-class AccountDetails extends Component {
+class ForgotPassword extends Component {
   render() {
     return (
       <div>
-        Account Details
+        Forgot Password
       </div>
     );
   }
 }
 
-export default AccountDetails;
+export default ForgotPassword;
