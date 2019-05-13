@@ -5,6 +5,7 @@ const AppDefaults = Object.freeze({
     version: "0.1.0"
   },
   constants: {
+    minPasswordLength: 8,
     font: {
       imports: {
         all: `
@@ -17,8 +18,9 @@ const AppDefaults = Object.freeze({
       },
       sizes: {
         normal: "16px",
-        caption: "22px",
+        subheading: "16px",
         heading: "45px",
+        caption: "22px",
         title: "70px"
       }
     }
