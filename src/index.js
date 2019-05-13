@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import App from './App';
@@ -13,14 +13,14 @@ import './index.css';
 const history = createBrowserHistory();
 
 const routes = (
-  <BrowserRouter history={history}>
+  <Router history={history}>
     <Switch>
       <Route exact path="/" component={App}/>
       <Route path="/login" component={Login}/>
       <Route path="/sign-up" component={SignUp}/>
       <Route path="/home" component={Home}/>
     </Switch>
-  </BrowserRouter>
+  </Router>
 );
 
 ReactDOM.render(routes, document.getElementById('root'));
