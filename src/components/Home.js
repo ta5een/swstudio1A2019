@@ -17,6 +17,7 @@ class Home extends Component {
 
   logout() {
     fire.auth().signOut();
+    this.props.history.push('/login')
   }
 
   render() {
@@ -24,7 +25,7 @@ class Home extends Component {
       <div className="home-wrapper">
         <div className="home-content">
           <div className="home-header">
-            <UI.H1>Home</UI.H1>
+            <UI.Heading>Home</UI.Heading>
             <UI.Button danger onClick={this.logout}>Logout</UI.Button>
           </div>
         </div>
