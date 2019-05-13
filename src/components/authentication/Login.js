@@ -67,11 +67,11 @@ class Login extends Component {
       console.log("Signing in with user: ", user);
       this.props.history.push('/home')
     }).catch((error) => {
-      this.displayError(error);
+      this.displayAuthError(error);
     });
   }
 
-  displayError(error) {
+  displayAuthError(error) {
     this.setState({ password: "" });
 
     document.getElementById('loginButton').disabled = true;
@@ -93,7 +93,7 @@ class Login extends Component {
         this.showInfoBox("Woah, slow down! Look's like you've requested too many requests.", DialogType.ERROR);
         break;
       default:
-        this.showInfoBox(error.message);
+        this.showInfoBox(error.message, DialogType.ERROR);
         return;
     }
   }
@@ -118,10 +118,6 @@ class Login extends Component {
   collapseErrorBox() {
     document.getElementById('infoBoxDiv').hidden = true;
     this.setState({ errorEmail: false, errorPassword: false });
-  }
-
-  forgotPassword(e) {
-    alert('This button does nothing now');
   }
 
   render() {
@@ -171,7 +167,6 @@ class Login extends Component {
             <UI.Button primary id="loginButton" className="login-button" type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</UI.Button>
           </div>
           <UI.HintButton id="signUpButton" type="button" onClick={() => this.props.history.push('/sign-up')}>Don't have an account?</UI.HintButton>
-          {/* <UI.HintButton type="button" onClick={this.forgotPassword}>Forgot your password?</UI.HintButton> */}
         </div>
       </div>
     );
