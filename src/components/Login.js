@@ -40,13 +40,10 @@ class Login extends Component {
     document.getElementById('loginButton').blur();
     document.getElementById('signUpButton').blur();
 
-    this.showInfoBox("Logging you in...");
-    this.commitLogin();
-  }
-
-  commitLogin() {
     var emailTextFieldLength = document.getElementById('emailTextField').value.length;
     var passwordTextFieldLength = document.getElementById('passwordTextField').value.length;
+
+    this.showInfoBox("Logging you in...");
 
     if (emailTextFieldLength === 0 && passwordTextFieldLength === 0) {
       this.showInfoBox("Please enter your email and password.", DialogType.WARNING);
@@ -61,12 +58,17 @@ class Login extends Component {
       this.setState({ errorPassword: true });
       document.getElementById('passwordTextField').focus();
     } else {
-      fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
-        console.log("Signing in with user: ", user);
-      }).catch((error) => {
-        this.displayError(error);
-      });
+      this.commitLogin();
     }
+  }
+
+  commitLogin() {
+    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
+      console.log("Signing in with user: ", user);
+      this.props.history.push('/home')
+    }).catch((error) => {
+      this.displayError(error);
+    });
   }
 
   displayError(error) {
@@ -151,8 +153,8 @@ class Login extends Component {
       <div className="login-wrapper">
         <div className="login-form-container">
           <div className="login-title-group">
-            <UI.Title /* className="login-title" */>{AppDefaults.app.name}</UI.Title>
-            <UI.Caption /* className="login-caption" */>{AppDefaults.app.caption}</UI.Caption>
+            <UI.Title className="login-title">{AppDefaults.app.name}</UI.Title>
+            <UI.Caption>{AppDefaults.app.caption}</UI.Caption>
           </div>
           <form>
             <div className="login-form-group">
