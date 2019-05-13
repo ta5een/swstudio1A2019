@@ -2,9 +2,6 @@ import styled from 'styled-components';
 import AppDefaults from '../AppDefaults';
 
 const Title = styled.h1`
-  // Only one import statement required
-  ${AppDefaults.constants.font.imports.all};
-
   font-size: ${AppDefaults.constants.font.sizes.title};
   font-family: ${AppDefaults.constants.font.family.default};
 `;
