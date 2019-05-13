@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Link, withRouter } from 'react-router-dom';
+import { Router, Link, withRouter } from 'react-router-dom';
 
 import fire from '../../config/Fire';
 import AppDefaults from '../../AppDefaults';
@@ -184,26 +184,26 @@ class SignUp extends Component {
       <div className="sign-up-wrapper">
         <div className="sign-up-form-container">
           <div className="sign-up-heading-group">
-            <UI.Heading className="sign-up-heading">Sign Up</UI.Heading>
+            <UI.Heading className="sign-up-heading">Sign up</UI.Heading>
             <UI.Subheading>Fill in all the fields below to create an account</UI.Subheading>
           </div>
           <form>
-            <div className="login-form-group">
+            <div className="sign-up-form-group">
               <UI.Label htmlFor="form-group" className={this.state.errorEmail ? "sign-up-error-text-field-label" : null}>email</UI.Label>
               <UI.TextField id="emailTextField" className={this.state.errorEmail ? "sign-up-error-text-field" : null} name="email" type="email" placeholder="Email" value={this.state.email} onChange={handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
             </div>
-            <div className="login-form-group">
+            <div className="sign-up-form-group">
               <UI.Label htmlFor="form-group" className={this.state.errorPassword ? "sign-up-error-text-field-label" : null}>password</UI.Label>
               <UI.TextField id="passwordTextField" className={this.state.errorPassword ? "sign-up-error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={handlePasswordTextFieldChange.bind(this)} onKeyPress={focusRepeatPasswordField.bind(this)} noValidate/>
             </div>
-            <div className="login-form-group">
+            <div className="sign-up-form-group">
               <UI.Label htmlFor="form-group" className={this.state.errorRepeatPassword ? "sign-up-error-text-field-label" : null}>repeat password</UI.Label>
               <UI.TextField id="repeatPasswordTextField" className={this.state.errorRepeatPassword ? "sign-up-error-text-field" : null} name="repeatPassword" type="password" placeholder="Repeat Password" onChange={handleRepeatPasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
             </div>
           </form>
           <div id="infoBoxDiv" className="sign-up-info-box-div" hidden={true}/>
           <div className="sign-up-button-group">
-            <UI.Button primary id="createAccountButton" className="create-account-button" type="submit" disabled={!isEnabled} onClick={this.handleCreateAccount}>Create Account</UI.Button>
+            <UI.Button primary id="createAccountButton" className="create-account-button" type="submit" disabled={!isEnabled} onClick={this.handleCreateAccount}>Next</UI.Button>
           </div>
           <UI.HintButton id="loginButton" type="button" onClick={() => this.props.history.push('/login')}>I already have an account</UI.HintButton>
         </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import fire from '../../config/Fire';
 import AppDefaults from '../../AppDefaults';
@@ -17,7 +18,7 @@ class Home extends Component {
 
   logout() {
     fire.auth().signOut();
-    this.props.history.push('/login')
+    this.props.history.push('/login');
   }
 
   render() {
@@ -26,6 +27,7 @@ class Home extends Component {
         <div className="home-content">
           <div className="home-header">
             <UI.Heading>Home</UI.Heading>
+            <p>Signed in as <b>{fire.auth().currentUser.email}</b></p>
             <UI.Button danger onClick={this.logout}>Logout</UI.Button>
           </div>
         </div>
@@ -34,4 +36,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);

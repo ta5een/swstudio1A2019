@@ -87,7 +87,8 @@ class Login extends Component {
         this.showInfoBox("Something's not right... Perhaps you've entered your email or password incorrectly?", DialogType.ERROR);
         break;
       case 'auth/user-disabled':
-        this.showInfoBox("Seems like this account has been disabled. Please contact support for more information.", DialogType.ERROR);
+        this.showInfoBox("It appears that this account has been disabled. Please contact support for more information.", DialogType.ERROR);
+        document.getElementById('emailTextField').focus();
         break;
       case 'auth/too-many-requests':
         this.showInfoBox("Woah, slow down! Look's like you've requested too many requests.", DialogType.ERROR);
