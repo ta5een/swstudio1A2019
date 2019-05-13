@@ -29,6 +29,23 @@
   width: 100%;
 }
 
-.sign-up-h1 {
-  margin-bottom: 20px;
+.sign-up-heading-group {
+  margin-bottom: 10px;
+}
+
+.sign-up-info-box-div {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.sign-up-error-text-field-label {
+  color: #D4242C;
+}
+
+.sign-up-error-text-field {
+  border: 1.5px solid #D4242C;
+}
+
+.sign-up-heading {
+  margin-bottom: 10px;
 }
