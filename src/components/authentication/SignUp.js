@@ -42,7 +42,7 @@ class SignUp extends Component {
   handleCreateAccount(e) {
     e.preventDefault();
 
-    document.getElementById('createAccountButton').blur();
+    document.getElementById('nextButton').blur();
 
     var emailTextFieldLength = document.getElementById('emailTextField').value.length;
 
@@ -145,7 +145,7 @@ class SignUp extends Component {
   }
 
   render() {
-    const isEnabled = this.state.email.length >= 3 && this.state.password.length >= minPasswordLength && this.passwordsAreIdentical();
+    const nextButtonIsEnabled = this.state.email.length >= 3 && this.state.password.length >= minPasswordLength && this.passwordsAreIdentical();
 
     const focusPasswordField = e => {
       if (e.key === 'Enter') {
@@ -203,7 +203,7 @@ class SignUp extends Component {
           </form>
           <div id="infoBoxDiv" className="sign-up-info-box-div" hidden={true}/>
           <div className="sign-up-button-group">
-            <UI.Button primary id="createAccountButton" className="create-account-button" type="submit" disabled={!isEnabled} onClick={this.handleCreateAccount}>Next</UI.Button>
+            <UI.Button primary id="nextButton" className="create-account-button" type="submit" disabled={!nextButtonIsEnabled} onClick={this.handleCreateAccount}>Next</UI.Button>
           </div>
           <UI.HintButton id="loginButton" type="button" onClick={() => this.props.history.push('/login')}>I already have an account</UI.HintButton>
         </div>
