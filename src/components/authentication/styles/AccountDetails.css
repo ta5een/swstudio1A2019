@@ -20,6 +20,13 @@
   margin-bottom: 10px;
 }
 
+.account-details-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
 .account-details-heading-group {
   margin-bottom: 10px;
 }
