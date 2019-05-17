@@ -20,6 +20,7 @@ const routes = (
       <Route path="/forgot-password" component={ForgotPassword}/>
       <Route path="/account-details" component={AccountDetails}/>
       <Route path="/home" component={Home}/>
+      <Route component={Login}/>
     </Switch>
   </Router>
 );
