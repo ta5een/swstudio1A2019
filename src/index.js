@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import App from './App';
 import Login from './components/authentication/Login';
@@ -20,6 +20,7 @@ const routes = (
       <Route path="/forgot-password" component={ForgotPassword}/>
       <Route path="/account-details" component={AccountDetails}/>
       <Route path="/home" component={Home}/>
+      <Route render={() => <Redirect to="/"/>}/>
     </Switch>
   </Router>
 );
