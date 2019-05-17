@@ -1,14 +1,15 @@
-import { Title, H1, Caption, Label } from './Headings';
+import { Title, Caption, Heading, Subheading, Label } from './Headings';
 
 import { Button, HintButton } from './Buttons';
 import { TextField } from './TextField';
 
 import { InfoBox, WarningBox, ErrorBox } from './Dialogs';
 
-export { 
+export {
   Title,
-  H1,
   Caption,
+  Heading,
+  Subheading,
   Label,
 
   Button,

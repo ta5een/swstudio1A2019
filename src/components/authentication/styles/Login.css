@@ -5,8 +5,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  background: #F4F4F4;
 }
 
 .login-form-container {
@@ -29,12 +27,8 @@
   margin-bottom: 10px;
 }
 
-.login-sign-up-button {
-  margin-right: 10px;
-}
-
 .login-title-group {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .login-caption {
@@ -60,7 +54,7 @@
   border: 1.5px solid #D4242C;
 }
 
-h1 {
+.login-title {
   margin: 0px;
   text-align: left;
 }

@@ -131,6 +131,12 @@ const HintButton = styled(Button)`
     &:focus {
       box-shadow: none;
     }
+
+    &:disabled {
+      background: ${BtnClr.hint.disabled.background};
+      border: ${BtnClr.hint.disabled.border};
+      color: ${BtnClr.hint.disabled.text};
+    }
 `;
 
 export { Button, HintButton };

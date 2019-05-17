@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { withRouter } from 'react-router-dom';
 
-import fire from '../config/Fire';
-import AppDefaults from '../AppDefaults';
-import * as UI from '../controls/UI';
-import './Login.css';
+import fire from '../../config/Fire';
+import AppDefaults from '../../AppDefaults';
+import * as UI from '../../controls/UI';
+import './styles/Login.css';
 
 const DialogType = Object.freeze({
   DEFAULT: 0,
@@ -24,26 +25,10 @@ class Login extends Component {
     };
 
     this.handleLogin = this.handleLogin.bind(this);
-    this.handleSignUp = this.handleSignUp.bind(this);
   }
 
   componentDidMount() {
-    document.title = "TimeAid – Login"
-  }
-
-  handleEmailTextFieldChange(e) {
-    this.collapseErrorBox();
-    this.setState({ email: e.target.value })
-  }
-
-  handlePasswordTextFieldChange(e) {
-    this.collapseErrorBox();
-    this.setState({ password: e.target.value })
-  }
-
-  collapseErrorBox() {
-    document.getElementById('infoBoxDiv').hidden = true;
-    this.setState({ errorEmail: false, errorPassword: false });
+    document.title = `${AppDefaults.app.name} – Login`;
   }
 
   // Calls Firebases signInWithEmailAndPassword()
@@ -55,13 +40,10 @@ class Login extends Component {
     document.getElementById('loginButton').blur();
     document.getElementById('signUpButton').blur();
 
-    this.showInfoBox("Logging you in...");
-    this.commitLogin();
-  }
-
-  commitLogin() {
     var emailTextFieldLength = document.getElementById('emailTextField').value.length;
     var passwordTextFieldLength = document.getElementById('passwordTextField').value.length;
+
+    this.showInfoBox("Logging you in...");
 
     if (emailTextFieldLength === 0 && passwordTextFieldLength === 0) {
       this.showInfoBox("Please enter your email and password.", DialogType.WARNING);
@@ -76,19 +58,23 @@ class Login extends Component {
       this.setState({ errorPassword: true });
       document.getElementById('passwordTextField').focus();
     } else {
-      fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
-        console.log("Signing in with user: ", user);
-      }).catch((error) => {
-        this.displayError(error);
-      });
+      this.commitLogin();
     }
   }
 
-  displayError(error) {
+  commitLogin() {
+    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
+      console.log("Signing in with user: ", user);
+      this.props.history.push('/home')
+    }).catch((error) => {
+      this.displayAuthError(error);
+    });
+  }
+
+  displayAuthError(error) {
     this.setState({ password: "" });
 
     document.getElementById('loginButton').disabled = true;
-    document.getElementById('signUpButton').disabled = true;
 
     switch (error.code) {
       case 'auth/invalid-email':
@@ -101,19 +87,20 @@ class Login extends Component {
         this.showInfoBox("Something's not right... Perhaps you've entered your email or password incorrectly?", DialogType.ERROR);
         break;
       case 'auth/user-disabled':
-        this.showInfoBox("Seems like this account has been disabled. Please contact support for more information.", DialogType.ERROR);
+        this.showInfoBox("It appears that this account has been disabled. Please contact support for more information.", DialogType.ERROR);
+        document.getElementById('emailTextField').focus();
         break;
       case 'auth/too-many-requests':
         this.showInfoBox("Woah, slow down! Look's like you've requested too many requests.", DialogType.ERROR);
         break;
       default:
-        this.showInfoBox(error.message);
+        this.showInfoBox(error.message, DialogType.ERROR);
         return;
     }
   }
 
   showInfoBox(message, type=DialogType.DEFAULT) {
-    var infoBoxDiv = document.getElementById('infoBoxDiv');
+    const infoBoxDiv = document.getElementById('infoBoxDiv');
 
     switch (type) {
       case 1:
@@ -129,20 +116,9 @@ class Login extends Component {
     infoBoxDiv.hidden = false;
   }
 
-  // Creates the user with specified email and password
-  // Changes auth state on app.js and redirects to home.js
-  handleSignUp(e) {
-    e.preventDefault();
-    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
-      // Do something here...
-    }).catch((error) => {
-      console.log(error);
-      alert(error);
-    })
-  }
-
-  forgotPassword(e) {
-    alert('This button does nothing now');
+  collapseErrorBox() {
+    document.getElementById('infoBoxDiv').hidden = true;
+    this.setState({ errorEmail: false, errorPassword: false });
   }
 
   render() {
@@ -160,35 +136,42 @@ class Login extends Component {
       }
     }
 
+    const handleEmailTextFieldChange = e => {
+      this.collapseErrorBox();
+      this.setState({ email: e.target.value })
+    }
+
+    const handlePasswordTextFieldChange = e => {
+      this.collapseErrorBox();
+      this.setState({ password: e.target.value })
+    }
+
     return (
       <div className="login-wrapper">
         <div className="login-form-container">
           <div className="login-title-group">
-            <UI.Title>{AppDefaults.app.name}</UI.Title>
+            <UI.Title className="login-title">{AppDefaults.app.name}</UI.Title>
             <UI.Caption>{AppDefaults.app.caption}</UI.Caption>
           </div>
           <form>
             <div className="login-form-group">
               <UI.Label htmlFor="form-group" className={this.state.errorEmail ? "login-error-text-field-label" : null}>email</UI.Label>
-              <UI.TextField id="emailTextField" className={this.state.errorEmail ? "login-error-text-field" : null} name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
+              <UI.TextField id="emailTextField" className={this.state.errorEmail ? "login-error-text-field" : null} name="email" type="email" placeholder="Email" value={this.state.email} onChange={handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
             </div>
             <div className="login-form-group">
               <UI.Label htmlFor="form-group" className={this.state.errorPassword ? "login-error-text-field-label" : null}>password</UI.Label>
-              <UI.TextField id="passwordTextField" className={this.state.errorPassword ? "login-error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
+              <UI.TextField id="passwordTextField" className={this.state.errorPassword ? "login-error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
             </div>
           </form>
           <div id="infoBoxDiv" className="login-info-box-div" hidden={true}/>
-          <div>
-            <div className="login-button-group">
-              <UI.Button id="signUpButton" className="login-sign-up-button" type="button" disabled={!isEnabled} onClick={this.handleSignUp}>Sign up</UI.Button>
-              <UI.Button primary id="loginButton" type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</UI.Button>
-            </div>
-            <UI.HintButton type="button" onClick={this.forgotPassword}>Forgot your password?</UI.HintButton>
+          <div className="login-button-group">
+            <UI.Button primary id="loginButton" className="login-button" type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</UI.Button>
           </div>
+          <UI.HintButton id="signUpButton" type="button" onClick={() => this.props.history.push('/sign-up')}>Don't have an account?</UI.HintButton>
         </div>
       </div>
     );
   }
 }
 
-export default Login;
+export default withRouter(Login);
