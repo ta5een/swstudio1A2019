@@ -104,7 +104,7 @@ class SignUp extends Component {
         document.getElementById('emailTextField').focus();
         break;
       case 'auth/email-already-in-use':
-        this.showInfoBox("The email you provided already exists.", DialogType.ERROR, { description: "Forgot your password?", page: '/forgot-password'});
+        this.showInfoBox("An account with the email you provided already exists.", DialogType.ERROR, { description: "Forgot your password?", page: '/forgot-password'});
         this.setState({ errorEmail: true });
         document.getElementById('emailTextField').focus();
         break;
