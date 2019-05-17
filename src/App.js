@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+
 import fire from './config/Fire';
-import Home from './components/main-interface/Home';
-import Login from './components/authentication/Login';
 import './App.css';
 
 class App extends Component {
@@ -25,20 +25,20 @@ class App extends Component {
       if (user) {
         this.setState({ user });
         localStorage.setItem('user', user.uid);
+        this.props.history.push('/home');
       } else {
         this.setState({ user: null });
         localStorage.removeItem('user');
+        this.props.history.push('/login');
       }
     });
   }
 
   render() {
     return (
-      <div className="App">
-        {this.state.user ? <Home/> : <Login/> }
-      </div>
+      <div></div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
