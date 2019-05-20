@@ -21,7 +21,7 @@ class SignUp extends Component {
       errorRepeatPassword: false
     };
 
-    this.handleCreateAccount = this.handleNextButton.bind(this);
+    this.handleNextButton = this.handleNextButton.bind(this);
   }
 
   componentDidMount() {
@@ -77,9 +77,9 @@ class SignUp extends Component {
   }
 
   commitCreateAccount() {
-    UI.showInfoBox(this, "Creating account...");
+    UI.showInfoBox(this, "Setting up your account...");
 
-    fire.auth().fetchSignInMethodsForEmail(this.state.email).then((signInMethods) => {
+    fire.auth().fetchSignInMethodsForEmail(this.state.email).then(signInMethods => {
       // If the number of sign in methods is 0, that must mean the user doesn't exist
       var userExists = signInMethods.length > 0;
 
@@ -88,7 +88,7 @@ class SignUp extends Component {
       } else {
         this.props.history.push('/personalise-account', { email: this.state.email, password: this.state.password });
       }
-    }).catch((error) => {
+    }).catch(error => {
       this.displayAuthError(error);
     });
   }
