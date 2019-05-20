@@ -7,12 +7,6 @@ import AppDefaults from '../../AppDefaults';
 import * as UI from '../../controls/UI';
 import './styles/Login.css';
 
-const DialogType = Object.freeze({
-  DEFAULT: 0,
-  WARNING: 1,
-  ERROR: 2
-});
-
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -43,18 +37,18 @@ class Login extends Component {
     var emailTextFieldLength = document.getElementById('emailTextField').value.length;
     var passwordTextFieldLength = document.getElementById('passwordTextField').value.length;
 
-    this.showInfoBox("Logging you in...");
+    UI.showInfoBox(this, "Logging you in...");
 
     if (emailTextFieldLength === 0 && passwordTextFieldLength === 0) {
-      this.showInfoBox("Please enter your email and password.", DialogType.WARNING);
+      UI.showInfoBox(this, "Please enter your email and password.", UI.DialogType.WARNING);
       this.setState({ errorEmail: true, errorPassword: true });
       document.getElementById('emailTextField').focus();
     } else if (emailTextFieldLength === 0) {
-      this.showInfoBox("Please enter your email.", DialogType.WARNING);
+      UI.showInfoBox(this, "Please enter your email.", UI.DialogType.WARNING);
       this.setState({ errorEmail: true });
       document.getElementById('emailTextField').focus();
     } else if (passwordTextFieldLength === 0) {
-      this.showInfoBox("Please enter your password.", DialogType.WARNING);
+      UI.showInfoBox(this, "Please enter your password.", UI.DialogType.WARNING);
       this.setState({ errorPassword: true });
       document.getElementById('passwordTextField').focus();
     } else {
@@ -65,7 +59,7 @@ class Login extends Component {
   commitLogin() {
     fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
       console.log("Signing in with user: ", user);
-      this.props.history.push('/home')
+      this.props.history.push('/home');
     }).catch((error) => {
       this.displayAuthError(error);
     });
@@ -78,42 +72,25 @@ class Login extends Component {
 
     switch (error.code) {
       case 'auth/invalid-email':
-        this.showInfoBox("Hmm, that email doesn't look right. Check that you've entered it correctly and try again.", DialogType.ERROR);
+        UI.showInfoBox(this, "Hmm, that email doesn't look right. Check that you've entered it correctly and try again.", UI.DialogType.ERROR);
         this.setState({ errorEmail: true });
         document.getElementById('emailTextField').focus();
         break;
       case 'auth/user-not-found': // Fallthrough
       case 'auth/wrong-password':
-        this.showInfoBox("Something's not right... Perhaps you've entered your email or password incorrectly?", DialogType.ERROR);
+        UI.showInfoBox(this, "Something's not right... Perhaps you've entered your email or password incorrectly?", UI.DialogType.ERROR);
         break;
       case 'auth/user-disabled':
-        this.showInfoBox("It appears that this account has been disabled. Please contact support for more information.", DialogType.ERROR);
+        UI.showInfoBox(this, "It appears that this account has been disabled. Please contact support for more information.", UI.DialogType.ERROR);
         document.getElementById('emailTextField').focus();
         break;
       case 'auth/too-many-requests':
-        this.showInfoBox("Woah, slow down! Look's like you've requested too many requests.", DialogType.ERROR);
+        UI.showInfoBox(this, "Woah, slow down! Look's like you've requested too many requests.", UI.DialogType.ERROR);
         break;
       default:
-        this.showInfoBox(error.message, DialogType.ERROR);
+        UI.showInfoBox(this, error.message, UI.DialogType.ERROR);
         return;
     }
-  }
-
-  showInfoBox(message, type=DialogType.DEFAULT) {
-    const infoBoxDiv = document.getElementById('infoBoxDiv');
-
-    switch (type) {
-      case 1:
-        ReactDOM.render(<UI.WarningBox>{message}</UI.WarningBox>, infoBoxDiv);
-        break;
-      case 2:
-        ReactDOM.render(<UI.ErrorBox>{message}</UI.ErrorBox>, infoBoxDiv);
-        break;
-      default:
-        ReactDOM.render(<UI.InfoBox>{message}</UI.InfoBox>, infoBoxDiv);
-    }
-
-    infoBoxDiv.hidden = false;
   }
 
   collapseErrorBox() {
