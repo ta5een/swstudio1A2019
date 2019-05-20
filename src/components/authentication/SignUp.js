@@ -167,17 +167,18 @@ class SignUp extends Component {
 
     const handleEmailTextFieldChange = e => {
       this.collapseErrorBox();
-      this.setState({ email: e.target.value })
+      this.setState({ email: e.target.value });
     }
 
     const handlePasswordTextFieldChange = e => {
       this.collapseErrorBox();
-      this.setState({ password: e.target.value })
+      this.setState({ password: e.target.value });
     }
 
     const handleRepeatPasswordTextFieldChange = e => {
       this.collapseErrorBox();
       this.setState({ repeatPassword: e.target.value })
+      this.showInfoBox(!this.passwordsAreIdentical() ? "Passwords do not match" : "Passwords match");
     }
 
     return (
