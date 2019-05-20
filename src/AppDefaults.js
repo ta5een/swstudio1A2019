@@ -5,10 +5,16 @@ const AppDefaults = Object.freeze({
     version: "0.1.0"
   },
   constants: {
+    minPasswordLength: 8,
     font: {
+      family: {
+        default: "'Rubik', sans-serif"
+      },
       sizes: {
         normal: "16px",
-        heading: "50px",
+        subheading: "16px",
+        heading: "45px",
+        caption: "22px",
         title: "70px"
       }
     }

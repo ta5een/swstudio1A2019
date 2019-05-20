@@ -11,6 +11,7 @@ const TextField = styled.input`
   // Prevents custom iOS styling
   -webkit-appearance: none;
 
+  font-family: ${AppDefaults.constants.font.family.default};
   font-size: ${textFieldFontSize};
 `;
 
