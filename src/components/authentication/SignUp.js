@@ -21,14 +21,14 @@ class SignUp extends Component {
       errorRepeatPassword: false
     };
 
-    this.handleCreateAccount = this.handleCreateAccount.bind(this);
+    this.handleCreateAccount = this.handleNextButton.bind(this);
   }
 
   componentDidMount() {
     document.title = `${AppDefaults.app.name} – Sign Up`;
   }
 
-  handleCreateAccount(e) {
+  handleNextButton(e) {
     e.preventDefault();
 
     document.getElementById('nextButton').blur();
@@ -86,7 +86,7 @@ class SignUp extends Component {
       if (userExists) {
         UI.showInfoBox(this, "An account with the email you provided already exists.", UI.DialogType.ERROR, { description: "Forgot your password?", page: '/forgot-password' });
       } else {
-        this.props.history.push('/account-details', { email: this.state.email, password: this.state.password });
+        this.props.history.push('/personalise-account', { email: this.state.email, password: this.state.password });
       }
     }).catch((error) => {
       this.displayAuthError(error);
@@ -141,7 +141,7 @@ class SignUp extends Component {
 
     const submitForm = e => {
       if (e.key === 'Enter') {
-        this.handleCreateAccount(e);
+        this.handleNextButton(e);
       }
     }
 
@@ -185,7 +185,7 @@ class SignUp extends Component {
           </form>
           <div id="infoBoxDiv" className="sign-up-info-box-div" hidden={true}/>
           <div className="sign-up-button-group">
-            <UI.Button primary id="nextButton" className="create-account-button" type="submit" disabled={!nextButtonIsEnabled} onClick={this.handleCreateAccount}>Next</UI.Button>
+            <UI.Button primary id="nextButton" className="create-account-button" type="submit" disabled={!nextButtonIsEnabled} onClick={this.handleNextButton}>Next</UI.Button>
           </div>
           <UI.HintButton id="loginButton" type="button" onClick={() => this.props.history.push('/login')}>I already have an account</UI.HintButton>
         </div>
