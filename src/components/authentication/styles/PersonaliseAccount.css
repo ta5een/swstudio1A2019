@@ -1,4 +1,4 @@
-.account-details-wrapper {
+.personalise-account-wrapper {
   height: 100vh;
   width: 100%;
   display: flex;
@@ -7,31 +7,31 @@
   align-items: center;
 }
 
-.account-details-form-container {
+.personalise-account-form-container {
   width: 350px;
   flex-direction: column;
   display: flex;
   padding: 20px 20px;
 }
 
-.account-details-button-group {
+.personalise-account-button-group {
   display: flex;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.account-details-form-group {
+.personalise-account-form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
   width: 100%;
 }
 
-.account-details-heading-group {
+.personalise-account-heading-group {
   margin-bottom: 10px;
 }
 
-.account-details-heading {
+.personalise-account-heading {
   margin-bottom: 10px;
 }
 
