@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Link } from 'react-router-dom';
 
@@ -18,6 +18,10 @@ const InfoBoxColour = Object.freeze({
   error: {
     background: '#D14040',
     border: '#D4242C'
+  },
+  success: {
+    background: 'green',
+    border: 'green'
   }
 });
 
@@ -45,6 +49,13 @@ export const ErrorBox = styled(InfoBox)`
   border: 0.5px solid ${InfoBoxColour.error.border};
 
   color: white;
+`;
+
+export const SuccessBox = styled(InfoBox)`
+  background: ${InfoBoxColour.success.background};
+  border: 0.5px solid ${InfoBoxColour.success.border};
+
+  color: white
 `;
 
 export const DialogType = Object.freeze({
