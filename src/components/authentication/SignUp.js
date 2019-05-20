@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import fire from '../../config/Fire';
 import AppDefaults from '../../AppDefaults';
