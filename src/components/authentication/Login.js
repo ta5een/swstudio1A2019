@@ -22,11 +22,14 @@ class Login extends Component {
 
   componentDidMount() {
     document.title = `${AppDefaults.app.name} – Login`;
+
+    fire.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.props.history.push('/home');
+      }
+    })
   }
 
-  // Calls Firebases signInWithEmailAndPassword()
-  // Uses email and password passed by user
-  // Changes auth state on app.js and redirects to home.js
   handleLogin(e) {
     e.preventDefault();
 
