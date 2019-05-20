@@ -56,10 +56,9 @@ class Login extends Component {
   }
 
   commitLogin() {
-    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
-      console.log("Signing in with user: ", user);
+    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(user => {
       this.props.history.push('/home');
-    }).catch((error) => {
+    }).catch(error => {
       this.displayAuthError(error);
     });
   }
