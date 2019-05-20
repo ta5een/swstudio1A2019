@@ -13,6 +13,7 @@ class PersonaliseAccount extends Component {
       currentAccount: this.props.location.state,
       username: "",
       bio: "",
+      isCharityOrg: false,
       didSuccessfullyCreateAccount: false
     };
 
@@ -36,21 +37,34 @@ class PersonaliseAccount extends Component {
     UI.showInfoBox(this, "Creating account...");
 
     var username = document.getElementById('usernameTextField').value;
+    var bio = document.getElementById('bioTextArea').value;
+    var isCharityOrg = document.getElementById('isCharityOrgCheckBox').checked;
 
     const userEmail = this.state.currentAccount.email;
     const userPassword = this.state.currentAccount.password;
 
-    fire.auth().createUserWithEmailAndPassword(userEmail, userPassword).then(() => {
-      const currentUser = fire.auth().currentUser;
-      currentUser.sendEmailVerification();
-      currentUser.updateProfile({ displayName: username }).then(() => {
-        this.setState({ didSuccessfullyCreateAccount: true });
-      }).catch(error => {
-        UI.showInfoBox(this, error.message, UI.DialogType.ERROR);
-      });
-    }).catch(error => {
-      UI.showInfoBox(this, error.message, UI.DialogType.ERROR);
-    });
+    fire.auth().createUserWithEmailAndPassword(userEmail, userPassword)
+      .then(() => {
+        const currentUser = fire.auth().currentUser;
+        currentUser.sendEmailVerification();
+        currentUser.updateProfile({ displayName: username })
+          .then(() => {
+            const usersDocRef = fire.firestore().doc('users/' + currentUser.uid);
+            const charitiesDocRef = fire.firestore().doc('charities/' + currentUser.uid);
+
+            usersDocRef.set({ biography: bio, is_charity_organisation: isCharityOrg })
+              .then(() => {
+                if (isCharityOrg) {
+                  charitiesDocRef.set({ biography: bio })
+                    .then(() => this.setState({ didSuccessfullyCreateAccount: true }))
+                    .catch(error => UI.showInfoBox(this, "An internal error occurred: " + error.message, UI.DialogType.ERROR));
+                }
+              })
+              .catch(error => UI.showInfoBox(this, "An internal error occurred: " + error.message, UI.DialogType.ERROR));
+          })
+          .catch(error => UI.showInfoBox(this, error.message, UI.DialogType.ERROR));
+      })
+      .catch(error => UI.showInfoBox(this, error.message, UI.DialogType.ERROR));
   }
 
   renderPersonalisationForm() {
@@ -87,6 +101,7 @@ class PersonaliseAccount extends Component {
           <UI.Label htmlFor="form-group">bio</UI.Label>
           <UI.TextArea id="bioTextArea" name="bio" placeholder="Write a bit about yourself..." rows={5} value={this.state.bio} onChange={handleBioTextAreaChange.bind(this)} noValidate/>
         </div>
+        <input type="checkbox" id="isCharityOrgCheckBox" className="is-charity-org" name="is-charity-org"/>I am a charity organisation<br/>
         </form>
         <div id="infoBoxDiv" className="personalise-account-info-box-div" hidden={true}/>
         <div className="personalise-account-button-group">
@@ -102,11 +117,11 @@ class PersonaliseAccount extends Component {
       <div className="personalise-account-form-container">
         <div className="personalise-account-heading-group">
           <UI.Heading className="personalise-account-heading">All done <span role="img" aria-label="Smiley Face">😃</span></UI.Heading>
-          <UI.Subheading>You're new account has been created! Let's take a short tour to get started.</UI.Subheading>
+          <UI.Subheading>A verification link has been sent to your email. In the meantime, why not take a short tour?</UI.Subheading>
         </div>
         <div className="personalise-account-button-group">
-          <UI.Button id="goToHomeButton" className="go-to-home-button" onClick={() => this.props.history.push('/home')}>No thanks, take me home</UI.Button>
-          <UI.Button primary id="takeTourButton" className="take-tour-button" onClick={() => this.props.history.push('/home')}>Let's go!</UI.Button>
+          <UI.Button id="goToHomeButton" className="go-to-home-button" onClick={() => this.props.history.push('/home')}>No thanks</UI.Button>
+          <UI.Button primary id="takeTourButton" className="take-tour-button" onClick={() => this.props.history.push('/home')}>Sure, let's go!</UI.Button>
         </div>
       </div>
     );
