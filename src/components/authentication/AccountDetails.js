@@ -11,9 +11,12 @@ class AccountDetails extends Component {
     super(props);
 
     this.state = {
+      currentAccount: this.props.location.state,
       username: "",
       bio: ""
     };
+
+    console.log(this.state.currentAccount);
   }
 
   render() {
