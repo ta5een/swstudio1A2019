@@ -39,6 +39,7 @@ class Home extends Component {
         <div className="home-content">
           <div className="home-header">
             <UI.Heading>Home</UI.Heading>
+            <p>Hi, {this.state.user.displayName}!</p>
             <p>Signed in as <b>{this.state.user.email}</b></p>
             <UI.Button danger onClick={this.logout}>Logout</UI.Button>
           </div>
