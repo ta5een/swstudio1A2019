@@ -3,7 +3,7 @@ import AppDefaults from '../AppDefaults';
 
 const textFieldFontSize = AppDefaults.constants.font.sizes.normal;
 
-const TextField = styled.input`
+export const TextField = styled.input`
   border: 1px solid #848484;
   border-radius: 5px;
   padding: 0.8em;
@@ -14,5 +14,3 @@ const TextField = styled.input`
   font-family: ${AppDefaults.constants.font.family.default};
   font-size: ${textFieldFontSize};
 `;
-
-export { TextField };

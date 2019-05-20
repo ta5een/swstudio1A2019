@@ -59,7 +59,7 @@ const buttonFontSize = AppDefaults.constants.font.sizes.normal;
 const buttonHintFontSize = AppDefaults.constants.font.sizes.normal;
 const buttonBorderSize = '1px';
 
-const Button = styled.button`
+export const Button = styled.button`
   background: ${BtnClr.default.normal.background};
   border: ${buttonBorderSize} solid ${BtnClr.default.normal.border};
   border-radius: 5px;
@@ -118,7 +118,7 @@ const Button = styled.button`
   `}
 `;
 
-const HintButton = styled(Button)`
+export const HintButton = styled(Button)`
     background: ${BtnClr.hint.normal.background};
     border: ${BtnClr.hint.normal.border};
     color: ${BtnClr.hint.normal.text};
@@ -138,5 +138,3 @@ const HintButton = styled(Button)`
       color: ${BtnClr.hint.disabled.text};
     }
 `;
-
-export { Button, HintButton };
