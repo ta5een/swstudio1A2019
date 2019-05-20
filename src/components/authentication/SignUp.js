@@ -7,12 +7,6 @@ import AppDefaults from '../../AppDefaults';
 import * as UI from '../../controls/UI';
 import './styles/SignUp.css';
 
-const DialogType = Object.freeze({
-  DEFAULT: 0,
-  WARNING: 1,
-  ERROR: 2
-});
-
 const minPasswordLength = AppDefaults.constants.minPasswordLength;
 
 class SignUp extends Component {
@@ -35,10 +29,6 @@ class SignUp extends Component {
     document.title = `${AppDefaults.app.name} – Sign Up`;
   }
 
-  componentWillReceiveProps(props) {
-
-  }
-
   handleCreateAccount(e) {
     e.preventDefault();
 
@@ -47,15 +37,15 @@ class SignUp extends Component {
     var emailTextFieldLength = document.getElementById('emailTextField').value.length;
 
     if (emailTextFieldLength === 0) {
-      this.showInfoBox("Please enter your email.", DialogType.WARNING);
+      UI.showInfoBox(this, "Please enter your email.", UI.DialogType.WARNING);
       this.setState({ errorEmail: true });
       document.getElementById('emailTextField').focus();
     } else if (!this.passwordMeetsMinLength()) {
-      this.showInfoBox(`Passwords must be at least ${minPasswordLength} characters.`, DialogType.WARNING);
+      UI.showInfoBox(this, `Passwords must be at least ${minPasswordLength} characters.`, UI.DialogType.WARNING);
       this.setState({ errorPassword: true, errorRepeatPassword: true });
       document.getElementById('passwordTextField').focus();
     } else if (!this.passwordsAreIdentical()) {
-      this.showInfoBox("The passwords you have entered do not match. Please try again.", DialogType.ERROR);
+      UI.showInfoBox(this, "The passwords you have entered do not match. Please try again.", UI.DialogType.ERROR);
       this.setState({ errorPassword: true, errorRepeatPassword: true });
       document.getElementById('repeatPasswordTextField').focus();
     } else {
@@ -67,7 +57,7 @@ class SignUp extends Component {
     const passwordTextField = document.getElementById('passwordTextField');
     const repeatPasswordTextField = document.getElementById('repeatPasswordTextField');
 
-    return passwordTextField.value === repeatPasswordTextField.value;
+    return (passwordTextField.value !== "") && (passwordTextField.value === repeatPasswordTextField.value);
   }
 
   passwordsMeetMinLength() {
@@ -88,60 +78,51 @@ class SignUp extends Component {
   }
 
   commitCreateAccount() {
-    this.showInfoBox("Creating account...");
-    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
-      this.props.history.push('/account-details');
+    UI.showInfoBox(this, "Creating account...");
+
+    fire.auth().fetchSignInMethodsForEmail(this.state.email).then((signInMethods) => {
+      // If the number of sign in methods is 0, that must mean the user doesn't exist
+      var userExists = signInMethods.length > 0;
+
+      if (userExists) {
+        UI.showInfoBox(this, "An account with the email you provided already exists.", UI.DialogType.ERROR, { description: "Forgot your password?", page: '/forgot-password' });
+      } else {
+        this.props.history.push('/account-details', { email: this.state.email, password: this.state.password });
+      }
     }).catch((error) => {
       this.displayAuthError(error);
-    })
+    });
   }
 
   displayAuthError(error) {
     switch (error.code) {
       case 'auth/invalid-email':
-        this.showInfoBox("Hmm, that email doesn't look right. Check that you've entered it correctly and try again.", DialogType.ERROR);
+        UI.showInfoBox(this, "Hmm, that email doesn't look right. Check that you've entered it correctly and try again.", UI.DialogType.ERROR);
         this.setState({ errorEmail: true });
         document.getElementById('emailTextField').focus();
         break;
       case 'auth/email-already-in-use':
-        this.showInfoBox("An account with the email you provided already exists.", DialogType.ERROR, { description: "Forgot your password?", page: '/forgot-password'});
+        UI.showInfoBox(this, "An account with the email you provided already exists.", UI.DialogType.ERROR, { description: "Forgot your password?", page: '/forgot-password' });
         this.setState({ errorEmail: true });
         document.getElementById('emailTextField').focus();
         break;
       default:
-        this.showInfoBox(error.message, DialogType.ERROR);
+        UI.showInfoBox(this, error.message, UI.DialogType.ERROR);
         return;
     }
-  }
-
-  showInfoBox(message, type=DialogType.DEFAULT, { description, page }={}) {
-    const infoBoxDiv = document.getElementById('infoBoxDiv');
-
-    switch (type) {
-      case 1:
-        ReactDOM.render(<UI.WarningBox>{message} {{ description, page } ? this.composeLink(description, page) : null}</UI.WarningBox>, infoBoxDiv);
-        break;
-      case 2:
-        ReactDOM.render(<UI.ErrorBox>{message} {{ description, page } ? this.composeLink(description, page) : null}</UI.ErrorBox>, infoBoxDiv);
-        break;
-      default:
-        ReactDOM.render(<UI.InfoBox>{message} {{ description, page } ? this.composeLink(description, page) : null}</UI.InfoBox>, infoBoxDiv);
-    }
-
-    infoBoxDiv.hidden = false;
-  }
-
-  composeLink(description, page) {
-    return (
-      <Router history={require('history').createBrowserHistory()}>
-        <Link to={page} onClick={() => this.props.history.push(page)}>{description}</Link>
-      </Router>
-    );
   }
 
   collapseErrorBox() {
     document.getElementById('infoBoxDiv').hidden = true;
     this.setState({ errorEmail: false, errorPassword: false, errorRepeatPassword: false });
+  }
+
+  showIfPasswordsAreIdentical() {
+    if (!this.passwordsAreIdentical()) {
+      UI.showInfoBox(this, "Passwords do not match", UI.DialogType.WARNING, { description: "", page: "" });
+    } else {
+      UI.showInfoBox(this, "Passwords match");
+    }
   }
 
   render() {
@@ -173,12 +154,13 @@ class SignUp extends Component {
     const handlePasswordTextFieldChange = e => {
       this.collapseErrorBox();
       this.setState({ password: e.target.value });
+      this.showIfPasswordsAreIdentical();
     }
 
     const handleRepeatPasswordTextFieldChange = e => {
       this.collapseErrorBox();
       this.setState({ repeatPassword: e.target.value })
-      this.showInfoBox(!this.passwordsAreIdentical() ? "Passwords do not match" : "Passwords match");
+      this.showIfPasswordsAreIdentical();
     }
 
     return (
