@@ -9,6 +9,10 @@ body {
   background-color: #F4F4F4;
 }
 
+p {
+  font-family: 'Rubik', sans-serif;
+}
+
 /* Material Icon Styles */
 
 /* Rules for sizing the icon. */
