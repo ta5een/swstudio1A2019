@@ -6,6 +6,9 @@ import AppDefaults from '../../AppDefaults';
 import * as UI from '../../controls/UI';
 import './styles/Home.css';
 
+import SimpleBottomNavigation from './SimpleBottomNavigation';
+// import TitlebarGridList from './TitlebarGridList';
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -41,6 +44,7 @@ class Home extends Component {
             <UI.Heading>Home</UI.Heading>
             <p>Signed in as <b>{this.state.user.email}</b></p>
             <UI.Button danger onClick={this.logout}>Logout</UI.Button>
+            <SimpleBottomNavigation></SimpleBottomNavigation>
           </div>
         </div>
       </div>
