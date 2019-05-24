@@ -2,20 +2,23 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import fire from '../../config/Fire';
-import AppDefaults from '../../AppDefaults';
+import Globals from '../../Globals';
 import * as UI from '../../controls/UI';
-import './styles/SignUp.css';
+import './styles/CreateAccount.css';
 
-const minPasswordLength = AppDefaults.constants.minPasswordLength;
+const minPasswordLength = Globals.constants.minPasswordLength;
 
-class SignUp extends Component {
+class CreateAccount extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      username: "",
       email: "",
       password: "",
       repeatPassword: "",
+
+      errorUsername: false,
       errorEmail: false,
       errorPassword: false,
       errorRepeatPassword: false
@@ -25,7 +28,7 @@ class SignUp extends Component {
   }
 
   componentDidMount() {
-    document.title = `${AppDefaults.app.name} – Sign Up`;
+    document.title = `${Globals.app.name} – Sign Up`;
   }
 
   handleNextButton(e) {
@@ -33,9 +36,14 @@ class SignUp extends Component {
 
     document.getElementById('nextButton').blur();
 
+    var usernameTextFieldLength = document.getElementById('usernameTextField').value.length;
     var emailTextFieldLength = document.getElementById('emailTextField').value.length;
 
-    if (emailTextFieldLength === 0) {
+    if (usernameTextFieldLength === 0) {
+      UI.showInfoBox(this, "Please enter your username.", UI.DialogType.WARNING);
+      this.setState({ errorUsername: true });
+      document.getElementById('usernameTextField').focus();
+    } else if (emailTextFieldLength === 0) {
       UI.showInfoBox(this, "Please enter your email.", UI.DialogType.WARNING);
       this.setState({ errorEmail: true });
       document.getElementById('emailTextField').focus();
@@ -113,7 +121,7 @@ class SignUp extends Component {
 
   collapseErrorBox() {
     document.getElementById('infoBoxDiv').hidden = true;
-    this.setState({ errorEmail: false, errorPassword: false, errorRepeatPassword: false });
+    this.setState({ errorUsername: false, errorEmail: false, errorPassword: false, errorRepeatPassword: false });
   }
 
   showIfPasswordsAreIdentical() {
@@ -127,13 +135,19 @@ class SignUp extends Component {
   render() {
     const nextButtonIsEnabled = this.state.email.length >= 3 && this.state.password.length >= minPasswordLength && this.passwordsAreIdentical();
 
-    const focusPasswordField = e => {
+    const focusEmailTextField = e => {
+      if (e.key === 'Enter') {
+        document.getElementById('emailTextField').focus();
+      }
+    }
+
+    const focusPasswordTextField = e => {
       if (e.key === 'Enter') {
         document.getElementById('passwordTextField').focus();
       }
     }
 
-    const focusRepeatPasswordField = e => {
+    const focusRepeatPasswordTextField = e => {
       if (e.key === 'Enter') {
         document.getElementById('repeatPasswordTextField').focus();
       }
@@ -143,6 +157,11 @@ class SignUp extends Component {
       if (e.key === 'Enter') {
         this.handleNextButton(e);
       }
+    }
+
+    const handleUsernameTextFieldChange = e => {
+      this.collapseErrorBox();
+      this.setState({ username: e.target.value });
     }
 
     const handleEmailTextFieldChange = e => {
@@ -164,34 +183,38 @@ class SignUp extends Component {
 
     return (
       <div className="sign-up-wrapper">
-        <div className="sign-up-form-container">
+        <img className="back-button" src="assets/back_button.png" alt="back button" onClick={() => this.props.history.push('/start')}/>
+        <div className="sign-up-content">
           <div className="sign-up-heading-group">
-            <UI.Heading className="sign-up-heading">Sign up</UI.Heading>
-            <UI.Subheading>Fill in all the fields below to create an account</UI.Subheading>
+            <UI.Heading>Almost done!</UI.Heading>
+            <UI.Subheading>Just fill in the fields below</UI.Subheading>
           </div>
-          <form>
-            <div className="sign-up-form-group">
-              <UI.Label htmlFor="form-group" className={this.state.errorEmail ? "sign-up-error-text-field-label" : null}>email</UI.Label>
-              <UI.TextField id="emailTextField" className={this.state.errorEmail ? "sign-up-error-text-field" : null} name="email" type="email" placeholder="Email" value={this.state.email} onChange={handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
+          <form className="sign-up-form">
+            <div className="sign-up-labeled-textfield">
+              <UI.Label htmlFor="label-textfield" className={this.state.errorUsername ? "sign-up-error-text-field-label" : null}>username</UI.Label>
+              <UI.TextField id="usernameTextField" className={this.state.errorUsername ? "sign-up-error-text-field" : null} name="username" type="text" placeholder="Username" value={this.state.username} onChange={handleUsernameTextFieldChange.bind(this)} onKeyPress={focusEmailTextField.bind(this)} noValidate/>
             </div>
-            <div className="sign-up-form-group">
-              <UI.Label htmlFor="form-group" className={this.state.errorPassword ? "sign-up-error-text-field-label" : null}>password</UI.Label>
-              <UI.TextField id="passwordTextField" className={this.state.errorPassword ? "sign-up-error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={handlePasswordTextFieldChange.bind(this)} onKeyPress={focusRepeatPasswordField.bind(this)} noValidate/>
+            <div className="sign-up-labeled-textfield">
+              <UI.Label htmlFor="label-textfield" className={this.state.errorEmail ? "sign-up-error-text-field-label" : null}>email</UI.Label>
+              <UI.TextField id="emailTextField" className={this.state.errorEmail ? "sign-up-error-text-field" : null} name="email" type="email" placeholder="Email" value={this.state.email} onChange={handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordTextField.bind(this)} noValidate/>
             </div>
-            <div className="sign-up-form-group">
-              <UI.Label htmlFor="form-group" className={this.state.errorRepeatPassword ? "sign-up-error-text-field-label" : null}>repeat password</UI.Label>
+            <div className="sign-up-labeled-textfield">
+              <UI.Label htmlFor="label-textfield" className={this.state.errorPassword ? "sign-up-error-text-field-label" : null}>password</UI.Label>
+              <UI.TextField id="passwordTextField" className={this.state.errorPassword ? "sign-up-error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={handlePasswordTextFieldChange.bind(this)} onKeyPress={focusRepeatPasswordTextField.bind(this)} noValidate/>
+            </div>
+            <div className="sign-up-labeled-textfield">
+              <UI.Label htmlFor="label-textfield" className={this.state.errorRepeatPassword ? "sign-up-error-text-field-label" : null}>repeat password</UI.Label>
               <UI.TextField id="repeatPasswordTextField" className={this.state.errorRepeatPassword ? "sign-up-error-text-field" : null} name="repeatPassword" type="password" placeholder="Repeat Password" onChange={handleRepeatPasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
             </div>
+            <div id="infoBoxDiv" className="sign-up-info-box-div" hidden={true}/>
           </form>
-          <div id="infoBoxDiv" className="sign-up-info-box-div" hidden={true}/>
-          <div className="sign-up-button-group">
-            <UI.Button primary id="nextButton" className="create-account-button" type="submit" disabled={!nextButtonIsEnabled} onClick={this.handleNextButton}>Next</UI.Button>
+          <div className="sign-up-create-button-container">
+            <UI.Button primary id="nextButton" type="submit" disabled={!nextButtonIsEnabled} onClick={this.handleNextButton}>CREATE ACCOUNT</UI.Button>
           </div>
-          <UI.HintButton id="loginButton" type="button" onClick={() => this.props.history.push('/login')}>I already have an account</UI.HintButton>
         </div>
       </div>
     );
   }
 }
 
-export default withRouter(SignUp);
+export default withRouter(CreateAccount);
