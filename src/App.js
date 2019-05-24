@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   authListener() {
-    fire.auth().onAuthStateChanged((user) => {
+    fire.auth().onAuthStateChanged(user => {
       console.log("Currently signed in user: " + user);
       if (user) {
         this.setState({ user });
@@ -29,7 +29,7 @@ class App extends Component {
       } else {
         this.setState({ user: null });
         localStorage.removeItem('user');
-        this.props.history.push('/login');
+        this.props.history.push('/start');
       }
     });
   }
