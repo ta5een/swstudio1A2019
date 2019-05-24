@@ -1,44 +1,57 @@
 .login-wrapper {
   height: 100vh;
   width: 100%;
+
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.login-form-container {
-  width: 350px;
-  flex-direction: column;
-  display: flex;
-  padding: 20px 20px;
+.login-content {
+  width: 335px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
-.login-form-group {
+.login-heading-group {
+  margin-bottom: 30px;
+}
+
+.login-heading-group > * {
+  margin-bottom: 10px;
+}
+
+.login-heading-group > *:last-child {
+  margin-bottom: 0px;
+}
+
+.login-form {
+  margin-bottom: 30px;
+}
+
+.login-labeled-textfield {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
   width: 100%;
 }
 
-.login-button-group {
-  display: flex;
-  margin-top: 10px;
+.login-error-text-field-label {
+  color: #D05567;
+}
+
+.login-error-text-field {
+  border: 1.5px solid #D05567;
+}
+
+.login-forgot-password-container {
   margin-bottom: 10px;
 }
 
-.login-title-group {
-  margin-bottom: 20px;
-}
-
-.login-caption {
-  margin: 0px;
-  text-align: left;
-
-  color: #848484;
-  text-align: left;
-  font-size: 24px;
-  font-weight: 500;
+.login-forgot-password-button {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
 }
 
 .login-info-box-div {
@@ -46,19 +59,6 @@
   margin-bottom: 10px;
 }
 
-.login-error-text-field-label {
-  color: #D4242C;
-}
-
-.login-error-text-field {
-  border: 1.5px solid #D4242C;
-}
-
-.login-title {
-  margin: 0px;
-  text-align: left;
-}
-
-label {
-  margin-left: 5px;
+.login-submit-button-container {
+  display: flex;
 }
