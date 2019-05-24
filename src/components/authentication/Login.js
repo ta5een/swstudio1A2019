@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import fire from '../../config/Fire';
-import AppDefaults from '../../AppDefaults';
+import Globals from '../../Globals';
 import * as UI from '../../controls/UI';
 import './styles/Login.css';
 
@@ -21,20 +21,13 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    document.title = `${AppDefaults.app.name} – Login`;
-
-    fire.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.props.history.push('/home');
-      }
-    })
+    document.title = `${Globals.app.name} – Login`;
   }
 
   handleLogin(e) {
     e.preventDefault();
 
     document.getElementById('loginButton').blur();
-    document.getElementById('signUpButton').blur();
 
     var emailTextFieldLength = document.getElementById('emailTextField').value.length;
     var passwordTextFieldLength = document.getElementById('passwordTextField').value.length;
@@ -88,8 +81,12 @@ class Login extends Component {
       case 'auth/too-many-requests':
         UI.showInfoBox(this, "Woah, slow down! Look's like you've requested too many requests.", UI.DialogType.ERROR);
         break;
+      case 'auth/network-request-failed':
+        UI.showInfoBox(this, `${Globals.app.name} was unable to connect to the internet. Please check your connection.`, UI.DialogType.ERROR);
+        break;
       default:
         UI.showInfoBox(this, error.message, UI.DialogType.ERROR);
+        console.log(error);
         return;
     }
   }
@@ -126,26 +123,29 @@ class Login extends Component {
 
     return (
       <div className="login-wrapper">
-        <div className="login-form-container">
-          <div className="login-title-group">
-            <UI.Title className="login-title">{AppDefaults.app.name}</UI.Title>
-            <UI.Caption>{AppDefaults.app.caption}</UI.Caption>
+        <img className="back-button" src="assets/back_button.png" alt="back button" onClick={() => this.props.history.push('/start')}/>
+        <div className="login-content">
+          <div className="login-heading-group">
+            <UI.Heading>Welcome back!</UI.Heading>
+            <UI.Subheading>Let's sign into your account</UI.Subheading>
           </div>
-          <form>
-            <div className="login-form-group">
-              <UI.Label htmlFor="form-group" className={this.state.errorEmail ? "login-error-text-field-label" : null}>email</UI.Label>
+          <form className="login-form">
+            <div className="login-labeled-textfield">
+              <UI.Label htmlFor="labeled-textfield" className={this.state.errorEmail ? "login-error-text-field-label" : null}>email</UI.Label>
               <UI.TextField id="emailTextField" className={this.state.errorEmail ? "login-error-text-field" : null} name="email" type="email" placeholder="Email" value={this.state.email} onChange={handleEmailTextFieldChange.bind(this)} onKeyPress={focusPasswordField.bind(this)} noValidate/>
             </div>
-            <div className="login-form-group">
-              <UI.Label htmlFor="form-group" className={this.state.errorPassword ? "login-error-text-field-label" : null}>password</UI.Label>
+            <div className="login-labeled-textfield">
+              <UI.Label htmlFor="labeled-textfield" className={this.state.errorPassword ? "login-error-text-field-label" : null}>password</UI.Label>
               <UI.TextField id="passwordTextField" className={this.state.errorPassword ? "login-error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
             </div>
+            <div className="login-forgot-password-container">
+              <UI.HintButton className="login-forgot-password-button" onClick={() => this.props.history.push('/forgot-password')}>Forgot your password?</UI.HintButton>
+            </div>
+            <div id="infoBoxDiv" className="login-info-box-div" hidden={true}/>
           </form>
-          <div id="infoBoxDiv" className="login-info-box-div" hidden={true}/>
-          <div className="login-button-group">
-            <UI.Button primary id="loginButton" className="login-button" type="submit" disabled={!isEnabled} onClick={this.handleLogin}>Login</UI.Button>
+          <div className="login-submit-button-container">
+            <UI.Button primary id="loginButton" type="submit" disabled={!isEnabled} onClick={this.handleLogin}>SIGN IN</UI.Button>
           </div>
-          <UI.HintButton id="signUpButton" type="button" onClick={() => this.props.history.push('/sign-up')}>Don't have an account?</UI.HintButton>
         </div>
       </div>
     );
