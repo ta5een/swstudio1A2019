@@ -1,41 +1,66 @@
 import styled from 'styled-components';
-import AppDefaults from '../AppDefaults';
+import Globals from '../Globals';
+
+const globalFontFamily = Globals.constants.styles.font.family;
+const globalFontSizes = Globals.constants.styles.font.sizes;
 
 export const Title = styled.h1`
-  font-size: ${AppDefaults.constants.font.sizes.title};
-  font-family: ${AppDefaults.constants.font.family.default};
+  color: #4B2AE8;
+
+  font-family: ${globalFontFamily.default};
+  font-size: ${globalFontSizes.title};
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 `;
 
 export const Caption = styled.h1`
-  color: #848484;
+  // color: #9492A0;
 
-  margin-top: 0px;
-  margin-bottom: 0px;
+  // margin-top: 0px;
+  // margin-bottom: 0px;
 
-  font-family: ${AppDefaults.constants.font.family.default};
-  font-size: ${AppDefaults.constants.font.sizes.caption};
+  font-family: ${globalFontFamily.default};
+  font-size: ${globalFontSizes.caption};
   font-weight: 500;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 `;
 
 export const Heading = styled.h2`
-  font-size: ${AppDefaults.constants.font.sizes.heading};
-  font-family: ${AppDefaults.constants.font.family.default};
+  font-family: ${globalFontFamily.default};
+  font-size: ${globalFontSizes.heading};
+  font-weight: 500;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 `;
 
 export const Subheading = styled.h2`
-  color: #848484;
+  color: #9492A0;
 
-  font-family: ${AppDefaults.constants.font.family.default};
-  font-size: ${AppDefaults.constants.font.sizes.subheading};
-  font-weight: 500;
+  font-family: ${globalFontFamily.default};
+  font-size: ${globalFontSizes.subheading};
+  font-weight: 400;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 `;
 
 export const Label = styled.label`
-  color: #848484;
+  color: #9492A0;
 
-  font-family: ${AppDefaults.constants.font.family.default};
-  font-size: 18px;
-  font-variant: small-caps;
+  font-family: ${globalFontFamily.default};
+  font-size: ${globalFontSizes.normal};
   font-weight: 500;
-  text-align: left;
+  font-variant: small-caps;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 `;

@@ -4,11 +4,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Link } from 'react-router-dom';
 
-import AppDefaults from '../AppDefaults';
+import Globals from '../Globals';
 
 const InfoBoxColour = Object.freeze({
   default: {
-    background: '#E0E0E0',
+    background: '#DEDEE3',
     border: '#848484'
   },
   warning: {
@@ -16,7 +16,7 @@ const InfoBoxColour = Object.freeze({
     border: '#E29258'
   },
   error: {
-    background: '#D14040',
+    background: '#D05567',
     border: '#D4242C'
   },
   success: {
@@ -25,35 +25,40 @@ const InfoBoxColour = Object.freeze({
   }
 });
 
+const globalFontFamily = Globals.constants.styles.font.family;
+const globalFontSizes = Globals.constants.styles.font.sizes;
+const globalBorderProps = Globals.constants.styles.border;
+
 export const InfoBox = styled.div`
   background: ${InfoBoxColour.default.background};
-  border: 0.5px solid ${InfoBoxColour.default.border};
-  border-radius: 5px;
+  border: ${globalBorderProps.size} solid ${InfoBoxColour.default.border};
+  border-radius: ${globalBorderProps.radius};
   color: black;
   padding: 15px 20px;
 
-  font-family: ${AppDefaults.constants.font.family.default};
+  font-family: ${globalFontFamily.default};
+  font-size: ${globalFontSizes.normal};
   font-weight: 400;
   text-align: left;
 `;
 
 export const WarningBox = styled(InfoBox)`
   background: ${InfoBoxColour.warning.background};
-  border: 0.5px solid ${InfoBoxColour.warning.border};
+  border: ${globalBorderProps.size} solid ${InfoBoxColour.warning.border};
 
   color: white;
 `;
 
 export const ErrorBox = styled(InfoBox)`
   background: ${InfoBoxColour.error.background};
-  border: 0.5px solid ${InfoBoxColour.error.border};
+  border: ${globalBorderProps.size} solid ${InfoBoxColour.error.border};
 
   color: white;
 `;
 
 export const SuccessBox = styled(InfoBox)`
   background: ${InfoBoxColour.success.background};
-  border: 0.5px solid ${InfoBoxColour.success.border};
+  border: ${globalBorderProps.size} solid ${InfoBoxColour.success.border};
 
   color: white
 `;

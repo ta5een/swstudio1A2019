@@ -1,30 +1,38 @@
 import styled from 'styled-components';
-import AppDefaults from '../AppDefaults';
+import Globals from '../Globals';
 
-const textFieldFontSize = AppDefaults.constants.font.sizes.normal;
+const globalFontFamily = Globals.constants.styles.font.family;
+const globalFontSizes = Globals.constants.styles.font.sizes;
+const globalBorderProps = Globals.constants.styles.border;
 
 export const TextField = styled.input`
-  border: 1px solid #848484;
-  border-radius: 5px;
+  background: none;
+  border: ${globalBorderProps.size} solid #9492A0;
+  border-radius: ${globalBorderProps.radius};
+  box-sizing: border-box;
+
   padding: 0.8em;
 
   // Prevents custom iOS styling
   -webkit-appearance: none;
 
-  font-family: ${AppDefaults.constants.font.family.default};
-  font-size: ${textFieldFontSize};
+  font-family: ${globalFontFamily.default};
+  font-size: ${globalFontSizes.normal};
 `;
 
 export const TextArea = styled.textarea`
-  border: 1px solid #848484;
-  border-radius: 5px;
+  background: none;
+  border: ${globalBorderProps.size} solid #9492A0;
+  border-radius: ${globalBorderProps.radius};
+  box-sizing: border-box;
+
   padding: 0.8em;
 
   // Prevents custom iOS styling
   -webkit-appearance: none;
 
-  font-family: ${AppDefaults.constants.font.family.default};
-  font-size: ${textFieldFontSize};
+  font-family: ${globalFontFamily.default};
+  font-size: ${globalFontSizes.normal};
 
   resize: vertical;
 `;
