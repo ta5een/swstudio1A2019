@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import fire from '../../config/Fire';
-import AppDefaults from '../../AppDefaults';
+import Globals from '../../Globals';
 import * as UI from '../../controls/UI';
 import './styles/Home.css';
 
@@ -18,7 +18,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    document.title = `${AppDefaults.app.name} – Home`;
+    document.title = `${Globals.app.name} – Home`;
     const user = fire.auth().currentUser;
 
     if (!user) {
@@ -30,7 +30,7 @@ class Home extends Component {
 
   logout() {
     fire.auth().signOut();
-    this.props.history.push('/login');
+    this.props.history.push('/start');
   }
 
   render() {
