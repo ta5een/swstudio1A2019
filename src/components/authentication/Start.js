@@ -9,12 +9,6 @@ import './styles/Start.css';
 class Start extends Component {
   componentDidMount() {
     document.title = `${Globals.app.name} – Start`;
-
-    fire.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.props.history.push('/home');
-      }
-    });
   }
 
   render() {

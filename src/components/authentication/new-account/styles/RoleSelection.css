@@ -17,18 +17,10 @@
   margin-bottom: 30px;
 }
 
-.role-selection-heading-group > * {
+.role-selection-heading-group > *:not(:last-child) {
   margin-bottom: 10px;
 }
 
-.role-selection-heading-group > *:last-child {
-  margin-bottom: 0px;
-}
-
-.role-selection-cards-container > * {
+.role-selection-cards-container > *:not(:last-child) {
   margin-bottom: 30px;
-}
-
-.role-selection-cards-container > *:last-child {
-  margin-bottom: 0px;
 }

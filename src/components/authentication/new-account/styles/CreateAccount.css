@@ -17,12 +17,8 @@
   margin-bottom: 30px;
 }
 
-.sign-up-heading-group > * {
+.sign-up-heading-group > *:not(:last-child) {
   margin-bottom: 10px;
-}
-
-.sign-up-heading-group > *:last-child {
-  margin-bottom: 0px;
 }
 
 .sign-up-form {

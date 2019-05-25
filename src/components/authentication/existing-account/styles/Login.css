@@ -17,12 +17,8 @@
   margin-bottom: 30px;
 }
 
-.login-heading-group > * {
+.login-heading-group > *:not(:last-child) {
   margin-bottom: 10px;
-}
-
-.login-heading-group > *:last-child {
-  margin-bottom: 0px;
 }
 
 .login-form {

@@ -6,6 +6,8 @@ import Globals from '../../../Globals';
 import * as UI from '../../../controls/UI';
 import './styles/Login.css';
 
+const minPasswordLength = Globals.constants.criteria.minPasswordLength;
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -29,23 +31,29 @@ class Login extends Component {
 
     document.getElementById('loginButton').blur();
 
-    var emailTextFieldLength = document.getElementById('emailTextField').value.length;
-    var passwordTextFieldLength = document.getElementById('passwordTextField').value.length;
+    const emailTextField = document.getElementById('emailTextField');
+    const passwordTextField = document.getElementById('passwordTextField');
+
+    // var emailTextFieldLength = document.getElementById('emailTextField').value.length;
+    // var passwordTextFieldLength = document.getElementById('passwordTextField').value.length;
 
     UI.showInfoBox(this, "Logging you in...");
 
-    if (emailTextFieldLength === 0 && passwordTextFieldLength === 0) {
+    if (emailTextField.value.length === 0 && passwordTextField.value.length === 0) {
       UI.showInfoBox(this, "Please enter your email and password.", UI.DialogType.WARNING);
       this.setState({ errorEmail: true, errorPassword: true });
       document.getElementById('emailTextField').focus();
-    } else if (emailTextFieldLength === 0) {
+
+    } else if (emailTextField.value.length === 0) {
       UI.showInfoBox(this, "Please enter your email.", UI.DialogType.WARNING);
       this.setState({ errorEmail: true });
       document.getElementById('emailTextField').focus();
-    } else if (passwordTextFieldLength === 0) {
+
+    } else if (passwordTextField.value.length === 0) {
       UI.showInfoBox(this, "Please enter your password.", UI.DialogType.WARNING);
       this.setState({ errorPassword: true });
       document.getElementById('passwordTextField').focus();
+
     } else {
       this.commitLogin();
     }
@@ -97,7 +105,7 @@ class Login extends Component {
   }
 
   render() {
-    const isEnabled = this.state.email.length >= 3 && this.state.password.length >= 6;
+    const isEnabled = this.state.email.length >= 3 && this.state.password.length >= minPasswordLength;
 
     const focusPasswordField = e => {
       if (e.key === 'Enter') {
