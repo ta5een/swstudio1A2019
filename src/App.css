@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Rubik:400,500,700');
 
-/* By default, disable scrolling */
-html,
-body {
-  height: 100%;
-  width: 100%;
-  position: fixed;
+/* By default, disable scrolling in potrait mode */
+@media screen and (orientation:portrait) {
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+  }
 }
 
 body {
@@ -31,7 +33,7 @@ label {
 }
 
 .back-button {
-  position: absolute;
+  position: fixed;
   top: 34px;
   left: 34px;
   transition: all 0.3s ease-in-out;
