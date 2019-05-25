@@ -8,7 +8,7 @@ import Login from './components/authentication/existing-account/Login';
 import ForgotPassword from './components/authentication/existing-account/ForgotPassword';
 import RoleSelection from './components/authentication/new-account/RoleSelection';
 import CreateAccount from './components/authentication/new-account/CreateAccount';
-import PersonaliseAccount from './components/authentication/new-account/PersonaliseAccount';
+import AccountCreated from './components/authentication/new-account/AccountCreated';
 import Home from './components/main-interface/Home';
 
 const history = require('history').createBrowserHistory();
@@ -22,7 +22,7 @@ const routes = (
       <Route path="/forgot-password" component={ForgotPassword}/>
       <Route path="/role-selection" component={RoleSelection}/>
       <Route path="/create-account" component={CreateAccount}/>
-      <Route path="/personalise-account" component={PersonaliseAccount}/>
+      <Route path="/account-created" component={AccountCreated}/>
       <Route path="/home" component={Home}/>
       <Route render={() => <Redirect to="/"/>}/>
     </Switch>
