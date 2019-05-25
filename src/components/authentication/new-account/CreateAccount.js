@@ -183,7 +183,7 @@ class CreateAccount extends Component {
 
     return (
       <div className="sign-up-wrapper">
-        <img className="back-button" src="assets/icons/back_button.svg" alt="back button" onClick={() => this.props.history.push('/start')}/>
+        <UI.BackButton to="/role-selection" from={this}/>
         <div className="sign-up-content">
           <div className="sign-up-heading-group">
             <UI.Heading>Almost done</UI.Heading>
