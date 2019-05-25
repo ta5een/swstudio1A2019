@@ -183,10 +183,10 @@ class CreateAccount extends Component {
 
     return (
       <div className="sign-up-wrapper">
-        <img className="back-button" src="assets/back_button.png" alt="back button" onClick={() => this.props.history.push('/start')}/>
+        <img className="back-button" src="assets/icons/back_button.svg" alt="back button" onClick={() => this.props.history.push('/start')}/>
         <div className="sign-up-content">
           <div className="sign-up-heading-group">
-            <UI.Heading>Almost done!</UI.Heading>
+            <UI.Heading>Almost done</UI.Heading>
             <UI.Subheading>Just fill in the fields below</UI.Subheading>
           </div>
           <form className="sign-up-form">

@@ -123,7 +123,7 @@ class Login extends Component {
 
     return (
       <div className="login-wrapper">
-        <img className="back-button" src="assets/back_button.png" alt="back button" onClick={() => this.props.history.push('/start')}/>
+        <img className="back-button" src="assets/icons/back_button.svg" alt="back button" onClick={() => this.props.history.push('/start')}/>
         <div className="login-content">
           <div className="login-heading-group">
             <UI.Heading>Welcome back!</UI.Heading>
