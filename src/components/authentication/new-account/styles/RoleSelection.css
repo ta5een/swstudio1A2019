@@ -1,0 +1,34 @@
+.role-selection-wrapper {
+  height: 100vh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.role-selection-content {
+  width: 335px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.role-selection-heading-group {
+  margin-bottom: 30px;
+}
+
+.role-selection-heading-group > * {
+  margin-bottom: 10px;
+}
+
+.role-selection-heading-group > *:last-child {
+  margin-bottom: 0px;
+}
+
+.role-selection-cards-container > * {
+  margin-bottom: 30px;
+}
+
+.role-selection-cards-container > *:last-child {
+  margin-bottom: 0px;
+}

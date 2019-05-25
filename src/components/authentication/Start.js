@@ -27,7 +27,7 @@ class Start extends Component {
           </div>
           <div className="start-button-group">
             <UI.Button primary onClick={() => this.props.history.push('/login')}>LOGIN</UI.Button>
-            <UI.Button onClick={() => this.props.history.push('/create-account')}>SIGN UP</UI.Button>
+            <UI.Button onClick={() => this.props.history.push('/role-selection')}>SIGN UP</UI.Button>
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@ import App from './App';
 import Start from './components/authentication/Start';
 import Login from './components/authentication/existing-account/Login';
 import ForgotPassword from './components/authentication/existing-account/ForgotPassword';
+import RoleSelection from './components/authentication/new-account/RoleSelection';
 import CreateAccount from './components/authentication/new-account/CreateAccount';
 import PersonaliseAccount from './components/authentication/new-account/PersonaliseAccount';
 import Home from './components/main-interface/Home';
@@ -18,8 +19,9 @@ const routes = (
       <Route exact path="/" component={App}/>
       <Route path="/start" component={Start}/>
       <Route path="/login" component={Login}/>
-      <Route path="/create-account" component={CreateAccount}/>
       <Route path="/forgot-password" component={ForgotPassword}/>
+      <Route path="/role-selection" component={RoleSelection}/>
+      <Route path="/create-account" component={CreateAccount}/>
       <Route path="/personalise-account" component={PersonaliseAccount}/>
       <Route path="/home" component={Home}/>
       <Route render={() => <Redirect to="/"/>}/>
