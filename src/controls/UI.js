@@ -1,7 +1,8 @@
 import { Title, Caption, Heading, Subheading, Label } from './Headings';
-import { Button, HintButton } from './Buttons';
+import { Button, HintButton, BackButton } from './Buttons';
 import { TextField, TextArea } from './TextField';
 import { InfoBox, WarningBox, ErrorBox, showInfoBox, DialogType } from './Dialogs';
+import { RoleCard } from './Cards';
 
 export {
   // Headings
@@ -14,6 +15,7 @@ export {
   // Buttons
   Button,
   HintButton,
+  BackButton,
 
   // Text Inputs
   TextField,
@@ -25,4 +27,7 @@ export {
   InfoBox,
   WarningBox,
   ErrorBox,
+
+  // Cards
+  RoleCard
 };
