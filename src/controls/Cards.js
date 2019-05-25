@@ -1,10 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import Globals from '../Globals';
-import { Label } from './Headings';
 
 const globalFontFamily = Globals.constants.styles.font.family;
-const globalFontSizes = Globals.constants.styles.font.sizes;
 
 const RoleLabel = styled.h3`
   font-family: ${globalFontFamily.default};
