@@ -1,3 +1,4 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
 import Globals from '../Globals';
 
@@ -154,3 +155,7 @@ export const HintButton = styled(Button)`
       color: ${BtnClr.hint.disabled.text};
     }
 `;
+
+export const BackButton = ({ to, from }) => {
+  return <img className="back-button" src="/assets/icons/back_button.svg" alt="back button" onClick={() => from.props.history.push(to)}/>;
+};
