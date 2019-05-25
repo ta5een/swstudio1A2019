@@ -6,6 +6,8 @@ const Globals = Object.freeze({
   },
   constants: {
     criteria: {
+      minUsernameLength: 1,
+      minEmailLength: 3,
       minPasswordLength: 8
     },
     styles: {
