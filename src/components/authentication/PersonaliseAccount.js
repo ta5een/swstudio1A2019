@@ -43,28 +43,45 @@ class PersonaliseAccount extends Component {
     const userEmail = this.state.currentAccount.email;
     const userPassword = this.state.currentAccount.password;
 
+    const displayInternalError = error => {
+      UI.showInfoBox(this, "An internal error occurred: " + error.message, UI.DialogType.ERROR);
+    }
+
+    fire.auth().onAuthStateChanged(user => {
+      /* Do nothing if authentication state changes */
+      console.log(user);
+    });
+
     fire.auth().createUserWithEmailAndPassword(userEmail, userPassword)
-      .then(() => {
-        const currentUser = fire.auth().currentUser;
+      .then(userCredentials => {
+        const currentUser = userCredentials.user;
+        const usersDocRef = fire.firestore().doc('users/' + currentUser.uid);
+        const charitiesDocRef = fire.firestore().doc('charities/' + currentUser.uid);
+
         currentUser.sendEmailVerification();
         currentUser.updateProfile({ displayName: username })
           .then(() => {
-            const usersDocRef = fire.firestore().doc('users/' + currentUser.uid);
-            const charitiesDocRef = fire.firestore().doc('charities/' + currentUser.uid);
+            console.log("1: DONE!");
 
-            usersDocRef.set({ biography: bio, is_charity_organisation: isCharityOrg })
-              .then(() => {
-                if (isCharityOrg) {
-                  charitiesDocRef.set({ biography: bio })
-                    .then(() => this.setState({ didSuccessfullyCreateAccount: true }))
-                    .catch(error => UI.showInfoBox(this, "An internal error occurred: " + error.message, UI.DialogType.ERROR));
-                }
-              })
-              .catch(error => UI.showInfoBox(this, "An internal error occurred: " + error.message, UI.DialogType.ERROR));
+            if (isCharityOrg) {
+              charitiesDocRef.set({ name: username, biography: bio })
+                .then(() => {
+                  console.log("1.1: DONE! Setting state...");
+                  // this.setState({ didSuccessfullyCreateAccount: true });
+                })
+                .catch(error => displayInternalError(error));
+            } else {
+              usersDocRef.set({ biography: bio })
+                .then(() => {
+                  console.log("1.2: DONE! Setting state...");
+                  // this.setState({ didSuccessfullyCreateAccount: true });
+                })
+                .catch(error => displayInternalError(error));
+            }
           })
-          .catch(error => UI.showInfoBox(this, error.message, UI.DialogType.ERROR));
+          .catch(error => displayInternalError(error));
       })
-      .catch(error => UI.showInfoBox(this, error.message, UI.DialogType.ERROR));
+      .catch(error => displayInternalError(error));
   }
 
   renderPersonalisationForm() {
@@ -93,15 +110,15 @@ class PersonaliseAccount extends Component {
         </div>
         <img className="account-icon" src="/assets/account_icon.png" alt="account_icon" height="120" width="120"/>
         <form>
-        <div className="personalise-account-form-group">
-          <UI.Label htmlFor="form-group">username</UI.Label>
-          <UI.TextField id="usernameTextField" name="username" placeholder="Username" value={this.state.username} onChange={handleUsernameTextFieldChange.bind(this)} onKeyPress={focusBioTextArea.bind(this)} noValidate/>
-        </div>
-        <div className="personalise-account-form-group">
-          <UI.Label htmlFor="form-group">bio</UI.Label>
-          <UI.TextArea id="bioTextArea" name="bio" placeholder="Write a bit about yourself..." rows={5} value={this.state.bio} onChange={handleBioTextAreaChange.bind(this)} noValidate/>
-        </div>
-        <input type="checkbox" id="isCharityOrgCheckBox" className="is-charity-org" name="is-charity-org"/>I am a charity organisation<br/>
+          <div className="personalise-account-form-group">
+            <UI.Label htmlFor="form-group">username</UI.Label>
+            <UI.TextField id="usernameTextField" name="username" placeholder="Username" value={this.state.username} onChange={handleUsernameTextFieldChange.bind(this)} onKeyPress={focusBioTextArea.bind(this)} noValidate/>
+          </div>
+          <div className="personalise-account-form-group">
+            <UI.Label htmlFor="form-group">bio</UI.Label>
+            <UI.TextArea id="bioTextArea" name="bio" placeholder="Write a bit about yourself..." rows={5} value={this.state.bio} onChange={handleBioTextAreaChange.bind(this)} noValidate/>
+          </div>
+          <input type="checkbox" id="isCharityOrgCheckBox" className="is-charity-org" name="is-charity-org"/>I am a charity organisation<br/>
         </form>
         <div id="infoBoxDiv" className="personalise-account-info-box-div" hidden={true}/>
         <div className="personalise-account-button-group">
