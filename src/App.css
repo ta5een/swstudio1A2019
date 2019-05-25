@@ -1,26 +1,91 @@
 @import url('https://fonts.googleapis.com/css?family=Rubik:400,500,700');
 
+/* By default, disable scrolling in potrait mode */
+@media screen and (orientation:portrait) {
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+  }
+}
+
+body {
+  background-color: #F3F3F7;
+}
+
+p {
+  font-family: 'Rubik', sans-serif;
+}
+
 a:link,
 a:visited {
   color: #FFFFFF;
 }
 
-body {
-  background-color: #F4F4F4;
+input:focus {
+  outline: none;
+  border: 1.5px solid #4B2AE8;
 }
 
-/* Material Icon Styles */
+label {
+  margin-left: 5px;
+}
 
-/* Rules for sizing the icon. */
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.app-wrapper {
+  height: 100vh;
+  width: 100%;
 
-/* Rules for using icons as black on a light background. */
-.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-/* Rules for using icons as white on a dark background. */
-.material-icons.md-light { color: rgba(255, 255, 255, 1); }
-.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+.app-content {
+  width: 335px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.back-button {
+  position: fixed;
+  top: 34px;
+  left: 34px;
+  transition: all 0.3s ease-in-out;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+.back-button:active {
+  animation: bounce-in 0.15s forwards;
+}
+
+.back-button:not(:active),
+.back-button:not(:hover) {
+  animation: bounce-out 0.15s forwards;
+}
+
+@keyframes bounce-in {
+  0% { transform: scale(1.0); }
+  100% { transform: scale(0.8); }
+}
+
+@keyframes bounce-out {
+  0% { transform: scale(0.8); }
+  100% { transform: scale(1.0); }
+}
+
+@-webkit-keyframes bounce-in {
+  0% { transform: scale(1.0); }
+  100% { transform: scale(0.8); }
+}
+
+@-webkit-keyframes bounce-out {
+  0% { transform: scale(0.8); }
+  100% { transform: scale(1.0); }
+}

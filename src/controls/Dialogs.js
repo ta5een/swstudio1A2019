@@ -1,9 +1,14 @@
 import styled from 'styled-components';
-import AppDefaults from '../AppDefaults';
 
-var InfoBoxClr = Object.freeze({
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router, Link } from 'react-router-dom';
+
+import Globals from '../Globals';
+
+const InfoBoxColour = Object.freeze({
   default: {
-    background: '#E0E0E0',
+    background: '#DEDEE3',
     border: '#848484'
   },
   warning: {
@@ -11,35 +16,80 @@ var InfoBoxClr = Object.freeze({
     border: '#E29258'
   },
   error: {
-    background: '#D14040',
+    background: '#D05567',
     border: '#D4242C'
+  },
+  success: {
+    background: 'green',
+    border: 'green'
   }
 });
 
-const InfoBox = styled.div`
-  background: ${InfoBoxClr.default.background};
-  border: 0.5px solid ${InfoBoxClr.default.border};
-  border-radius: 5px;
+const globalFontFamily = Globals.constants.styles.font.family;
+const globalFontSizes = Globals.constants.styles.font.sizes;
+const globalBorderProps = Globals.constants.styles.border;
+
+export const InfoBox = styled.div`
+  background: ${InfoBoxColour.default.background};
+  border: ${globalBorderProps.size} solid ${InfoBoxColour.default.border};
+  border-radius: ${globalBorderProps.radius};
   color: black;
   padding: 15px 20px;
 
-  font-family: ${AppDefaults.constants.font.family.default};
+  font-family: ${globalFontFamily.default};
+  font-size: ${globalFontSizes.normal};
   font-weight: 400;
   text-align: left;
 `;
 
-const WarningBox = styled(InfoBox)`
-  background: ${InfoBoxClr.warning.background};
-  border: 0.5px solid ${InfoBoxClr.warning.border};
+export const WarningBox = styled(InfoBox)`
+  background: ${InfoBoxColour.warning.background};
+  border: ${globalBorderProps.size} solid ${InfoBoxColour.warning.border};
 
   color: white;
 `;
 
-const ErrorBox = styled(InfoBox)`
-  background: ${InfoBoxClr.error.background};
-  border: 0.5px solid ${InfoBoxClr.error.border};
+export const ErrorBox = styled(InfoBox)`
+  background: ${InfoBoxColour.error.background};
+  border: ${globalBorderProps.size} solid ${InfoBoxColour.error.border};
 
   color: white;
 `;
 
-export { InfoBox, WarningBox, ErrorBox };
+export const SuccessBox = styled(InfoBox)`
+  background: ${InfoBoxColour.success.background};
+  border: ${globalBorderProps.size} solid ${InfoBoxColour.success.border};
+
+  color: white
+`;
+
+export const DialogType = Object.freeze({
+  DEFAULT: 0,
+  WARNING: 1,
+  ERROR: 2
+});
+
+export function showInfoBox(caller, message, type=DialogType.DEFAULT, { description, page }={}) {
+  const infoBoxDiv = document.getElementById('infoBoxDiv');
+
+  switch (type) {
+    case 1:
+      ReactDOM.render(<WarningBox>{message} {{ description, page } ? composeLink(caller, description, page) : null}</WarningBox>, infoBoxDiv);
+      break;
+    case 2:
+      ReactDOM.render(<ErrorBox>{message} {{ description, page } ? composeLink(caller, description, page) : null}</ErrorBox>, infoBoxDiv);
+      break;
+    default:
+      ReactDOM.render(<InfoBox>{message} {{ description, page } ? composeLink(caller, description, page) : null}</InfoBox>, infoBoxDiv);
+  }
+
+  infoBoxDiv.hidden = false;
+}
+
+function composeLink(caller, description, page) {
+  return (
+    <Router history={caller.props.history}>
+      <Link to={page} onClick={() => this.props.history.push(page)}>{description}</Link>
+    </Router>
+  );
+}

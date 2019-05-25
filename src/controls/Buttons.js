@@ -1,30 +1,33 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
-import AppDefaults from '../AppDefaults';
+import Globals from '../Globals';
 
 var BtnClr = Object.freeze({
   default: {
     normal: {
-      text: '#000000',
-      background: '#FFFFFF',
-      border: '#848484'
+      text: '#4B2AE8',
+      background: 'none',
+      border: '#4B2AE8'
     },
     disabled: {
-      text: '#848484',
-      background: '#FFFFFF',
-      border: '#B2B2B2'
+      text: '#4B2AE8',
+      background: '#F3F3F7',
+      border: '#4B2AE8'
     }
   },
 
   primary: {
     normal: {
       text: '#FFFFFF',
-      background: '#1976D2',
-      border: '#1976D2'
+      // background: 'linear-gradient(315deg, #9655D0 0%, #836FEA 100%)',
+      background: '#836FEA',
+      border: 'none'
     },
     disabled: {
       text: '#FFFFFF',
-      background: '#63A4ff',
-      border: '#5790e0'
+      // background: 'linear-gradient(315deg, #BA7DF0 0%, #A593FF 100%)',
+      background: '#A593FF',
+      border: 'none'
     }
   },
 
@@ -43,47 +46,56 @@ var BtnClr = Object.freeze({
 
   hint: {
     normal: {
-      text: '#1976D2',
+      text: '#4B2AE8',
       background: 'none',
       border: 'none'
     },
     disabled: {
-      text: '#848484',
+      text: '#4B2AE8',
       background: 'none',
       border: 'none'
     }
   }
 });
 
-const buttonFontSize = AppDefaults.constants.font.sizes.normal;
-const buttonHintFontSize = AppDefaults.constants.font.sizes.normal;
-const buttonBorderSize = '1px';
+const globalFontFamily = Globals.constants.styles.font.family;
+const globalFontSizes = Globals.constants.styles.font.sizes;
+const globalBorderProps = Globals.constants.styles.border;
 
-const Button = styled.button`
+export const Button = styled.button`
   background: ${BtnClr.default.normal.background};
-  border: ${buttonBorderSize} solid ${BtnClr.default.normal.border};
-  border-radius: 5px;
   color: ${BtnClr.default.normal.text};
-  flex-grow: 1;
-  padding: 0.8em 1.2em;
+
+  border: ${globalBorderProps.size} solid ${BtnClr.default.normal.border};
+  border-radius: ${globalBorderProps.radius};
+  box-sizing: border-box;
   box-shadow: none;
 
-  font-family: ${AppDefaults.constants.font.family.default};
-  font-size: ${buttonFontSize};
-  text-align: center;
-  font-weight: 400;
+  flex-grow: 1;
+  padding: 0.8em 1.2em;
+  height: 50px;
 
-  -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
+  font-family: ${globalFontFamily.default};
+  font-size: ${globalFontSizes.normal};
+  text-align: center;
+  font-weight: 500;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
 
   &:hover,
   &:active,
   &:focus {
-    box-shadow: 0px 5px 10px -4px rgba(153,153,153,1);
+    // box-shadow: 0px 5px 10px -4px rgba(153,153,153,1);
+    // box-shadow: 0 5px 15px 0 rgba(150,85,208,0.25);
   }
 
   &:disabled {
-    border: ${buttonBorderSize} solid ${BtnClr.default.disabled.border};
+    border: ${globalBorderProps.size} solid ${BtnClr.default.disabled.border};
     color: ${BtnClr.default.disabled.text};
     box-shadow: none;
     cursor: not-allowed;
@@ -91,39 +103,44 @@ const Button = styled.button`
 
   ${props => props.primary && css`
     background: ${BtnClr.primary.normal.background};
-    border: ${buttonBorderSize} solid ${BtnClr.primary.normal.border};
+    border: none;
     color: ${BtnClr.primary.normal.text};
+    box-shadow: 0 15px 45px 0 rgba(150,85,208,0.25);
 
     font-weight: 500;
 
     &:disabled {
       background: ${BtnClr.primary.disabled.background};
-      border: ${buttonBorderSize} solid ${BtnClr.primary.disabled.border};
+      border: none;
       color: ${BtnClr.primary.disabled.text};
+      box-shadow: 0 0px 0px 0 rgba(150,85,208,0.25);
     }
   `}
 
   ${props => props.danger && css`
     background: ${BtnClr.danger.normal.background};
-    border: ${buttonBorderSize} solid ${BtnClr.danger.normal.border};
+    border: ${globalBorderProps.size} solid ${BtnClr.danger.normal.border};
     color: ${BtnClr.danger.normal.text};
 
     font-weight: 500;
 
     &:disabled {
       background: ${BtnClr.danger.disabled.background};
-      border: ${buttonBorderSize} solid ${BtnClr.danger.disabled.border};
+      border: ${globalBorderProps.size} solid ${BtnClr.danger.disabled.border};
       color: ${BtnClr.danger.disabled.text};
     }
   `}
 `;
 
-const HintButton = styled(Button)`
+export const HintButton = styled(Button)`
     background: ${BtnClr.hint.normal.background};
     border: ${BtnClr.hint.normal.border};
     color: ${BtnClr.hint.normal.text};
 
-    font-size: ${buttonHintFontSize};
+    padding: 0px;
+    height: auto;
+
+    font-size: ${globalFontSizes.small};
     font-weight: 500;
 
     &:hover,
@@ -139,4 +156,6 @@ const HintButton = styled(Button)`
     }
 `;
 
-export { Button, HintButton };
+export const BackButton = ({ to, from }) => {
+  return <img className="back-button" src="/assets/icons/back_button.svg" alt="back button" onClick={() => from.props.history.push(to)}/>;
+};
