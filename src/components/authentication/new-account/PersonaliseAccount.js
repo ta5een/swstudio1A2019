@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import fire from '../../config/Fire';
-import * as UI from '../../controls/UI';
+import fire from '../../../config/Fire';
+import * as UI from '../../../controls/UI';
 import './styles/PersonaliseAccount.css';
 
 class PersonaliseAccount extends Component {

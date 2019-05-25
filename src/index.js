@@ -4,10 +4,10 @@ import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import App from './App';
 import Start from './components/authentication/Start';
-import Login from './components/authentication/Login';
-import CreateAccount from './components/authentication/CreateAccount';
-import ForgotPassword from './components/authentication/ForgotPassword';
-import PersonaliseAccount from './components/authentication/PersonaliseAccount';
+import Login from './components/authentication/existing-account/Login';
+import ForgotPassword from './components/authentication/existing-account/ForgotPassword';
+import CreateAccount from './components/authentication/new-account/CreateAccount';
+import PersonaliseAccount from './components/authentication/new-account/PersonaliseAccount';
 import Home from './components/main-interface/Home';
 
 const history = require('history').createBrowserHistory();
