@@ -19,14 +19,14 @@ var BtnClr = Object.freeze({
   primary: {
     normal: {
       text: '#FFFFFF',
-      background: 'linear-gradient(315deg, #9655D0 0%, #836FEA 100%)',
-      // background: '#836FEA',
+      // background: 'linear-gradient(315deg, #9655D0 0%, #836FEA 100%)',
+      background: '#836FEA',
       border: 'none'
     },
     disabled: {
       text: '#FFFFFF',
-      background: 'linear-gradient(315deg, #BA7DF0 0%, #A593FF 100%)',
-      // background: '#A593FF',
+      // background: 'linear-gradient(315deg, #BA7DF0 0%, #A593FF 100%)',
+      background: '#A593FF',
       border: 'none'
     }
   },
