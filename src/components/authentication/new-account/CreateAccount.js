@@ -142,6 +142,9 @@ class CreateAccount extends Component {
         this.setState({ errorEmail: true });
         this.emailTextField.focus();
         break;
+      case 'auth/network-request-failed':
+          UI.showInfoBox(this, `${Globals.app.name} was unable to connect to the internet. Please check your connection and try again.`, UI.DialogType.ERROR);
+          break;
       default:
         UI.showInfoBox(this, error.message, UI.DialogType.ERROR);
         return;
