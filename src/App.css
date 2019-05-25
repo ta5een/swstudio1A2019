@@ -32,6 +32,21 @@ label {
   margin-left: 5px;
 }
 
+.app-wrapper {
+  height: 100vh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-content {
+  width: 335px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
 .back-button {
   position: fixed;
   top: 34px;
