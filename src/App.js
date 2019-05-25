@@ -32,15 +32,17 @@ class App extends Component {
     const getCurrentUser = () => new Promise((resolved, rejected) => {
       let currentUser = fire.auth().currentUser;
       if (currentUser) {
-        console.log("Current user resolved.");
+        console.log("Found user!");
         return resolved(currentUser);
       } else {
-        console.log("Unabled to resolve current user. Trying again...");
+        console.log("Unable to resolve current user. Trying again...");
         return rejected();
       }
     });
 
-    retryOperation(getCurrentUser, 3, 1000)
+    const maximumAttempts = 3;
+
+    retryOperation(getCurrentUser, maximumAttempts, 1000)
       .then(user => {
         console.log("Currently signed-in user: " + user.uid);
         this.setState({ user });
