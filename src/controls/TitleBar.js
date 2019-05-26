@@ -12,6 +12,10 @@ const styles = css`
     align-items: flex-end;
     background: #FBFBFB;
     border-bottom: 1.5px solid #DEDEE3;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   .title-bar-content {
