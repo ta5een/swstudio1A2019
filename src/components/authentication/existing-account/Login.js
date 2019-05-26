@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
 import fire from '../../../config/Fire';
 import Globals from '../../../Globals';
@@ -13,6 +14,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
+      wasKickedOut: queryString.parse(this.props.location.search).kicked_out ? true : false,
       email: "",
       password: "",
       errorEmail: false,
@@ -24,6 +26,10 @@ class Login extends Component {
 
   componentDidMount() {
     document.title = `${Globals.app.name} – Login`;
+
+    if (this.state.wasKickedOut) {
+      UI.showInfoBox(this, "You've been signed out. Please sign in again.", UI.DialogType.ERROR);
+    }
   }
 
   handleLogin(e) {
@@ -109,6 +115,7 @@ class Login extends Component {
 
     const focusPasswordField = e => {
       if (e.key === 'Enter') {
+        e.preventDefault();
         document.getElementById('passwordTextField').focus();
       }
     }
