@@ -4,27 +4,6 @@ import Globals from '../Globals';
 
 const globalFontFamily = Globals.constants.styles.font.family;
 
-const RoleLabel = styled.h3`
-  font-family: ${globalFontFamily.default};
-  font-size: 18px;
-  font-weight: 500;
-
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  user-select: none;
-`;
-
-const RoleDescription = styled.p`
-  font-family: ${globalFontFamily.default};
-  font-size: 14px;
-
-  color: #9492A0;
-
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  user-select: none;
-`;
-
 const styles = css`
   .role-card {
     display: flex;
@@ -58,6 +37,28 @@ const styles = css`
   .role-card-description > *:last-child {
     margin-bottom: 0px;
   }
+`;
+
+
+const RoleLabel = styled.h3`
+  font-family: ${globalFontFamily.default};
+  font-size: 18px;
+  font-weight: 500;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+`;
+
+const RoleDescription = styled.p`
+  font-family: ${globalFontFamily.default};
+  font-size: 14px;
+
+  color: #9492A0;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 `;
 
 export const RoleCard = ({ label, description, image, alt=label, onClick }) => {
