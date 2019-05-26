@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
+import Globals from '../../../Globals';
 import * as UI from '../../../controls/UI';
 import './styles/RoleSelection.css';
 
 class RoleSelection extends Component {
+  componentDidMount() {
+    document.title = `${Globals.app.name} – Role Selection`;
+  }
+
   render() {
     const handleSelection = selection => {
-      this.props.history.push('/create-account', { selectedRole: selection });
+      this.props.history.push(`/create-account?selected-role=${selection}`);
     }
 
     return(

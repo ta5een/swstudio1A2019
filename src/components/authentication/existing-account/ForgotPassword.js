@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
 import fire from '../../../config/Fire';
 import Globals from '../../../Globals';
@@ -11,6 +12,7 @@ class ForgotPassword extends Component {
     super(props);
 
     this.state = ({
+      query: queryString.parse(this.props.location.search),
       email: "",
       errorEmail: false
     });
@@ -74,7 +76,7 @@ class ForgotPassword extends Component {
 
     return (
       <div className="forgot-password-wrapper">
-        <UI.BackButton to="/login" from={this}/>
+        <UI.BackButton to={this.state.query['from-create-account'] ? `/create-account?selected-role=${this.state.query['selected-role']}` : '/login'} from={this}/>
         <div className="forgot-password-content">
           <div className="forgot-password-heading-group">
             <UI.Heading>No worries</UI.Heading>

@@ -15,7 +15,7 @@ class Home extends Component {
     super(props);
 
     this.state = ({
-      showTour: queryString.parse(this.props.location.search).tour ? true : false,
+      query: queryString.parse(this.props.location.search),
       user: null
     });
 
@@ -29,8 +29,16 @@ class Home extends Component {
       .then(user => this.setState({ user }))
       .catch(error => {
         console.log(error);
-        this.props.history.push('/login?kicked_out=yes');
-      })
+        this.props.history.push('/login?kicked-out=yes');
+      });
+
+    if (this.state.query['tour']) {
+      this.showTour();
+    }
+  }
+
+  showTour() {
+    console.log("UNIMPLEMENTED");
   }
 
   logout() {

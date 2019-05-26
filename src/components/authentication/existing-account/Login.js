@@ -14,7 +14,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      wasKickedOut: queryString.parse(this.props.location.search).kicked_out ? true : false,
+      query: queryString.parse(this.props.location.search),
       email: "",
       password: "",
       errorEmail: false,
@@ -27,7 +27,7 @@ class Login extends Component {
   componentDidMount() {
     document.title = `${Globals.app.name} – Login`;
 
-    if (this.state.wasKickedOut) {
+    if (this.state.query['kicked-out']) {
       UI.showInfoBox(this, "You've been signed out. Please sign in again.", UI.DialogType.ERROR);
     }
   }

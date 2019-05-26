@@ -24,7 +24,7 @@ const retryOperation = (fn, times, delay) => {
   })
 }
 
-const maximumAttempts = 10;
+const maximumAttempts = 5;
 
 const getCurrentUser = () => new Promise((resolved, rejected) => {
   let currentUser = fire.auth().currentUser;

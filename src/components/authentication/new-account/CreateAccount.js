@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
 import fire from '../../../config/Fire';
 import Globals from '../../../Globals';
@@ -15,7 +16,7 @@ class CreateAccount extends Component {
     super(props);
 
     this.state = {
-      selectedRole: this.props.location.state.selectedRole,
+      query: queryString.parse(this.props.location.search),
 
       username: "",
       email: "",
@@ -34,7 +35,7 @@ class CreateAccount extends Component {
   }
 
   componentDidMount() {
-    document.title = `${Globals.app.name} – Sign Up`;
+    document.title = `${Globals.app.name} – Create Account`;
   }
 
   handleCreateAccount(e) {
@@ -121,7 +122,7 @@ class CreateAccount extends Component {
       var userExists = signInMethods.length > 0;
 
       if (userExists) {
-        UI.showInfoBox(this, "An account with the email you provided already exists.", UI.DialogType.ERROR, { description: "Forgot your password?", page: '/forgot-password' });
+        UI.showInfoBox(this, "An account with the email you provided already exists.", UI.DialogType.ERROR, { description: "Forgot your password?", page: `/forgot-password?from-create-account=yes&selected-role=${this.state.query['selected-role']}` });
       } else {
         this.createUser();
       }
@@ -162,6 +163,7 @@ class CreateAccount extends Component {
         console.log("Current user: " + fire.auth().currentUser.uid);
 
         const currentUser = userCredentials.user;
+        const selectedRole = this.state.query['selected-role'];
         const usersDocRef = fire.firestore().doc('users/' + currentUser.uid);
         const charitiesDocRef = fire.firestore().doc('charities/' + currentUser.uid);
 
@@ -170,21 +172,21 @@ class CreateAccount extends Component {
           .then(() => {
             console.log("2: Updated profile with username");
 
-            if (this.state.selectedRole === 'volunteer') {
-              console.log("Volunteer");
+            if (selectedRole === 'volunteer') {
+              console.log("User selected 'volunteer'");
 
               usersDocRef.set({ name: this.state.username })
                 .then(() => {
-                  console.log("3: User Firestore properties set. Redirecting...");
+                  console.log("3: User Firestore properties set. User successfully created! Redirecting...");
                   this.props.history.push('/account-created');
                 })
                 .catch(error => displayInternalError(error));
-            } else if (this.state.selectedRole === 'charity') {
-              console.log("Charity");
+            } else if (selectedRole === 'charity') {
+              console.log("User selected 'charity'");
 
               charitiesDocRef.set({ name: this.state.username })
                 .then(() => {
-                  console.log("3: Charity Firestore properties set. Redirecting...");
+                  console.log("3: Charity Firestore properties set. User successfully created! Redirecting...");
                   this.props.history.push('/account-created');
                 })
                 .catch(error => displayInternalError(error));
