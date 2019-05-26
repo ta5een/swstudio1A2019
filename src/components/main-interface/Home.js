@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { PulseLoader } from 'react-spinners';
 import queryString from 'query-string';
 
 import fire from '../../config/Fire';
@@ -25,7 +26,7 @@ class Home extends Component {
     document.title = `${Globals.app.name} – Home`;
 
     attemptGetCurrentUser()
-      .then(user => this.setState({ userResolved: true, user }))
+      .then(user => this.setState({ user }))
       .catch(error => {
         console.log(error);
         this.props.history.push('/login?kicked_out=yes');
@@ -39,8 +40,8 @@ class Home extends Component {
 
   loadingScreen() {
     return (
-      <div>
-        Loading...
+      <div className="home-loading-container">
+        <PulseLoader color={'#9492A0'} size={12} margin={'7px'}/>
       </div>
     );
   }
@@ -49,7 +50,7 @@ class Home extends Component {
     return (
       <div>
         <p>Hi, {this.state.user.displayName}!</p>
-        <p>Signed in as <b>{this.state.user.email}</b>. Your uid is {this.state.user.uid}</p>
+        <p>Signed in as <b>{this.state.user.email}</b>. Your UID is {this.state.user.uid}.</p>
         <UI.Button danger onClick={this.logout}>Logout</UI.Button>
       </div>
     );

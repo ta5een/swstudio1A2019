@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { PulseLoader } from 'react-spinners';
 
 import fire from './config/Fire';
 import './App.css';
@@ -56,8 +57,9 @@ class App extends Component {
   render() {
     return (
       <div className="app-wrapper">
-        <div className="app-contents">
+        <div className="app-content">
           <img className="app-icon" src="/assets/app_icon.png" alt="Time-Aid"/>
+          <PulseLoader color={'#9492A0'} size={12} margin={'7px'}/>
         </div>
       </div>
     );
