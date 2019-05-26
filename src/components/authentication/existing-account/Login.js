@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
 import fire from '../../../config/Fire';
 import Globals from '../../../Globals';
@@ -13,6 +14,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
+      query: queryString.parse(this.props.location.search),
       email: "",
       password: "",
       errorEmail: false,
@@ -24,6 +26,10 @@ class Login extends Component {
 
   componentDidMount() {
     document.title = `${Globals.app.name} – Login`;
+
+    if (this.state.query['kicked-out']) {
+      UI.showInfoBox(this, "You've been signed out. Please sign in again.", UI.DialogType.ERROR);
+    }
   }
 
   handleLogin(e) {
@@ -90,7 +96,7 @@ class Login extends Component {
         UI.showInfoBox(this, "Woah, slow down! Look's like you've requested too many requests.", UI.DialogType.ERROR);
         break;
       case 'auth/network-request-failed':
-        UI.showInfoBox(this, `${Globals.app.name} was unable to connect to the internet. Please check your connection.`, UI.DialogType.ERROR);
+        UI.showInfoBox(this, `${Globals.app.name} was unable to connect to the internet. Please check your connection and try again.`, UI.DialogType.ERROR);
         break;
       default:
         UI.showInfoBox(this, error.message, UI.DialogType.ERROR);
@@ -109,6 +115,7 @@ class Login extends Component {
 
     const focusPasswordField = e => {
       if (e.key === 'Enter') {
+        e.preventDefault();
         document.getElementById('passwordTextField').focus();
       }
     }
@@ -121,12 +128,12 @@ class Login extends Component {
 
     const handleEmailTextFieldChange = e => {
       this.collapseErrorBox();
-      this.setState({ email: e.target.value })
+      this.setState({ email: e.target.value });
     }
 
     const handlePasswordTextFieldChange = e => {
       this.collapseErrorBox();
-      this.setState({ password: e.target.value })
+      this.setState({ password: e.target.value });
     }
 
     return (

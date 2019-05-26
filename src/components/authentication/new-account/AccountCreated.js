@@ -12,10 +12,10 @@ class AccountCreated extends Component {
           <div className="account-created-message">
             <img src="/assets/tick.svg" alt="tick"/>
             <UI.Heading>Account created</UI.Heading>
-            <UI.Subheading id="subheading">We've sent a verification link to your email. In the meantime, why not take a tour?</UI.Subheading>
+            <UI.Subheading id="account-created-subheading">We've sent a verification link to your email. In the meantime, why not take a tour?</UI.Subheading>
           </div>
           <div className="account-created-button-group">
-            <UI.Button primary onClick={() => this.props.history.push('/home?tutorial=yes')}>LET'S GO!</UI.Button>
+            <UI.Button primary onClick={() => this.props.history.push('/home?tour=yes')}>LET'S GO!</UI.Button>
             <UI.Button onClick={() => this.props.history.push('/home')}>NO THANKS</UI.Button>
           </div>
         </div>

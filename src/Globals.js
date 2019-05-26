@@ -25,7 +25,8 @@ const Globals = Object.freeze({
           subheading: "20px",
           heading: "30px",
           caption: "30px",
-          title: "22px"
+          title: "22px",
+          huge: "44px"
         }
       }
     }

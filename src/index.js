@@ -6,6 +6,7 @@ import App from './App';
 import Start from './components/authentication/Start';
 import Login from './components/authentication/existing-account/Login';
 import ForgotPassword from './components/authentication/existing-account/ForgotPassword';
+import LinkSent from './components/authentication/existing-account/LinkSent';
 import RoleSelection from './components/authentication/new-account/RoleSelection';
 import CreateAccount from './components/authentication/new-account/CreateAccount';
 import AccountCreated from './components/authentication/new-account/AccountCreated';
@@ -20,6 +21,7 @@ const routes = (
       <Route path="/start" component={Start}/>
       <Route path="/login" component={Login}/>
       <Route path="/forgot-password" component={ForgotPassword}/>
+      <Route path="/link-sent" component={LinkSent}/>
       <Route path="/role-selection" component={RoleSelection}/>
       <Route path="/create-account" component={CreateAccount}/>
       <Route path="/account-created" component={AccountCreated}/>

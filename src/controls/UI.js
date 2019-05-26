@@ -1,3 +1,4 @@
+import { TitleBar } from './TitleBar';
 import { Title, Caption, Heading, Subheading, Label } from './Headings';
 import { Button, HintButton, BackButton } from './Buttons';
 import { TextField, TextArea } from './TextField';
@@ -5,6 +6,9 @@ import { InfoBox, WarningBox, ErrorBox, showInfoBox, DialogType } from './Dialog
 import { RoleCard } from './Cards';
 
 export {
+  // Title Bar
+  TitleBar,
+
   // Headings
   Title,
   Caption,

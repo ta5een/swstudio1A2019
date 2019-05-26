@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import fire from '../../config/Fire';
 import Globals from '../../Globals';
 import * as UI from '../../controls/UI';
 import './styles/Start.css';
