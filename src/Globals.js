@@ -13,7 +13,7 @@ const Globals = Object.freeze({
     styles: {
       border: {
         size: "1.5px",
-        radius: "5px"
+        radius: "6px"
       },
       font: {
         family: {
