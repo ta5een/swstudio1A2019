@@ -8,6 +8,7 @@ const globalFontSizes = Globals.constants.styles.font.sizes;
 const styles = css`
   .title-bar {
     height: 102px;
+    
     display: flex;
     align-items: flex-end;
     background: #FBFBFB;
@@ -48,7 +49,6 @@ const TitleBarHeading = styled.h1`
 export const TitleBar = ({ title, hasSearchIcon=false }) => {
   return (
     <>
-      <style type="text/css">{styles}</style>
       <style type="text/css">{styles}</style>
       <div className="title-bar">
         <div className="title-bar-content">
