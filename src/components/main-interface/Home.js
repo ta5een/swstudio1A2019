@@ -25,7 +25,7 @@ class Home extends Component {
   componentDidMount() {
     document.title = `${Globals.app.name} – Home`;
 
-    attemptGetCurrentUser()
+    attemptGetCurrentUser(10)
       .then(user => this.setState({ user }))
       .catch(error => {
         console.log(error);
@@ -56,10 +56,8 @@ class Home extends Component {
 
   cardScreen() {
     return (
-      <div>
-        <p>Hi, {this.state.user.displayName}!</p>
-        <p>Signed in as <b>{this.state.user.email}</b>. Your UID is {this.state.user.uid}.</p>
-        <UI.Button danger onClick={this.logout}>Logout</UI.Button>
+      <div className="home-card-container">
+        <UI.EventCard image="/assets/events/clothing_store.jpg" name="Hand-Me-Downs" organisation="The Clothing Store"/>
       </div>
     );
   }
