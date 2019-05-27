@@ -26,6 +26,12 @@
   align-items: center;
 }
 
+.home-card-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .home-header {
   background: cadetblue;
   margin: 10px;
