@@ -1,4 +1,5 @@
 import { TitleBar } from './TitleBar';
+import { NavigationBar } from './NavigationBar';
 import { Title, Caption, Heading, Subheading, Label } from './Headings';
 import { Button, HintButton, BackButton } from './Buttons';
 import { TextField, TextArea } from './TextField';
@@ -8,6 +9,9 @@ import { RoleCard, EventCard } from './Cards';
 export {
   // Title Bar
   TitleBar,
+
+  // Navigation Bar
+  NavigationBar,
 
   // Headings
   Title,

@@ -56,7 +56,7 @@ class Home extends Component {
 
   cardScreen() {
     return (
-      <div className="home-card-container">
+      <div className="home-cards">
         <UI.EventCard image="/assets/events/clothing_store.jpg" name="Hand-Me-Downs" organisation="The Clothing Store"/>
       </div>
     );
@@ -69,9 +69,12 @@ class Home extends Component {
           <UI.TitleBar title="Home" hasSearchIcon={true}/>
         </div>
         <div className="home-content">
-          <div className="home-cards">
+          <div className="home-cards-container">
             {this.state.user ? this.cardScreen() : this.loadingScreen()}
           </div>
+        </div>
+        <div className="home-navigation-bar">
+          <UI.NavigationBar/>
         </div>
       </div>
     );
