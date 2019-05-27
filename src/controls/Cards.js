@@ -3,42 +3,74 @@ import styled, { css } from 'styled-components';
 import Globals from '../Globals';
 
 const globalFontFamily = Globals.constants.styles.font.family;
+const globalBorderProps = Globals.constants.styles.border;
 
 const styles = css`
-  .role-card {
+  .card,
+  .role-card,
+  .event-card {
     display: flex;
     flex-direction: column;
-    border-radius: 5px;
+    border-radius: ${globalBorderProps.radius};
     background: #F3F3F7;
     box-shadow: 0 5px 45px 0 rgba(0,0,0,0.25);
   }
 
-  .role-card > * {
+  .event-card {
+    height: 100%;
+    align-content: stretch;
+  }
+
+  .card > *,
+  .role-card > *,
+  .event-card > * {
     margin: 0px;
   }
 
-  .role-image {
+  .card-image,
+  .role-card-image,
+  .event-card-image {
     display: block;
-    height: 118px;
-    width: 334px;
-    border-radius: 5px 5px 0 0;
+    width: 100%;
+    border-radius: ${globalBorderProps.radius} ${globalBorderProps.radius} 0 0;
     object-fit: cover;
   }
 
+  .card-image,
+  .role-card-image {
+    height: 118px;
+  }
+
+  .event-card-image {
+    height: 405px;
+  }
+
+  .card-description,
   .role-card-description {
     padding: 15px;
   }
 
-  .role-card-description > * {
-    margin-top: 0px;
-    margin-bottom: 6px;
+  .event-card-description {
+    margin: 20px;
   }
 
-  .role-card-description > *:last-child {
+  .card-description > *,
+  .role-card-description > * {
+    margin-top: 0px;
+    margin-bottom: 5px;
+  }
+
+  .event-card-description > * {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .card-description > *:last-child,
+  .role-card-description > *:last-child,
+  .event-card-description > *:last-child {
     margin-bottom: 0px;
   }
 `;
-
 
 const RoleLabel = styled.h3`
   font-family: ${globalFontFamily.default};
@@ -66,8 +98,8 @@ export const RoleCard = ({ label, description, image, alt=label, onClick }) => {
     <>
       <style type="text/css">{styles}</style>
       <div className="role-card" onClick={onClick}>
-        <div className="role-image-container">
-          <img className="role-image" src={image} alt={alt}/>
+        <div className="role-card-image-container">
+          <img className="role-card-image" src={image} alt={alt}/>
         </div>
         <div className="role-card-description">
           <RoleLabel>{label}</RoleLabel>
@@ -77,3 +109,42 @@ export const RoleCard = ({ label, description, image, alt=label, onClick }) => {
     </>
   );
 };
+
+const EventName = styled.h3`
+  font-family: ${globalFontFamily.default};
+  font-size: 22px;
+  font-weight: 500;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+`;
+
+const EventOrganisation = styled.p`
+  font-family: ${globalFontFamily.default};
+  font-size: 20px;
+  font-variant: small-caps;
+
+  color: #9492A0;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+`;
+
+export const EventCard = ({ name, organisation, image, alt=name, onClick }) => {
+  return (
+    <>
+      <style type="text/css">{styles}</style>
+      <div className="event-card" onClick={onClick}>
+        <div className="even-card-image-container">
+          <img className="event-card-image" src={image} alt={alt}/>
+        </div>
+        <div className="event-card-description">
+          <EventName>{name}</EventName>
+          <EventOrganisation>{organisation.toLowerCase()}</EventOrganisation>
+        </div>
+      </div>
+    </>
+  );
+}
