@@ -10,7 +10,7 @@ class LinkSent extends Component {
       <div className="link-sent-wrapper">
         <div className="link-sent-content">
           <div className="link-sent-message">
-            <img src="/assets/tick.svg" alt="tick"/>
+            <img src="/assets/icons/tick.svg" alt="tick"/>
             <UI.Heading>Link sent</UI.Heading>
             <UI.Subheading id="link-sent-subheading">Check your inbox to see if you've received a reset link. You may need to check your junk folder.</UI.Subheading>
           </div>

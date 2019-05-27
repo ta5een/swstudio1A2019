@@ -24,8 +24,8 @@ class RoleSelection extends Component {
             <UI.Subheading>Let's start by selecting your role</UI.Subheading>
           </div>
           <div className="role-selection-cards-container">
-            <UI.RoleCard image="/assets/low-res/volunteer.jpg" label="I'm a volunteer" description="I want to help make a difference in making the world a better place." onClick={handleSelection.bind(this, 'volunteer')}/>
-            <UI.RoleCard image="/assets/low-res/charity_organiser.jpg" label="I'm a charity organiser" description="I want to create, organise, and hold events that enthusiastic patrons can participate in." onClick={handleSelection.bind(this, 'charity')}/>
+            <UI.RoleCard image="/assets/roles/volunteer.jpg" label="I'm a volunteer" description="I want to help make a difference in making the world a better place." onClick={handleSelection.bind(this, 'volunteer')}/>
+            <UI.RoleCard image="/assets/roles/charity_organiser.jpg" label="I'm a charity organiser" description="I want to create, organise, and hold events that enthusiastic patrons can participate in." onClick={handleSelection.bind(this, 'charity')}/>
           </div>
         </div>
       </div>

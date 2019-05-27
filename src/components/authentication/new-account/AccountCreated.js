@@ -10,7 +10,7 @@ class AccountCreated extends Component {
       <div className="account-created-wrapper">
         <div className="account-created-content">
           <div className="account-created-message">
-            <img src="/assets/tick.svg" alt="tick"/>
+            <img src="/assets/icons/tick.svg" alt="tick"/>
             <UI.Heading>Account created</UI.Heading>
             <UI.Subheading id="account-created-subheading">We've sent a verification link to your email. In the meantime, why not take a tour?</UI.Subheading>
           </div>
