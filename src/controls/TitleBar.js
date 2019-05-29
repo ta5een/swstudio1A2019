@@ -2,8 +2,10 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import Globals from '../Globals';
 
+const globalColours = Globals.constants.styles.colours;
 const globalFontFamily = Globals.constants.styles.font.family;
 const globalFontSizes = Globals.constants.styles.font.sizes;
+const globalBorderProps = Globals.constants.styles.border;
 
 const styles = css`
   .title-bar {
@@ -11,8 +13,8 @@ const styles = css`
 
     display: flex;
     align-items: flex-start;
-    background: #FBFBFB;
-    border-bottom: 1.5px solid #DEDEE3;
+    background: ${globalColours.basic.pure};
+    border-bottom: ${globalBorderProps.size} solid ${globalColours.grey.dark};
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -55,14 +57,25 @@ const styles = css`
   }
 
   .title-bar-search-icon {
+    position: relative;
     height: 26px;
     width: 26px;
     transition: all 300ms cubic-bezier(0.23, 1.25, 0.46, 1);
   }
 
+  .title-bar-search-icon:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    left: -10px;
+    right: -10px;
+    border:solid red;
+  }
+
   .title-bar-search-icon-searching {
     position: fixed;
-    animation: slide-left 10000ms cubic-bezier(0.23, 1.25, 0.46, 1);
+    animation: slide-left 300ms cubic-bezier(0.23, 1.25, 0.46, 1);
   }
 
   @keyframes slide-left {

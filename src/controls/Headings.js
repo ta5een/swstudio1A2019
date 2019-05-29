@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import Globals from '../Globals';
 
+const globalColours = Globals.constants.styles.colours;
 const globalFontFamily = Globals.constants.styles.font.family;
 const globalFontSizes = Globals.constants.styles.font.sizes;
 
 export const Title = styled.h1`
-  color: #4B2AE8;
+  color: ${globalColours.purple.vibrant};
 
   font-family: ${globalFontFamily.default};
   font-size: ${globalFontSizes.title};
@@ -16,11 +17,6 @@ export const Title = styled.h1`
 `;
 
 export const Caption = styled.h1`
-  // color: #9492A0;
-
-  // margin-top: 0px;
-  // margin-bottom: 0px;
-
   font-family: ${globalFontFamily.default};
   font-size: ${globalFontSizes.caption};
   font-weight: 500;
@@ -41,11 +37,13 @@ export const Heading = styled.h2`
 `;
 
 export const Subheading = styled.h2`
-  color: #9492A0;
+  color: ${globalColours.grey.contrast};
 
   font-family: ${globalFontFamily.default};
   font-size: ${globalFontSizes.subheading};
   font-weight: 400;
+
+  margin-top: 0px;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -53,7 +51,7 @@ export const Subheading = styled.h2`
 `;
 
 export const Label = styled.label`
-  color: #9492A0;
+  color: ${globalColours.grey.contrast};
 
   font-family: ${globalFontFamily.default};
   font-size: ${globalFontSizes.normal};

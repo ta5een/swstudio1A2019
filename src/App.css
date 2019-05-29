@@ -29,12 +29,7 @@ p {
 
 a:link,
 a:visited {
-  color: #FFFFFF;
-}
-
-input:focus {
-  outline: none;
-  border: 1.5px solid #4B2AE8;
+  color: #FBFBFB;
 }
 
 label {

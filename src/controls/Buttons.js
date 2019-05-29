@@ -2,65 +2,68 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import Globals from '../Globals';
 
+const globalColours = Globals.constants.styles.colours;
+const globalFontFamily = Globals.constants.styles.font.family;
+const globalFontSizes = Globals.constants.styles.font.sizes;
+const globalBorderProps = Globals.constants.styles.border;
+
 const BtnClr = Object.freeze({
   default: {
     normal: {
-      text: '#4B2AE8',
+      text: globalColours.purple.vibrant,
       background: 'none',
-      border: '#4B2AE8'
+      border: globalColours.purple.dark
     },
     disabled: {
-      text: '#4B2AE8',
-      background: '#F3F3F7',
-      border: '#4B2AE8'
+      text: globalColours.purple.mute.vibrant,
+      background: 'none',
+      border: globalColours.purple.mute.dark
     }
   },
 
   primary: {
     normal: {
-      text: '#FFFFFF',
-      // background: 'linear-gradient(315deg, #9655D0 0%, #836FEA 100%)',
-      background: '#836FEA',
+      text: globalColours.basic.pure,
+      background: `linear-gradient(315deg, ${globalColours.purple.light} 0%, ${globalColours.purple.dark} 100%)`,
+      // background: globalColours.purple.light,
       border: 'none'
     },
     disabled: {
-      text: '#FFFFFF',
-      // background: 'linear-gradient(315deg, #BA7DF0 0%, #A593FF 100%)',
-      background: '#A593FF',
+      text: globalColours.basic.pure,
+      background: `linear-gradient(3151deg, ${globalColours.purple.mute.light} 0%, ${globalColours.purple.mute.dark} 100%)`,
+      // background: globalColours.purple.light,
       border: 'none'
     }
   },
 
   danger: {
     normal: {
-      text: '#FFFFFF',
-      background: '#D14A32',
-      border: '#D4242C'
+      text: globalColours.basic.pure,
+      background: `linear-gradient(3151deg, ${globalColours.red.light} 0%, ${globalColours.red.dark} 100%)`,
+      // background: globalColours.red.light,
+      border: 'none'
     },
     disabled: {
-      text: '#FFFFFF',
-      background: '#D4242C',
-      border: '#D4242C'
+      text: globalColours.basic.pure,
+      background: `linear-gradient(3151deg, ${globalColours.red.mute.light} 0%, ${globalColours.red.mute.dark} 100%)`,
+      // background: globalColours.red.light,
+      border: 'none'
     }
   },
 
   hint: {
     normal: {
-      text: '#4B2AE8',
+      text: globalColours.purple.vibrant,
       background: 'none',
       border: 'none'
     },
     disabled: {
-      text: '#4B2AE8',
+      text: globalColours.purple.mute.vibrant,
       background: 'none',
       border: 'none'
     }
   }
 });
-
-const globalFontFamily = Globals.constants.styles.font.family;
-const globalFontSizes = Globals.constants.styles.font.sizes;
-const globalBorderProps = Globals.constants.styles.border;
 
 export const Button = styled.button`
   background: ${BtnClr.default.normal.background};
@@ -87,47 +90,66 @@ export const Button = styled.button`
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
 
-  &:hover,
-  &:active,
-  &:focus {
-    // box-shadow: 0px 5px 10px -4px rgba(153,153,153,1);
-    // box-shadow: 0 5px 15px 0 rgba(150,85,208,0.25);
-  }
-
   &:disabled {
-    border: ${globalBorderProps.size} solid ${BtnClr.default.disabled.border};
+    background: ${BtnClr.default.disabled.background};
     color: ${BtnClr.default.disabled.text};
+
+    border: ${globalBorderProps.size} solid ${BtnClr.default.disabled.border};
     box-shadow: none;
-    cursor: not-allowed;
   }
 
   ${props => props.primary && css`
     background: ${BtnClr.primary.normal.background};
-    border: none;
     color: ${BtnClr.primary.normal.text};
+
+    border: none;
     box-shadow: 0 15px 45px 0 rgba(150,85,208,0.25);
 
     font-weight: 500;
 
     &:disabled {
       background: ${BtnClr.primary.disabled.background};
-      border: none;
       color: ${BtnClr.primary.disabled.text};
+
+      border: none;
       box-shadow: 0 0px 0px 0 rgba(150,85,208,0.25);
     }
   `}
 
   ${props => props.danger && css`
     background: ${BtnClr.danger.normal.background};
-    border: ${globalBorderProps.size} solid ${BtnClr.danger.normal.border};
     color: ${BtnClr.danger.normal.text};
+
+    border: none;
+    box-shadow: 0 15px 45px 0 rgba(236,98,100,0.25);
 
     font-weight: 500;
 
     &:disabled {
       background: ${BtnClr.danger.disabled.background};
-      border: ${globalBorderProps.size} solid ${BtnClr.danger.disabled.border};
       color: ${BtnClr.danger.disabled.text};
+
+      border: none;
+      box-shadow: 0 0px 0px 0 rgba(236,98,100,0.25);
+    }
+  `}
+
+  ${props => props.hint && css`
+    background: ${BtnClr.hint.normal.background};
+    color: ${BtnClr.hint.normal.text};
+
+    border: ${BtnClr.hint.normal.border};
+
+    font-size: ${globalFontSizes.small};
+    font-weight: 500;
+
+    padding: 0px;
+    height: auto;
+
+    &:disabled {
+      background: ${BtnClr.hint.disabled.background};
+      border: ${BtnClr.hint.disabled.border};
+      color: ${BtnClr.hint.disabled.text};
     }
   `}
 `;
