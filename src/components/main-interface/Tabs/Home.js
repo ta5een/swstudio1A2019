@@ -3,15 +3,12 @@ import { withRouter } from 'react-router-dom';
 import { PulseLoader } from 'react-spinners';
 import queryString from 'query-string';
 
-import fire from '../../config/Fire';
-import Globals from '../../Globals';
-import * as UI from '../../controls/UI';
+import fire from '../../../config/Fire';
+import Globals from '../../../Globals';
+import * as UI from '../../../controls/UI';
 import './styles/Home.css';
 
-import { attemptGetCurrentUser } from '../../App';
-
-// import SimpleBottomNavigation from '../../controls/material/SimpleBottomNavigation';
-// import TitlebarGridList from '../../controls/material/TitlebarGridList';
+import { attemptGetCurrentUser } from '../../../App';
 
 class Home extends Component {
   constructor(props) {
@@ -50,9 +47,11 @@ class Home extends Component {
   }
 
   loadingScreen() {
+    const globalColours = require('../../../Globals').default.constants.styles.colours
+
     return (
       <div className="home-loading-container">
-        <PulseLoader color={'#9492A0'} size={12} margin={'7px'}/>
+        <PulseLoader color={globalColours.grey.contrast} size={12} margin={'7px'}/>
       </div>
     );
   }
@@ -76,9 +75,9 @@ class Home extends Component {
             {this.state.user ? this.cardScreen() : this.loadingScreen()}
           </div>
         </div>
-        <div className="home-navigation-bar">
-          <UI.NavigationBar/>
-        </div>
+        {/* <div className="home-navigation-bar">
+          <UI.NavigationBar currentIndex={0}/>
+        </div> */}
       </div>
     );
   }

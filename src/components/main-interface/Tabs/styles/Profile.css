@@ -1,0 +1,8 @@
+.profile-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-content > *:not(:last-child) {
+  margin-bottom: 20px;
+}
