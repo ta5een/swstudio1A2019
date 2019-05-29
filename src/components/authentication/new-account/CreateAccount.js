@@ -175,7 +175,7 @@ class CreateAccount extends Component {
             if (selectedRole === 'volunteer') {
               console.log("User selected 'volunteer'");
 
-              usersDocRef.set({ name: this.state.username })
+              usersDocRef.set({ 'name': this.state.username, 'booked-events': [], 'favourite-events': [] })
                 .then(() => {
                   console.log("3: User Firestore properties set. User successfully created! Redirecting...");
                   this.props.history.push('/account-created');
@@ -184,7 +184,7 @@ class CreateAccount extends Component {
             } else if (selectedRole === 'charity') {
               console.log("User selected 'charity'");
 
-              charitiesDocRef.set({ name: this.state.username })
+              charitiesDocRef.set({ 'name': this.state.username, 'organised-events': [] })
                 .then(() => {
                   console.log("3: Charity Firestore properties set. User successfully created! Redirecting...");
                   this.props.history.push('/account-created');
