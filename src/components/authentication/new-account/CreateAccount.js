@@ -119,7 +119,7 @@ class CreateAccount extends Component {
 
     fire.auth().fetchSignInMethodsForEmail(this.state.email).then(signInMethods => {
       // If the number of sign in methods is 0, that must mean the user doesn't exist
-      var userExists = signInMethods.length > 0;
+      let userExists = signInMethods.length > 0;
 
       if (userExists) {
         UI.showInfoBox(this, "An account with the email you provided already exists.", UI.DialogType.ERROR, { description: "Forgot your password?", page: `/forgot-password?from-create-account=yes&selected-role=${this.state.query['selected-role']}` });
