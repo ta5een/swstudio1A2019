@@ -21,7 +21,7 @@ class ForgotPassword extends Component {
   handleSendResetLink(e) {
     e.preventDefault();
 
-    UI.showInfoBox(this, "Sending link...");
+    UI.showInfoBox(this, "Sending link...", UI.DialogType.SUCCESS);
 
     if (document.getElementById('emailTextField').value.length === 0) {
       UI.showInfoBox(this, "Please enter your email.", UI.DialogType.WARNING);

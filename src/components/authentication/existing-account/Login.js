@@ -40,7 +40,7 @@ class Login extends Component {
     const emailTextField = document.getElementById('emailTextField');
     const passwordTextField = document.getElementById('passwordTextField');
 
-    UI.showInfoBox(this, "Logging you in...");
+    UI.showInfoBox(this, "Logging you in...", UI.DialogType.SUCCESS);
 
     if (emailTextField.value.length === 0 && passwordTextField.value.length === 0) {
       UI.showInfoBox(this, "Please enter your email and password.", UI.DialogType.WARNING);

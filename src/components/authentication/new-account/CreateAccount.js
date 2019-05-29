@@ -115,7 +115,7 @@ class CreateAccount extends Component {
   }
 
   commitCreateAccount() {
-    UI.showInfoBox(this, "Setting up your account...");
+    UI.showInfoBox(this, "Setting up your account...", UI.DialogType.SUCCESS);
 
     fire.auth().fetchSignInMethodsForEmail(this.state.email).then(signInMethods => {
       // If the number of sign in methods is 0, that must mean the user doesn't exist
