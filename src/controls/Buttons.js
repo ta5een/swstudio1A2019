@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import Globals from '../Globals';
 
-var BtnClr = Object.freeze({
+const BtnClr = Object.freeze({
   default: {
     normal: {
       text: '#4B2AE8',

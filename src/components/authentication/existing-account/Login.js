@@ -40,9 +40,6 @@ class Login extends Component {
     const emailTextField = document.getElementById('emailTextField');
     const passwordTextField = document.getElementById('passwordTextField');
 
-    // var emailTextFieldLength = document.getElementById('emailTextField').value.length;
-    // var passwordTextFieldLength = document.getElementById('passwordTextField').value.length;
-
     UI.showInfoBox(this, "Logging you in...");
 
     if (emailTextField.value.length === 0 && passwordTextField.value.length === 0) {
