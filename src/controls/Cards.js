@@ -27,23 +27,28 @@ const styles = css`
   }
 
   .event-card-content {
+    height: 100%;
+
     display: flex;
     flex-direction: column;
     justify-items: stretch;
+    align-content: flex-end;
   }
 
   .card-image,
-  .role-card-image,
-  .event-card-image {
+  .role-card-image {
     display: block;
+    height: 118px;
     width: 100%;
     border-radius: ${globalBorderProps.radius} ${globalBorderProps.radius} 0 0;
     object-fit: cover;
   }
 
-  .card-image,
-  .role-card-image {
-    height: 118px;
+  .event-card-image {
+    flex: 1;
+    width: 100%;
+    border-radius: ${globalBorderProps.radius} ${globalBorderProps.radius} 0 0;
+    object-fit: cover;
   }
 
   .card-description,
@@ -139,9 +144,7 @@ export const EventCard = ({ name, organisation, image, alt=name, onClick }) => {
       <style type="text/css">{styles}</style>
       <div className="event-card" onClick={onClick}>
         <div className="event-card-content">
-          <div className="even-card-image-container">
-            <img className="event-card-image" src={image} alt={alt}/>
-          </div>
+          <img className="event-card-image" src={image} alt={alt}/>
           <div className="event-card-description">
             <EventName>{name}</EventName>
             <EventOrganisation>{organisation.toLowerCase()}</EventOrganisation>
