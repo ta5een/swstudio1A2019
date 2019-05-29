@@ -10,6 +10,9 @@ import './styles/Home.css';
 
 import { attemptGetCurrentUser } from '../../App';
 
+// import SimpleBottomNavigation from '../../controls/material/SimpleBottomNavigation';
+// import TitlebarGridList from '../../controls/material/TitlebarGridList';
+
 class Home extends Component {
   constructor(props) {
     super(props);
