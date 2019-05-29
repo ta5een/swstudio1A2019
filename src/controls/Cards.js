@@ -36,7 +36,6 @@ const styles = css`
   .role-card-image,
   .event-card-image {
     display: block;
-    height: 404px;
     width: 100%;
     border-radius: ${globalBorderProps.radius} ${globalBorderProps.radius} 0 0;
     object-fit: cover;
