@@ -158,57 +158,139 @@ export const BackButton = ({ to, from }) => {
   return <img className="back-button" src="/assets/icons/back_button.svg" alt="back button" onClick={() => from.props.history.push(to)}/>;
 };
 
-const segmentedButtonStyles = css`
-  .segmented-button {
+// const segmentedButtonStyles = css`
+//   .segmented-button {
+//     display: flex;
+//     justify-content: stretch;
+//   }
+
+//   .segmented-button > * {
+//     height: 35px;
+//     margin: 0;
+//     padding: 0;
+//     flex: 1;
+
+//     font-size: ${globalFontSizes.small};
+
+//     transition: none;
+//   }
+
+//   .segmented-button-first {
+//     border-radius: 5px 0 0 5px;
+//     height: 35px;
+//   }
+
+//   .segmented-button-second {
+//     border-radius: 0 5px 5px 0;
+//   }
+
+//   .segmented-button-selected {
+//     background: ${BtnClr.primary.normal.background};
+//     color: ${BtnClr.primary.normal.text};
+//     border: 0px;
+//   }
+// `;
+
+// export const SegmentedButton = ({ first, second }) => {
+//   const setCurrentIndex = (index=0) => {
+//     if (index === 0) {
+//       document.getElementById('segmentedButtonFirst').classList.add('segmented-button-selected');
+//       document.getElementById('segmentedButtonSecond').classList.remove('segmented-button-selected');
+//     } else {
+//       document.getElementById('segmentedButtonFirst').classList.remove('segmented-button-selected');
+//       document.getElementById('segmentedButtonSecond').classList.add('segmented-button-selected');
+//     }
+//   }
+
+//   return (
+//     <>
+//       <style type="text/css">{segmentedButtonStyles}</style>
+//       <div className="segmented-button">
+//         <Button id="segmentedButtonFirst" className="segmented-button-first segmented-button-selected" onClick={() => setCurrentIndex(0)}>{first}</Button>
+//         <Button id="segmentedButtonSecond" className="segmented-button-second" onClick={() => setCurrentIndex(1)}>{second}</Button>
+//       </div>
+//     </>
+//   );
+// }
+
+const segmentedControlStyles = css`
+  .segmented-control {
     display: flex;
-    justify-content: stretch;
-  }
+    flex-flow: row-wrap;
+    box-sizing: border-box;
 
-  .segmented-button > * {
-    height: 35px;
-    margin: 0;
-    padding: 0;
-    flex: 1;
-
+    font-family: ${globalFontFamily.default};
     font-size: ${globalFontSizes.small};
-
-    transition: none;
+    text-align: center;
   }
 
-  .segmented-button-first {
-    border-radius: 5px 0 0 5px;
-    height: 35px;
+  .segmented-control label {
+    display: block;
+    flex: 1;
+    box-sizing: border-box;
+
+    background: ${BtnClr.default.normal.background};
+    color: ${BtnClr.default.normal.text};
+
+    border: ${globalBorderProps.size} solid ${BtnClr.default.normal.border};
+    border-right: none;
+
+    margin: 0;
+    padding: 0.6em 1.2em;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
-  .segmented-button-second {
-    border-radius: 0 5px 5px 0;
-  }
-
-  .segmented-button-selected {
-    background: ${BtnClr.primary.normal.background};
+  .segmented-control label.selected {
+    background: ${globalColours.purple.dark};
     color: ${BtnClr.primary.normal.text};
-    border: 0px;
+  }
+
+  .segmented-control label:first-child {
+    border-radius: ${globalBorderProps.radius} 0 0 ${globalBorderProps.radius};
+    border-right: 0;
+  }
+
+  .segmented-control label:last-child {
+    border-radius: 0 ${globalBorderProps.radius} ${globalBorderProps.radius} 0;
+    border-right: ${globalBorderProps.size} solid ${BtnClr.default.normal.border};
+  }
+
+  .segmented-control input[type="radio"] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    position: absolute;
   }
 `;
 
-export const SegmentedButton = ({ first, second }) => {
-  const setCurrentIndex = (index=0) => {
-    if (index === 0) {
-      document.getElementById('segmentedButtonFirst').classList.add('segmented-button-selected');
-      document.getElementById('segmentedButtonSecond').classList.remove('segmented-button-selected');
-    } else {
-      document.getElementById('segmentedButtonFirst').classList.remove('segmented-button-selected');
-      document.getElementById('segmentedButtonSecond').classList.add('segmented-button-selected');
-    }
+export const SegmentedControl = ({ options=[], startIndex=0 }) => {
+  const toggleSegmentControls = () => {
+    const controls = document.getElementById('segmentedControl').getElementsByTagName('label');
+
+    Array.from(controls).forEach((control) => {
+      if (control.getElementsByTagName('input')[0].checked) {
+        control.classList.add('selected');
+      } else {
+        control.classList.remove('selected');
+      }
+    });
   }
 
   return (
     <>
-      <style type="text/css">{segmentedButtonStyles}</style>
-      <div className="segmented-button">
-        <Button id="segmentedButtonFirst" className="segmented-button-first segmented-button-selected" onClick={() => setCurrentIndex(0)}>{first}</Button>
-        <Button id="segmentedButtonSecond" className="segmented-button-second" onClick={() => setCurrentIndex(1)}>{second}</Button>
-      </div>
+    <style type="text/css">{segmentedControlStyles}</style>
+    <div id="segmentedControl" className="segmented-control">
+      {options.map((option, index) => {
+        return (
+          <label className={index === startIndex ? "selected" : null} key={`${index}-${new Date().getTime()}`}>
+            <input type="radio" name="segmented-control" checked={index === startIndex ? "checked" : null} onChange={() => toggleSegmentControls()}/>{option}
+          </label>
+        );
+      })}
+    </div>
     </>
   );
 }

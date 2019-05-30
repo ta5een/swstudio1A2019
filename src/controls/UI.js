@@ -1,7 +1,7 @@
 import { TitleBar } from './TitleBar';
 import { NavigationBar } from './NavigationBar';
 import { Title, Caption, Heading, Subheading, Label } from './Headings';
-import { Button, BackButton, SegmentedButton } from './Buttons';
+import { Button, BackButton, SegmentedControl } from './Buttons';
 import { TextField, TextArea } from './TextField';
 import { InfoBox, WarningBox, ErrorBox, showInfoBox, DialogType } from './Dialogs';
 import { RoleCard, EventCard } from './Cards';
@@ -23,7 +23,7 @@ export {
   // Buttons
   Button,
   BackButton,
-  SegmentedButton,
+  SegmentedControl,
 
   // Text Inputs
   TextField,
