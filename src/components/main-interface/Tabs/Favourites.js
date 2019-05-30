@@ -15,7 +15,7 @@ class Favourites extends Component {
     return (
       <div className="favourites-wrapper">
         <div className="favourites-title-bar">
-          <UI.TitleBar title="Favourites"/>
+          <UI.TitleBar title="Favourites" hasSearchIcon={true}/>
         </div>
       </div>
     );

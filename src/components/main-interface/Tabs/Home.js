@@ -75,9 +75,6 @@ class Home extends Component {
             {this.state.user ? this.cardScreen() : this.loadingScreen()}
           </div>
         </div>
-        {/* <div className="home-navigation-bar">
-          <UI.NavigationBar currentIndex={0}/>
-        </div> */}
       </div>
     );
   }
