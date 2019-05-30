@@ -65,7 +65,7 @@ const styles = css`
     width: 100%;
     overflow-y: hidden;
 
-    margin-top: 30px;
+    margin-top: 20px;
   }
 
   .title-bar-search-query-closing {
@@ -281,7 +281,7 @@ export const TitleBar = ({ title, hasSearchIcon=false }) => {
         <img id="titleBarSearchIcon" className="title-bar-search-icon" src="/assets/icons/search.svg" alt="search" onClick={() => toggleSearch()}/>
       </div>
       <div id="titleBarSearchQuery" className="title-bar-search-query">
-        <UI.SegmentedButton first="Events" second="Tags" selectedIndex={0}/>
+        <UI.SegmentedControl options={["Name", "Tag", "Organiser"]} startIndex={0}/>
       </div>
     </div>
   );

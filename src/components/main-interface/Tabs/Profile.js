@@ -18,7 +18,7 @@ class Profile extends Component {
           <UI.TitleBar title="Profile"/>
         </div>
         <div className="profile-content">
-          
+
         </div>
       </div>
     );
