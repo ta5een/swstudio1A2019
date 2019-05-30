@@ -10,4 +10,6 @@
 
 .tab-bar-content {
   flex: 1;
+
+  max-height: calc(100vh - 75px);
 }
