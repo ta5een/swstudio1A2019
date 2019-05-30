@@ -16,7 +16,7 @@ const styles = css`
   }
 
   .navigation-bar {
-    height: 76px;
+    height: 75px;
 
     display: flex;
     align-items: center;
@@ -39,15 +39,23 @@ const styles = css`
     display: flex;
     height: 100%;
     width: 100%;
-    justify-content: stretch;
-    align-items: center;
-    overflow: hidden;
+    /* justify-content: stretch; */
+    /* align-items: center; */
+    /* overflow: hidden; */
   }
 
   .navigation-bar-icon {
     object-fit: none;
     width: 100%;
-    // animation: fade-in 300ms;
+    transform: scale(1);
+    transition: all 300ms;
+  }
+
+  .navigation-bar-icon-selected {
+    object-fit: none;
+    width: 100%;
+    transform: scale(1.2);
+    transition: all 300ms;
   }
 `;
 
@@ -55,7 +63,7 @@ const NavigationBarIcon = ({ icon, selected=false, onClick }) => {
   return (
     <>
       <style type="text/css">{styles}</style>
-      <img className="navigation-bar-icon" src={`assets/icons/navigation/${selected ? `selected/${icon}` : `${icon}`}.svg`} alt={`${icon} page`} onClick={onClick}/>
+      <img className={selected ? "navigation-bar-icon-selected" : "navigation-bar-icon"} src={`assets/icons/navigation/${selected ? `selected/${icon}` : `${icon}`}.svg`} alt={`${icon} page`} onClick={onClick}/>
     </>
   );
 }
