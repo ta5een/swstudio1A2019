@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 import Globals from '../Globals';
+import * as UI from '../controls/UI';
 
 const globalColours = Globals.constants.styles.colours;
 const globalFontFamily = Globals.constants.styles.font.family;
@@ -23,6 +24,8 @@ const styles = css`
     -webkit-user-select: none;
     user-select: none;
 
+    overflow-y: hidden;
+
     transition: height ${animationDuration}ms ease;
   }
 
@@ -38,11 +41,41 @@ const styles = css`
     padding-bottom: 10px;
   }
 
-  .title-bar-text-and-search {
+  .title-bar-items {
     position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .title-bar-search-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .title-bar-search-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title-bar-search-query {
+    height: 0px;
+    width: 100%;
+    overflow-y: hidden;
+
+    margin-top: 30px;
+  }
+
+  .title-bar-search-query-closing {
+    height: 0px;
+    transition: height ${animationDuration}ms ease;
+  }
+
+  .title-bar-search-query-searching {
+    height: calc(100vh - 170px);
+    transition: height ${animationDuration}ms ease;
   }
 
   .title-bar-heading {
@@ -158,7 +191,6 @@ const styles = css`
     transition: all ${animationDuration}ms ease;
   }
 
-
   .title-bar-text-field:focus,
   .title-bar-text-field:focus:focus,
   .title-bar-text-field-searching:focus {
@@ -193,6 +225,9 @@ export const TitleBar = ({ title, hasSearchIcon=false }) => {
 
     document.getElementById('titleBarCloseIcon').classList.remove('title-bar-close-icon-closing');
     document.getElementById('titleBarCloseIcon').classList.add('title-bar-close-icon-searching');
+
+    document.getElementById('titleBarSearchQuery').classList.remove('title-bar-search-query-closing');
+    document.getElementById('titleBarSearchQuery').classList.add('title-bar-search-query-searching');
   }
 
   const removeSearchClass = () => {
@@ -207,6 +242,9 @@ export const TitleBar = ({ title, hasSearchIcon=false }) => {
 
     document.getElementById('titleBarCloseIcon').classList.remove('title-bar-close-icon-searching');
     document.getElementById('titleBarCloseIcon').classList.add('title-bar-close-icon-closing');
+
+    document.getElementById('titleBarSearchQuery').classList.remove('title-bar-search-query-searching');
+    document.getElementById('titleBarSearchQuery').classList.add('title-bar-search-query-closing');
 
     window.setTimeout(() => {
       document.getElementById('titleBarTextField').classList.remove('title-bar-text-field-closing');
@@ -230,25 +268,31 @@ export const TitleBar = ({ title, hasSearchIcon=false }) => {
     removeSearchClass();
   }
 
-  const addSearch = () => {
-    return (
-      <>
-        <style type="text/css">{styles}</style>
+  const header = (
+    <TitleBarHeading id="titleBarHeading" className="title-bar-heading">{title}</TitleBarHeading>
+  );
+
+  const headerWithSearch = (
+    <div className="title-bar-search-container">
+      <div className="title-bar-search-header">
+        <TitleBarHeading id="titleBarHeading" className="title-bar-heading">{title}</TitleBarHeading>
         <input id="titleBarTextField" className="title-bar-text-field" placeholder={`Search ${title.toLowerCase()}...`}/>
         <img id="titleBarCloseIcon" className="title-bar-close-icon" src="/assets/icons/close.svg" alt="close" onClick={() => closeSearch()}/>
         <img id="titleBarSearchIcon" className="title-bar-search-icon" src="/assets/icons/search.svg" alt="search" onClick={() => toggleSearch()}/>
-      </>
-    );
-  }
+      </div>
+      <div id="titleBarSearchQuery" className="title-bar-search-query">
+        <UI.SegmentedButton first="Events" second="Tags" selectedIndex={0}/>
+      </div>
+    </div>
+  );
 
   return (
     <>
       <style type="text/css">{styles}</style>
       <div id="titleBar" className="title-bar">
         <div className="title-bar-content">
-          <div className="title-bar-text-and-search">
-            <TitleBarHeading id="titleBarHeading" className="title-bar-heading">{title}</TitleBarHeading>
-            {hasSearchIcon ? addSearch() : null}
+          <div className="title-bar-items">
+            {hasSearchIcon ? headerWithSearch : header}
           </div>
         </div>
       </div>
