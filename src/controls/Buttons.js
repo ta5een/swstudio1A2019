@@ -154,30 +154,61 @@ export const Button = styled.button`
   `}
 `;
 
-export const HintButton = styled(Button)`
-    background: ${BtnClr.hint.normal.background};
-    border: ${BtnClr.hint.normal.border};
-    color: ${BtnClr.hint.normal.text};
-
-    padding: 0px;
-    height: auto;
-
-    font-size: ${globalFontSizes.small};
-    font-weight: 500;
-
-    &:hover,
-    &:active,
-    &:focus {
-      box-shadow: none;
-    }
-
-    &:disabled {
-      background: ${BtnClr.hint.disabled.background};
-      border: ${BtnClr.hint.disabled.border};
-      color: ${BtnClr.hint.disabled.text};
-    }
-`;
-
 export const BackButton = ({ to, from }) => {
   return <img className="back-button" src="/assets/icons/back_button.svg" alt="back button" onClick={() => from.props.history.push(to)}/>;
 };
+
+const segmentedButtonStyles = css`
+  .segmented-button {
+    display: flex;
+    justify-content: stretch;
+  }
+
+  .segmented-button > * {
+    height: 35px;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+
+    font-size: ${globalFontSizes.small};
+
+    transition: none;
+  }
+
+  .segmented-button-first {
+    border-radius: 5px 0 0 5px;
+    height: 35px;
+  }
+
+  .segmented-button-second {
+    border-radius: 0 5px 5px 0;
+  }
+
+  .segmented-button-selected {
+    background: ${BtnClr.primary.normal.background};
+    color: ${BtnClr.primary.normal.text};
+    border: 0px;
+  }
+`;
+
+export const SegmentedButton = ({ first, second }) => {
+  const setCurrentIndex = (index=0) => {
+    if (index === 0) {
+      document.getElementById('segmentedButtonFirst').classList.add('segmented-button-selected');
+      document.getElementById('segmentedButtonSecond').classList.remove('segmented-button-selected');
+    } else {
+      document.getElementById('segmentedButtonFirst').classList.remove('segmented-button-selected');
+      document.getElementById('segmentedButtonSecond').classList.add('segmented-button-selected');
+    }
+  }
+
+  return (
+    <>
+      <style type="text/css">{segmentedButtonStyles}</style>
+      <div className="segmented-button">
+        <Button id="segmentedButtonFirst" className="segmented-button-first segmented-button-selected" onClick={() => setCurrentIndex(0)}>{first}</Button>
+        <Button id="segmentedButtonSecond" className="segmented-button-second" onClick={() => setCurrentIndex(1)}>{second}</Button>
+      </div>
+    </>
+  );
+}
