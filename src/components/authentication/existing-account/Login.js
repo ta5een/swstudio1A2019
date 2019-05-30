@@ -151,7 +151,7 @@ class Login extends Component {
               <UI.TextField id="passwordTextField" className={this.state.errorPassword ? "login-error-text-field" : null} name="password" type="password" placeholder="Password" value={this.state.password} onChange={handlePasswordTextFieldChange.bind(this)} onKeyPress={submitForm.bind(this)} noValidate/>
             </div>
             <div className="login-forgot-password-container">
-              <UI.HintButton className="login-forgot-password-button" onClick={() => this.props.history.push('/forgot-password')}>Forgot your password?</UI.HintButton>
+              <UI.Button hint className="login-forgot-password-button" onClick={() => this.props.history.push('/forgot-password')}>Forgot your password?</UI.Button>
             </div>
             <div id="infoBoxDiv" className="login-info-box-div" hidden={true}/>
           </form>
