@@ -14,6 +14,8 @@ export const Title = styled.h1`
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
+
+  cursor: default;
 `;
 
 export const Caption = styled.h1`
@@ -24,6 +26,8 @@ export const Caption = styled.h1`
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
+
+  cursor: default;
 `;
 
 export const Heading = styled.h2`
@@ -34,6 +38,8 @@ export const Heading = styled.h2`
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
+
+  cursor: default;
 `;
 
 export const Subheading = styled.h2`
@@ -48,6 +54,8 @@ export const Subheading = styled.h2`
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
+
+  cursor: default;
 `;
 
 export const Label = styled.label`
@@ -61,4 +69,6 @@ export const Label = styled.label`
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
+
+  cursor: default;
 `;
