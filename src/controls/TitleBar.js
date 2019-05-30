@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+
 import Globals from '../Globals';
 
 const globalColours = Globals.constants.styles.colours;
@@ -7,9 +8,11 @@ const globalFontFamily = Globals.constants.styles.font.family;
 const globalFontSizes = Globals.constants.styles.font.sizes;
 const globalBorderProps = Globals.constants.styles.border;
 
+let animationDuration = 300;
+
 const styles = css`
   .title-bar {
-    height: 102px;
+    height: 100px;
 
     display: flex;
     align-items: flex-start;
@@ -20,7 +23,7 @@ const styles = css`
     -webkit-user-select: none;
     user-select: none;
 
-    transition: all 300ms cubic-bezier(0.23, 1.25, 0.46, 1);
+    transition: height ${animationDuration}ms ease;
   }
 
   .title-bar-searching {
@@ -36,57 +39,131 @@ const styles = css`
   }
 
   .title-bar-text-and-search {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  // .title-bar-text-and-search-searching {
-  //   // display: flex;
-  //   // justify-content: space-between;
-  //   // align-items: center;
-  // }
-
   .title-bar-heading {
     opacity: 1;
-    transition: all 300ms cubic-bezier(0.23, 1.25, 0.46, 1);
+    transform: translateX(0%);
+    transition: all ${animationDuration}ms ease;
   }
 
   .title-bar-heading-searching {
     opacity: 0;
-  }
-
-  .title-bar-search-icon {
-    position: relative;
-    height: 26px;
-    width: 26px;
-    transition: all 300ms cubic-bezier(0.23, 1.25, 0.46, 1);
-  }
-
-  .title-bar-search-icon:before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    bottom: -10px;
-    left: -10px;
-    right: -10px;
-    border:solid red;
-  }
-
-  .title-bar-search-icon-searching {
-    position: fixed;
-    animation: slide-left 300ms cubic-bezier(0.23, 1.25, 0.46, 1);
+    transform: translateX(-20px);
   }
 
   @keyframes slide-left {
-    0% {
-      // right: 40px;
-      transform: translateX(100%);
+    from {
+      right: 20px;
     }
-    100% {
-      // left: 40px;
-      transform: translateX(0%);
+    to {
+      right: calc(100% - (26px + 40px + 20px));
     }
+  }
+
+  @keyframes slide-right {
+    from {
+      right: calc(100% - (26px + 40px + 20px));
+    }
+    to {
+      right: 20px;
+    }
+  }
+
+  @-webkit-keyframes slide-left {
+    from {
+      right: 20px;
+    }
+    to {
+      right: calc(100% - (26px + 40px + 20px));
+    }
+  }
+
+  @-webkit-keyframes slide-right {
+    from {
+      right: calc(100% - (26px + 40px + 20px));
+    }
+    to {
+      right: 20px;
+    }
+  }
+
+  .title-bar-search-icon {
+    position: fixed;
+    right: 20px;
+    width: 26px;
+    padding: 20px;
+  }
+
+  .title-bar-search-icon-closing {
+    animation: slide-right ${animationDuration}ms ease forwards;
+  }
+
+  .title-bar-search-icon-searching {
+    /* animation: slide-left ${animationDuration}ms cubic-bezier(0.23, 1.25, 0.46, 1) forwards; */
+    animation: slide-left ${animationDuration}ms ease forwards;
+  }
+
+  .title-bar-close-icon {
+    opacity: 0;
+    position: fixed;
+    right: 20px;
+    width: 30px;
+    padding: 20px;
+
+    pointer-events: none;
+  }
+
+  .title-bar-close-icon-closing {
+    opacity: 0;
+    transition: opacity ${animationDuration}ms ease;
+    pointer-events: none;
+  }
+
+  .title-bar-close-icon-searching {
+    opacity: 1;
+    transition: opacity ${animationDuration}ms ease;
+    pointer-events: auto;
+  }
+
+  .title-bar-text-field {
+    position: fixed;
+    left: 100%;
+    right: 70px;
+    opacity: 0;
+
+    background: none;
+    border: none;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+
+    font-family: ${globalFontFamily.default};
+    font-size: ${globalFontSizes.title};
+  }
+
+  .title-bar-text-field-closing {
+    opacity: 0;
+    left: 100%;
+    right: 40px;
+    transition: all ${animationDuration}ms ease;
+  }
+
+  .title-bar-text-field-searching {
+    opacity: 1;
+    left: 80px;
+    transition: all ${animationDuration}ms ease;
+  }
+
+
+  .title-bar-text-field:focus,
+  .title-bar-text-field:focus:focus,
+  .title-bar-text-field-searching:focus {
+    outline: none;
+    border: none;
   }
 `;
 
@@ -94,26 +171,74 @@ const TitleBarHeading = styled.h1`
   font-family: ${globalFontFamily.default};
   font-size: ${globalFontSizes.huge};
   font-weight: 700;
+  color: ${globalColours.basic.licorice};
 
   margin: 0px;
+
+  cursor: default;
 `;
 
 export const TitleBar = ({ title, hasSearchIcon=false }) => {
   let isSearching = false;
 
+  const addSearchClass = () => {
+    document.getElementById('titleBar').classList.add('title-bar-searching');
+    document.getElementById('titleBarHeading').classList.add('title-bar-heading-searching');
+
+    document.getElementById('titleBarTextField').classList.remove('title-bar-text-field-closing');
+    document.getElementById('titleBarTextField').classList.add('title-bar-text-field-searching');
+
+    document.getElementById('titleBarSearchIcon').classList.remove('title-bar-search-icon-closing');
+    document.getElementById('titleBarSearchIcon').classList.add('title-bar-search-icon-searching');
+
+    document.getElementById('titleBarCloseIcon').classList.remove('title-bar-close-icon-closing');
+    document.getElementById('titleBarCloseIcon').classList.add('title-bar-close-icon-searching');
+  }
+
+  const removeSearchClass = () => {
+    document.getElementById('titleBar').classList.remove('title-bar-searching');
+    document.getElementById('titleBarHeading').classList.remove('title-bar-heading-searching');
+
+    document.getElementById('titleBarTextField').classList.remove('title-bar-text-field-searching');
+    document.getElementById('titleBarTextField').classList.add('title-bar-text-field-closing');
+
+    document.getElementById('titleBarSearchIcon').classList.remove('title-bar-search-icon-searching');
+    document.getElementById('titleBarSearchIcon').classList.add('title-bar-search-icon-closing');
+
+    document.getElementById('titleBarCloseIcon').classList.remove('title-bar-close-icon-searching');
+    document.getElementById('titleBarCloseIcon').classList.add('title-bar-close-icon-closing');
+
+    window.setTimeout(() => {
+      document.getElementById('titleBarTextField').classList.remove('title-bar-text-field-closing');
+      document.getElementById('titleBarSearchIcon').classList.remove('title-bar-search-icon-closing');
+    }, animationDuration);
+  }
+
   const toggleSearch = () => {
     isSearching = !isSearching;
-    console.log(isSearching);
 
     if (isSearching) {
-      document.getElementById('titleBar').classList.add('title-bar-searching');
-      document.getElementById('titleBarHeading').classList.add('title-bar-heading-searching');
-      document.getElementById('titleBarSearchIcon').classList.add('title-bar-search-icon-searching');
+      addSearchClass();
+      document.getElementById('titleBarTextField').focus();
     } else {
-      document.getElementById('titleBar').classList.remove('title-bar-searching');
-      document.getElementById('titleBarHeading').classList.remove('title-bar-heading-searching');
-      document.getElementById('titleBarSearchIcon').classList.remove('title-bar-search-icon-searching');
+      removeSearchClass();
     }
+  }
+
+  const closeSearch = () => {
+    isSearching = !isSearching;
+    removeSearchClass();
+  }
+
+  const addSearch = () => {
+    return (
+      <>
+        <style type="text/css">{styles}</style>
+        <input id="titleBarTextField" className="title-bar-text-field" placeholder={`Search ${title.toLowerCase()}...`}/>
+        <img id="titleBarCloseIcon" className="title-bar-close-icon" src="/assets/icons/close.svg" alt="close" onClick={() => closeSearch()}/>
+        <img id="titleBarSearchIcon" className="title-bar-search-icon" src="/assets/icons/search.svg" alt="search" onClick={() => toggleSearch()}/>
+      </>
+    );
   }
 
   return (
@@ -123,7 +248,7 @@ export const TitleBar = ({ title, hasSearchIcon=false }) => {
         <div className="title-bar-content">
           <div className="title-bar-text-and-search">
             <TitleBarHeading id="titleBarHeading" className="title-bar-heading">{title}</TitleBarHeading>
-            {hasSearchIcon ? <img id="titleBarSearchIcon" className="title-bar-search-icon" src="/assets/icons/search.svg" alt="search" onClick={() => toggleSearch()}/> : null}
+            {hasSearchIcon ? addSearch() : null}
           </div>
         </div>
       </div>
