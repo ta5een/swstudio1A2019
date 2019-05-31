@@ -94,7 +94,7 @@ class CreateAccount extends Component {
       if (document.getElementById('passwordTextField').value.length < minPasswordLength) {
         UI.showInfoBox(this, "Passwords too short.", UI.DialogType.WARNING);
       } else {
-        UI.showInfoBox(this, "Passwords match");
+        UI.showInfoBox(this, "Passwords match", UI.DialogType.SUCCESS);
       }
     }
   }
@@ -164,33 +164,41 @@ class CreateAccount extends Component {
 
         const currentUser = userCredentials.user;
         const selectedRole = this.state.query['selected-role'];
+
         const usersDocRef = fire.firestore().doc('users/' + currentUser.uid);
         const charitiesDocRef = fire.firestore().doc('charities/' + currentUser.uid);
+        const volunteersDocRef = fire.firestore().doc('volunteers/' + currentUser.uid);
 
         currentUser.sendEmailVerification();
         currentUser.updateProfile({ displayName: this.state.username })
           .then(() => {
             console.log("2: Updated profile with username");
 
-            if (selectedRole === 'volunteer') {
-              console.log("User selected 'volunteer'");
+            usersDocRef.set({ 'name': this.state.username, 'is-charity-organiser': (selectedRole === 'charity') })
+              .then(() => {
+                console.log("3: Successfully set user `name` and `is-charity-organiser` properties");
 
-              usersDocRef.set({ 'name': this.state.username, 'booked-events': [], 'favourite-events': [] })
-                .then(() => {
-                  console.log("3: User Firestore properties set. User successfully created! Redirecting...");
-                  this.props.history.push('/account-created');
-                })
-                .catch(error => displayInternalError(error));
-            } else if (selectedRole === 'charity') {
-              console.log("User selected 'charity'");
+                if (selectedRole === 'volunteer') {
+                  console.log("User selected 'volunteer'");
 
-              charitiesDocRef.set({ 'name': this.state.username, 'organised-events': [] })
-                .then(() => {
-                  console.log("3: Charity Firestore properties set. User successfully created! Redirecting...");
-                  this.props.history.push('/account-created');
-                })
-                .catch(error => displayInternalError(error));
-            }
+                  volunteersDocRef.set({ 'name': this.state.username, 'booked-events': [], 'favourite-events': [] })
+                    .then(() => {
+                      console.log("4: User Firestore properties set. User successfully created! Redirecting...");
+                      this.props.history.push('/account-created');
+                    })
+                    .catch(error => displayInternalError(error));
+                } else if (selectedRole === 'charity') {
+                  console.log("User selected 'charity'");
+
+                  charitiesDocRef.set({ 'name': this.state.username, 'organised-events': [] })
+                    .then(() => {
+                      console.log("4: Charity Firestore properties set. User successfully created! Redirecting...");
+                      this.props.history.push('/account-created');
+                    })
+                    .catch(error => displayInternalError(error));
+                }
+              })
+              .catch(error => displayInternalError(error));
           })
           .catch(error => displayInternalError(error));
       })
