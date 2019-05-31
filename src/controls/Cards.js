@@ -1,22 +1,42 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import Globals from '../Globals';
 
+import Globals from '../Globals';
+import { Heading, Subheading, Label } from './Headings';
+
+const globalColours = Globals.constants.styles.colours;
 const globalFontFamily = Globals.constants.styles.font.family;
 const globalBorderProps = Globals.constants.styles.border;
 
 const styles = css`
   .card,
   .role-card,
-  .event-card {
+  .event-card,
+  .empty-event-card {
     display: flex;
     flex-direction: column;
+  }
+
+  .card,
+  .role-card,
+  .event-card {
+    background: ${globalColours.basic.pure};
     border-radius: ${globalBorderProps.radius};
-    background: #F3F3F7;
     box-shadow: 0 5px 45px 0 rgba(0,0,0,0.25);
   }
 
-  .event-card {
+  .empty-event-card {
+    background: ${globalColours.grey.contrast};
+    border: 2.5px solid ${globalColours.grey.dark};
+    border-radius: ${globalBorderProps.radius};
+    border-style: dotted;
+    box-shadow: none;
+
+    // text-align: center;
+  }
+
+  .event-card,
+  .empty-event-card {
     height: 100%;
   }
 
@@ -26,6 +46,10 @@ const styles = css`
     margin: 0px;
   }
 
+  .empty-event-card > * {
+    margin: 30px;
+  }
+
   .event-card-content {
     height: 100%;
 
@@ -33,6 +57,15 @@ const styles = css`
     flex-direction: column;
     justify-items: stretch;
     align-content: flex-end;
+  }
+
+  .empty-event-card {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .card-image,
@@ -131,7 +164,7 @@ const EventOrganisation = styled.p`
   font-size: 20px;
   font-variant: small-caps;
 
-  color: #9492A0;
+  color: ${globalColours.grey.contrast};
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -149,6 +182,30 @@ export const EventCard = ({ name, organisation, image, alt=name, onClick }) => {
             <EventName>{name}</EventName>
             <EventOrganisation>{organisation.toLowerCase()}</EventOrganisation>
           </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+const EmptyHeading = styled(Heading)`
+  color: ${globalColours.basic.pure};
+  font-size: 24px;
+`;
+
+const EmptySubheading = styled(Subheading)`
+  color: ${globalColours.basic.pure};
+  font-size: 18px;
+`;
+
+export const EmptyEventCard = () => {
+  return (
+    <>
+      <style type="text/css">{styles}</style>
+      <div className="empty-event-card">
+        <div className="empty-event-card-content">
+          <EmptyHeading>It's quiet here</EmptyHeading>
+          <EmptySubheading>Start a new event by going to your profile or tapping here.</EmptySubheading>
         </div>
       </div>
     </>

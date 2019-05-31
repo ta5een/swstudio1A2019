@@ -4,7 +4,7 @@ import { Title, Caption, Heading, Subheading, Label } from './Headings';
 import { Button, BackButton, SegmentedControl } from './Buttons';
 import { TextField, TextArea } from './TextField';
 import { InfoBox, WarningBox, ErrorBox, showInfoBox, DialogType } from './Dialogs';
-import { RoleCard, EventCard } from './Cards';
+import { RoleCard, EventCard, EmptyEventCard } from './Cards';
 
 export {
   // Title Bar
@@ -38,5 +38,6 @@ export {
 
   // Cards
   RoleCard,
-  EventCard
+  EventCard,
+  EmptyEventCard
 };
