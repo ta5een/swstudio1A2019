@@ -37,5 +37,5 @@
 }
 
 .profile-content-container > *:not(:last-child) {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }

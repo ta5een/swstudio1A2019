@@ -62,6 +62,7 @@ class Profile extends Component {
         <div className="profile-content-container">
           <div>
             <UI.Heading style={{ margin: "0px" }}>{this.state.user.displayName}</UI.Heading>
+            <UI.Subheading>{this.state.user.email}</UI.Subheading>
           </div>
           {this.state.isCharityOrg ? <UI.Button>ADD EVENT</UI.Button> : null}
           <UI.Button danger onClick={() => this.handleLogout()}>LOG OUT</UI.Button>
