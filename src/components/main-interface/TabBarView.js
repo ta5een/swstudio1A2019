@@ -16,8 +16,6 @@ class TabBarView extends Component {
     this.state = ({
       currentIndex: this.props.currentIndex
     });
-
-    console.log(this.state.currentIndex);
   }
 
   getComponentAtCurrentIndex() {
