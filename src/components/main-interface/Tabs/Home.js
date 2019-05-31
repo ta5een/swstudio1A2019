@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { PulseLoader } from 'react-spinners';
 import queryString from 'query-string';
 
-import fire, { attemptGetCurrentUser } from '../../../config/Fire';
+import { attemptGetCurrentUser } from '../../../config/Fire';
 import Globals from '../../../Globals';
 import * as UI from '../../../controls/UI';
 import './styles/Home.css';
@@ -15,7 +15,7 @@ class Home extends Component {
     this.state = ({
       query: queryString.parse(this.props.location.search),
       user: null,
-      isCharityOrg: false
+      isCharityOrg: JSON.parse(localStorage.getItem('is-charity-organiser'))
     });
   }
 
@@ -23,12 +23,7 @@ class Home extends Component {
     document.title = `${Globals.app.name} – Home`;
 
     attemptGetCurrentUser(10)
-      .then(user => {
-        const charitiesDocRef = fire.firestore().doc('charities/' + user.uid);
-        charitiesDocRef.get()
-          .then(doc => this.setState({ user, isCharityOrg: doc.exists }))
-          .catch(error => console.log(error));
-      })
+      .then(user => this.setState({ user }))
       .catch(error => {
         console.log(error);
         this.props.history.push('/login?kicked-out=yes');

@@ -13,7 +13,7 @@ class Profile extends Component {
 
     this.state = ({
       user: null,
-      isCharityOrg: false
+      isCharityOrg: JSON.parse(localStorage.getItem('is-charity-organiser'))
     });
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -23,12 +23,7 @@ class Profile extends Component {
     document.title = `${Globals.app.name} – Profile`;
 
     attemptGetCurrentUser(10)
-      .then(user => {
-        const charitiesDocRef = fire.firestore().doc('charities/' + user.uid);
-        charitiesDocRef.get()
-          .then(doc => this.setState({ user, isCharityOrg: doc.exists }))
-          .catch(error => console.log(error));
-      })
+      .then(user => this.setState({ user }))
       .catch(error => {
         console.log(error);
         this.props.history.push('/login?kicked-out=yes');
