@@ -259,10 +259,12 @@ const segmentedControlStyles = css`
   }
 
   .segmented-control input[type="radio"] {
-    -webkit-appearance: none;
-    appearance: none;
+    display: none;
     margin: 0;
     position: absolute;
+    
+    -webkit-appearance: none;
+    appearance: none;
   }
 `;
 
