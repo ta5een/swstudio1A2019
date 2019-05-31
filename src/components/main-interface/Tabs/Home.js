@@ -3,12 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { PulseLoader } from 'react-spinners';
 import queryString from 'query-string';
 
-import fire from '../../../config/Fire';
+import fire, { attemptGetCurrentUser } from '../../../config/Fire';
 import Globals from '../../../Globals';
 import * as UI from '../../../controls/UI';
 import './styles/Home.css';
-
-import { attemptGetCurrentUser } from '../../../App';
 
 class Home extends Component {
   constructor(props) {
@@ -16,17 +14,21 @@ class Home extends Component {
 
     this.state = ({
       query: queryString.parse(this.props.location.search),
-      user: null
+      user: null,
+      isCharityOrg: false
     });
-
-    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
     document.title = `${Globals.app.name} – Home`;
 
     attemptGetCurrentUser(10)
-      .then(user => this.setState({ user }))
+      .then(user => {
+        const charitiesDocRef = fire.firestore().doc('charities/' + user.uid);
+        charitiesDocRef.get()
+          .then(doc => this.setState({ user, isCharityOrg: doc.exists }))
+          .catch(error => console.log(error));
+      })
       .catch(error => {
         console.log(error);
         this.props.history.push('/login?kicked-out=yes');
@@ -41,39 +43,54 @@ class Home extends Component {
     console.log("UNIMPLEMENTED");
   }
 
-  logout() {
-    fire.auth().signOut();
-    this.props.history.push('/start');
-  }
-
-  loadingScreen() {
-    const globalColours = require('../../../Globals').default.constants.styles.colours
-
-    return (
-      <div className="home-loading-container">
-        <PulseLoader color={globalColours.grey.contrast} size={12} margin={'7px'}/>
-      </div>
-    );
-  }
-
-  cardScreen() {
-    return (
-      <div className="home-cards">
-        <UI.EventCard image="/assets/events/clothing_store.jpg" name="Hand-Me-Downs" organisation="The Clothing Store"/>
-      </div>
-    );
-  }
-
   render() {
+    const loadingView = () => {
+      const globalColours = require('../../../Globals').default.constants.styles.colours
+
+      return (
+        <div className="home-loading-container">
+          <PulseLoader color={globalColours.grey.contrast} size={12} margin={'7px'}/>
+        </div>
+      );
+    }
+
+    const volunteerCardView = () => {
+      return (
+        <div className="home-cards-container">
+          <div className="home-card">
+            <UI.EventCard image="/assets/events/clothing_store.jpg" name="Hand-Me-Downs" organisation="The Clothing Store"/>
+          </div>
+        </div>
+      );
+    }
+
+    const charityCardView = () => {
+      return (
+        <div className="home-cards-container">
+          <div className="home-card">
+            <UI.EmptyEventCard/>
+          </div>
+        </div>
+      );
+    }
+
+    const getBody = () => {
+      if (this.state.user && this.state.isCharityOrg) {
+        return charityCardView();
+      } else if (this.state.user) {
+        return volunteerCardView();
+      } else {
+        return loadingView();
+      }
+    }
+
     return (
       <div className="home-wrapper">
         <div className="home-title-bar">
           <UI.TitleBar title="Home" hasSearchIcon={true}/>
         </div>
-        <div className="home-content">
-          <div className="home-cards-container">
-            {this.state.user ? this.cardScreen() : this.loadingScreen()}
-          </div>
+        <div className="home-body">
+          {getBody()}
         </div>
       </div>
     );
