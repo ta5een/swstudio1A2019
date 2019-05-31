@@ -63,11 +63,17 @@ class Login extends Component {
   }
 
   commitLogin() {
-    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(user => {
-      this.props.history.push('/home');
-    }).catch(error => {
-      this.displayAuthError(error);
-    });
+    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(userCredentials => {
+        const charitiesDocRef = fire.firestore().doc('charities/' + userCredentials.user.uid);
+        charitiesDocRef.get()
+          .then(doc => {
+            localStorage.setItem('is-charity-organiser', JSON.stringify(doc.exists));
+            this.props.history.push('/home');
+          })
+          .catch(error => console.log(error));
+      })
+      .catch(error => this.displayAuthError(error));
   }
 
   displayAuthError(error) {
