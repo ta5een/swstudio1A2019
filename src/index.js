@@ -14,6 +14,8 @@ import CreateAccount from './components/authentication/new-account/CreateAccount
 import AccountCreated from './components/authentication/new-account/AccountCreated';
 
 import TabBarView from './components/main-interface/TabBarView';
+import CreateEvent from './components/main-interface/Tabs/profile/new-event/CreateEvent';
+import DateTimeSelection from './components/main-interface/Tabs/profile/new-event/DateTimeSelection';
 
 const history = require('history').createBrowserHistory();
 
@@ -39,6 +41,10 @@ const routes = (
       <Route path="/bookings" render={(props) => <TabBarView {...props} currentIndex={1}/>}/>
       <Route path="/favourites" render={(props) => <TabBarView {...props} currentIndex={2}/>}/>
       <Route path="/profile" render={(props) => <TabBarView {...props} currentIndex={3}/>}/>
+
+      {/* Charity Organiser Components */}
+      <Route path="/new-event-details" component={CreateEvent}/>
+      <Route path="/new-event-date" component={DateTimeSelection}/>
 
       {/* 404 */}
       <Route render={() => <Redirect to="/"/>}/>
