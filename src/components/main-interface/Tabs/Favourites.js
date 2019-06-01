@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { PulseLoader } from 'react-spinners';
 
 import Globals from '../../../Globals';
 import * as UI from '../../../controls/UI';

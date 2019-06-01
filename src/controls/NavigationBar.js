@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import { css } from 'styled-components';
 import Globals from '../Globals';
 
 const globalColours = Globals.constants.styles.colours;

@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 import Globals from '../Globals';
-import { Heading, Subheading, Label } from './Headings';
+import { Heading, Subheading } from './Headings';
 
 const globalColours = Globals.constants.styles.colours;
 const globalFontFamily = Globals.constants.styles.font.family;

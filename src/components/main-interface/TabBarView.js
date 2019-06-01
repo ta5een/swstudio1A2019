@@ -7,7 +7,7 @@ import './styles/TabBarView.css';
 import Home from './Tabs/Home';
 import Bookings from './Tabs/Bookings';
 import Favourites from './Tabs/Favourites';
-import Profile from './Tabs/Profile';
+import Profile from './Tabs/profile/Profile';
 
 class TabBarView extends Component {
   constructor(props) {
