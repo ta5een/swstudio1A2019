@@ -148,10 +148,10 @@ class DateTimeSelection extends Component {
         year: parseInt(this.state.eventEndDate.year)
       }
 
-      return (this.state.isOneDayEvent
-              || ((eventEnd.date >= eventStart.date)
-              && (eventEnd.month >= eventStart.month)
-              && (eventEnd.year >= eventStart.year)));
+      let eventStartDate = new Date(eventStart.year, eventStart.month, eventStart.date);
+      let eventEndDate = new Date(eventEnd.year, eventEnd.month, eventEnd.date);
+
+      return (this.state.isOneDayEvent || (eventEndDate > eventStartDate));
     }
 
     return (
@@ -160,7 +160,7 @@ class DateTimeSelection extends Component {
         <div className="date-selection-content">
           <div className="date-selection-heading-group">
             <UI.Heading>When's it happening?</UI.Heading>
-            <UI.Subheading>Fill in when "{this.state.eventName}" will start and end</UI.Subheading>
+            <UI.Subheading>Fill in when "{this.state.eventName}" will start and end in the details below</UI.Subheading>
           </div>
           <div id="startDateForm" className="date-selection-form">
             <UI.Label htmlFor="labeled-textfield">start date</UI.Label>
