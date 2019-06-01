@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { PulseLoader } from 'react-spinners';
 
-import fire, { attemptGetCurrentUser } from '../../../config/Fire';
-import Globals from '../../../Globals';
-import * as UI from '../../../controls/UI';
+import fire, { attemptGetCurrentUser } from '../../../../config/Fire';
+import Globals from '../../../../Globals';
+import * as UI from '../../../../controls/UI';
 import './styles/Profile.css';
 
 class Profile extends Component {
@@ -43,7 +43,7 @@ class Profile extends Component {
 
   render() {
     const loadingView = () => {
-      const globalColours = require('../../../Globals').default.constants.styles.colours
+      const globalColours = require('../../../../Globals').default.constants.styles.colours
 
       return (
         <div className="profile-loading-container">
@@ -53,16 +53,28 @@ class Profile extends Component {
     }
 
     const contentView = () => {
-      return (
-        <div className="profile-content-container">
-          <div>
-            <UI.Heading style={{ margin: "0px" }}>{this.state.user.displayName}</UI.Heading>
-            <UI.Subheading>{this.state.user.email}</UI.Subheading>
+      if (this.state.isCharityOrg) {
+        return (
+          <div className="profile-content-container">
+            <div>
+              <UI.Heading style={{ margin: "0px" }}>{this.state.user.displayName}</UI.Heading>
+              <UI.Subheading>{this.state.user.email}</UI.Subheading>
+            </div>
+            <UI.Button onClick={() => this.props.history.push('/new-event-details')}>CREATE NEW EVENT</UI.Button>
+            <UI.Button danger onClick={() => this.handleLogout()}>LOG OUT</UI.Button>
           </div>
-          {this.state.isCharityOrg ? <UI.Button>ADD EVENT</UI.Button> : null}
-          <UI.Button danger onClick={() => this.handleLogout()}>LOG OUT</UI.Button>
-        </div>
-      );
+        );
+      } else {
+        return (
+          <div className="profile-content-container">
+            <div>
+              <UI.Heading style={{ margin: "0px" }}>{this.state.user.displayName}</UI.Heading>
+              <UI.Subheading>{this.state.user.email}</UI.Subheading>
+            </div>
+            <UI.Button danger onClick={() => this.handleLogout()}>LOG OUT</UI.Button>
+          </div>
+        );
+      }
     }
 
     return (
