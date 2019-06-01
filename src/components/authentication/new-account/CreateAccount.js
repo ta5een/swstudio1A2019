@@ -176,7 +176,8 @@ class CreateAccount extends Component {
 
             usersDocRef.set({ 'name': this.state.username, 'is-charity-organiser': (selectedRole === 'charity') })
               .then(() => {
-                console.log("3: Successfully set user `name` and `is-charity-organiser` properties");
+                console.log("3: Successfully set user `name` and `is-charity-organiser` properties.");
+                localStorage.setItem('is-charity-organiser', (selectedRole === 'charity'));
 
                 if (selectedRole === 'volunteer') {
                   console.log("User selected 'volunteer'");
