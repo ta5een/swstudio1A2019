@@ -2,6 +2,7 @@ import { TitleBar } from './TitleBar';
 import { NavigationBar } from './NavigationBar';
 import { Title, Caption, Heading, Subheading, Label } from './Headings';
 import { Button, BackButton, SegmentedControl } from './Buttons';
+import { PickerView } from './PickerView';
 import { TextField, TextArea } from './TextField';
 import { InfoBox, WarningBox, ErrorBox, showInfoBox, DialogType } from './Dialogs';
 import { RoleCard, EventCard, EmptyEventCard } from './Cards';
@@ -24,6 +25,9 @@ export {
   Button,
   BackButton,
   SegmentedControl,
+
+  // Picker View
+  PickerView,
 
   // Text Inputs
   TextField,
