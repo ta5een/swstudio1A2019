@@ -84,6 +84,10 @@ const styles = css`
     object-fit: cover;
   }
 
+  label {
+    margin: 0;
+  }
+
   .card-description,
   .role-card-description {
     padding: 15px;
@@ -178,6 +182,24 @@ export const EventCard = ({ name, organisation, image, alt=name, onClick }) => {
       <div className="event-card" onClick={onClick}>
         <div className="event-card-content">
           <img className="event-card-image" src={image} alt={alt}/>
+          <div className="event-card-description">
+            <EventName>{name}</EventName>
+            <EventOrganisation>{organisation.toLowerCase()}</EventOrganisation>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export const EventCardUpload = ({ name, organisation, onClick }) => {
+  return (
+    <>
+      <style type="text/css">{styles}</style>
+      <div className="event-card" onClick={onClick}>
+        <div className="event-card-content">
+          <label htmlFor="eventCardImageInput"><img id="eventCardImage" className="event-card-image" src="/assets/upload.png" alt={name}/></label>
+          <input id="eventCardImageInput" name="event-card-image-input" type="file" accept="image/*"/>
           <div className="event-card-description">
             <EventName>{name}</EventName>
             <EventOrganisation>{organisation.toLowerCase()}</EventOrganisation>

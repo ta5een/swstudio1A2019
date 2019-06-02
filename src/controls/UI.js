@@ -5,7 +5,7 @@ import { Button, BackButton, SegmentedControl } from './Buttons';
 import { PickerView } from './PickerView';
 import { TextField, TextArea } from './TextField';
 import { InfoBox, WarningBox, ErrorBox, showInfoBox, DialogType } from './Dialogs';
-import { RoleCard, EventCard, EmptyEventCard } from './Cards';
+import { RoleCard, EventCard, EventCardUpload, EmptyEventCard } from './Cards';
 
 export {
   // Title Bar
@@ -43,5 +43,6 @@ export {
   // Cards
   RoleCard,
   EventCard,
+  EventCardUpload,
   EmptyEventCard
 };
