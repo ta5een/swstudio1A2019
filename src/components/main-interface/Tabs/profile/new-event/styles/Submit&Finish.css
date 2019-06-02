@@ -1,0 +1,36 @@
+.submit-finish-wrapper {
+  height: 100vh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit-finish-content {
+  width: 335px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.submitting-message {
+  text-align: center;
+}
+
+.submitting-message > *:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.finished-message {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.submit-finish-button-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.submit-finish-button-group > *:not(:last-child) {
+  margin-bottom: 20px;
+}

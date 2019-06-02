@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import * as UI from '../../../../../controls/UI';
-import './styles/DateTimeSelection.css';
+import Globals from '../../../../../Globals';
+import './styles/DateAndTimeSelection.css';
 
 const months =
   ["January", "February", "March", "April", "May", "June", "July", "August",
     "September", "October", "November", "December"];
 
-class DateTimeSelection extends Component {
+class DateSelection extends Component {
   constructor(props) {
     super(props);
 
@@ -17,7 +18,9 @@ class DateTimeSelection extends Component {
     tomorrow.setDate(today.getDate() + 1);
     tomorrow.setFullYear(today.getFullYear());
 
-    if (!this.props.location.state) {
+    console.log(this.props.location.state);
+
+    if (this.props.location.state === undefined || this.props.location.state === null) {
       this.props.history.push('/new-event-details');
     }
 
@@ -47,11 +50,18 @@ class DateTimeSelection extends Component {
   }
 
   componentDidMount() {
+    document.title = `${Globals.app.name} – Create Event`;
     document.getElementById('endDateForm').style.display = 'none';
   }
 
   handleContinue() {
-    this.props.history.push('/new-event-time', { ...this.state });
+    if (this.state.isOneDayEvent) {
+      this.setState({ eventEndDate: { ...this.state.eventStartDate } }, () => {
+        this.props.history.push('/new-event-time', { ...this.state })
+      });
+    } else {
+      this.props.history.push('/new-event-time', { ...this.state });
+    }
   }
 
   render() {
@@ -155,42 +165,57 @@ class DateTimeSelection extends Component {
     }
 
     return (
-      <div className="date-selection-wrapper">
+      <div className="date-time-selection-wrapper">
         <UI.BackButton to="/new-event-details" from={this}/>
-        <div className="date-selection-content">
-          <div className="date-selection-heading-group">
+        <div className="date-time-selection-content">
+          <div className="date-time-selection-heading-group">
             <UI.Heading>When's it happening?</UI.Heading>
-            <UI.Subheading>Fill in when "{this.state.eventName}" will start and end in the details below</UI.Subheading>
+            <UI.Subheading>When will "{this.state.eventName}" start and end? You can change this at anytime</UI.Subheading>
           </div>
-          <div id="startDateForm" className="date-selection-form">
-            <UI.Label htmlFor="labeled-textfield">start date</UI.Label>
-            <div className="date-selection-date-picker">
-              <UI.PickerView id="startDatePickerView" options={startDateRange} value={this.state.eventStartDate.date.padStart(2, '0')} onChange={handleStartDateValueChange.bind(this, this.state.eventStartDate, 'date')}/>
-              <UI.PickerView id="startMonthPickerView" options={months} value={this.state.eventStartDate.month.fullName} flex={3} onChange={handleStartDateValueChange.bind(this, this.state.eventStartDate, 'month')}/>
-              <UI.PickerView id="startYearPickerView" options={range(2019, 2030)} value={this.state.eventStartDate.year.toString()} flex={2} onChange={handleStartDateValueChange.bind(this, this.state.eventStartDate, 'year')}/>
+          <div id="startDateForm" className="date-time-selection-form">
+            <UI.Label className="date-time-label">Start date</UI.Label>
+            <div className="date-time-selection-date-picker">
+              <UI.PickerView
+                id="startDatePickerView"
+                options={startDateRange}
+                value={this.state.eventStartDate.date.padStart(2, '0')}
+                onChange={handleStartDateValueChange.bind(this, this.state.eventStartDate, 'date')}/>
+              <UI.PickerView
+                id="startMonthPickerView"
+                options={months}
+                value={this.state.eventStartDate.month.fullName}
+                onChange={handleStartDateValueChange.bind(this, this.state.eventStartDate, 'month')}/>
+              <UI.PickerView
+                id="startYearPickerView"
+                options={range(2019, 2030)}
+                value={this.state.eventStartDate.year.toString()}
+                onChange={handleStartDateValueChange.bind(this, this.state.eventStartDate, 'year')}/>
             </div>
           </div>
-          <div id="endDateForm" className="date-selection-form">
-            <UI.Label htmlFor="labeled-textfield">end date</UI.Label>
-            <div className="date-selection-date-picker">
-              <UI.PickerView id="endDatePickerView" options={endDateRange} value={this.state.eventEndDate.date.padStart(2, '0')} onChange={handleEndDateValueChange.bind(this, this.state.eventEndDate, 'date')}/>
-              <UI.PickerView id="endMonthPickerView" options={months} value={this.state.eventEndDate.month.fullName} flex={3} onChange={handleEndDateValueChange.bind(this, this.state.eventEndDate, 'month')}/>
-              <UI.PickerView id="endYearPickerView" options={range(2019, 2030)} value={this.state.eventEndDate.year} flex={2} onChange={handleEndDateValueChange.bind(this, this.state.eventEndDate, 'year')}/>
+          <div id="endDateForm" className="date-time-selection-form">
+            <UI.Label className="date-time-label">End date</UI.Label>
+            <div className="date-time-selection-date-picker">
+              <UI.PickerView
+                id="endDatePickerView"
+                options={endDateRange}
+                value={this.state.eventEndDate.date.padStart(2, '0')}
+                onChange={handleEndDateValueChange.bind(this, this.state.eventEndDate, 'date')}/>
+              <UI.PickerView
+                id="endMonthPickerView"
+                options={months} value={this.state.eventEndDate.month.fullName}
+                onChange={handleEndDateValueChange.bind(this, this.state.eventEndDate, 'month')}/>
+              <UI.PickerView
+                id="endYearPickerView"
+                options={range(2019, 2030)}
+                value={this.state.eventEndDate.year}
+                onChange={handleEndDateValueChange.bind(this, this.state.eventEndDate, 'year')}/>
             </div>
           </div>
-          <div className="date-selection-checkbox-container">
-            <input id="oneDayEventCheckbox" className="date-selection-checkbox" type="checkbox" name="is-one-day-event" defaultChecked={this.state.isOneDayEvent} onClick={handleCheckboxClick.bind(this)}/>
+          <div className="date-time-selection-checkbox-container">
+            <input id="oneDayEventCheckbox" className="date-time-selection-checkbox" type="checkbox" name="is-one-day-event" checked={this.state.isOneDayEvent} onChange={handleCheckboxClick.bind(this)}/>
             <label htmlFor="is-one-day-event">This event only goes for one day</label>
           </div>
-          {/* <form className="date-selection-form">
-            <UI.Label htmlFor="labeled-textfield">time start</UI.Label>
-            <div className="date-selection-time-picker">
-              <UI.PickerView id="hourPickerView" options={range(1, 12)}/>
-              <UI.PickerView id="minutePickerView" options={range(0, 59)} onChange={() => console.log('I was changed')}/
-              <UI.PickerView id="periodPickerView" options={["AM", "PM"]}/>
-            </div>
-          </form> */}
-          <div className="date-selection-continue-button-container">
+          <div className="date-time-selection-continue-button-container">
             <UI.Button primary id="continueButton" type="submit" disabled={!isEnabled()} onClick={this.handleContinue}>CONTINUE</UI.Button>
           </div>
         </div>
@@ -199,4 +224,4 @@ class DateTimeSelection extends Component {
   }
 }
 
-export default withRouter(DateTimeSelection);
+export default withRouter(DateSelection);

@@ -15,7 +15,10 @@ import AccountCreated from './components/authentication/new-account/AccountCreat
 
 import TabBarView from './components/main-interface/TabBarView';
 import CreateEvent from './components/main-interface/Tabs/profile/new-event/CreateEvent';
-import DateTimeSelection from './components/main-interface/Tabs/profile/new-event/DateTimeSelection';
+import DateSelection from './components/main-interface/Tabs/profile/new-event/DateSelection';
+import TimeSelection from './components/main-interface/Tabs/profile/new-event/TimeSelection';
+import UploadImage from './components/main-interface/Tabs/profile/new-event/UploadImage';
+import SubmitAndFinish from './components/main-interface/Tabs/profile/new-event/Submit&Finish';
 
 const history = require('history').createBrowserHistory();
 
@@ -44,7 +47,10 @@ const routes = (
 
       {/* Charity Organiser Components */}
       <Route path="/new-event-details" component={CreateEvent}/>
-      <Route path="/new-event-date" component={DateTimeSelection}/>
+      <Route path="/new-event-date" component={DateSelection}/>
+      <Route path="/new-event-time" component={TimeSelection}/>
+      <Route path="/new-event-upload-image" component={UploadImage}/>
+      <Route path="/new-event-submit" component={SubmitAndFinish}/>
 
       {/* 404 */}
       <Route render={() => <Redirect to="/"/>}/>

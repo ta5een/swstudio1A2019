@@ -48,8 +48,8 @@ class CreateEvent extends Component {
         <UI.BackButton to="/profile" from={this}/>
         <div className="create-event-content">
           <div className="create-event-heading-group">
-            <UI.Heading>New event</UI.Heading>
-            <UI.Subheading>Awesome, let's start by filling in some details</UI.Subheading>
+            <UI.Heading>Create new event</UI.Heading>
+            <UI.Subheading>Want to create a new event? Let's start by filling in the details below</UI.Subheading>
           </div>
           <form className="create-event-form">
             <div className="create-event-labeled-textfield">
