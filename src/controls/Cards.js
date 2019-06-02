@@ -26,13 +26,10 @@ const styles = css`
   }
 
   .empty-event-card {
-    background: ${globalColours.grey.contrast};
-    border: 2.5px solid ${globalColours.grey.dark};
-    border-radius: ${globalBorderProps.radius};
-    border-style: dotted;
+    background: none;
+    border: none;
+    border-radius: none;
     box-shadow: none;
-
-    // text-align: center;
   }
 
   .event-card,
@@ -66,6 +63,13 @@ const styles = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    text-align: center;
+  }
+
+  .empty-event-card img {
+    width: 100%;
+    margin-bottom: 0px;
   }
 
   .card-image,
@@ -120,6 +124,10 @@ const RoleLabel = styled.h3`
   font-size: 18px;
   font-weight: 500;
 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
@@ -129,7 +137,11 @@ const RoleDescription = styled.p`
   font-family: ${globalFontFamily.default};
   font-size: 14px;
 
-  color: #9492A0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  color: ${globalColours.grey.contrast};
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -158,6 +170,10 @@ const EventName = styled.h3`
   font-size: 22px;
   font-weight: 500;
 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
@@ -167,6 +183,10 @@ const EventOrganisation = styled.p`
   font-family: ${globalFontFamily.default};
   font-size: 20px;
   font-variant: small-caps;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   color: ${globalColours.grey.contrast};
 
@@ -211,23 +231,24 @@ export const EventCardUpload = ({ name, organisation, onClick }) => {
 }
 
 const EmptyHeading = styled(Heading)`
-  color: ${globalColours.basic.pure};
+  color: ${globalColours.basic.licorice};
   font-size: 24px;
+  margin-top: 0px;
 `;
 
 const EmptySubheading = styled(Subheading)`
-  color: ${globalColours.basic.pure};
   font-size: 18px;
 `;
 
-export const EmptyEventCard = () => {
+export const EmptyEventCard = ({ heading, subheading }) => {
   return (
     <>
       <style type="text/css">{styles}</style>
       <div className="empty-event-card">
         <div className="empty-event-card-content">
-          <EmptyHeading>It's quiet here</EmptyHeading>
-          <EmptySubheading>Start a new event by going to your profile or tapping here.</EmptySubheading>
+          <img src="/assets/no_results.png" alt="no-results"/>
+          <EmptyHeading>{heading}</EmptyHeading>
+          <EmptySubheading>{subheading}</EmptySubheading>
         </div>
       </div>
     </>
