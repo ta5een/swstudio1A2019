@@ -62,8 +62,17 @@ class SubmitAndFinish extends Component {
           'event-end': eventEndDate.toISOString()
         }
 
+        console.log({
+          'organiser': user.uid,
+          'name': this.state.eventName,
+          'details': JSON.stringify(this.state.eventDetails),
+          'is-one-day-event': this.state.isOneDayEvent,
+          'event-start': eventStartDate.toISOString(),
+          'event-end': eventEndDate.toISOString()
+        });
+
         console.log("Adding document to `events` with properties...")
-        eventsDocRef.set({ data }, { merge: true })
+        eventsDocRef.set(data, { merge: true })
           .then(() => {
             let organisedEvents = [];
 
@@ -73,8 +82,8 @@ class SubmitAndFinish extends Component {
                   let events = [];
                   let data = doc.data();
 
-                  Object.keys(data["organised-events"]).map((key) => {
-                    events.push(data[key]);
+                  Object.keys(data['organised-events']).map((key) => {
+                    events.push(data['organised-events'][key]);
                   });
 
                   organisedEvents = events.flat();
@@ -87,11 +96,12 @@ class SubmitAndFinish extends Component {
                 eventCoverRef.putString(this.state.eventCover, 'data_url')
                   .then(() => {
                     console.log("Adding event key to organised events array...");
-                    fire.firestore().collection('charities').doc(user.uid).set({
-                      'organised-events': [...organisedEvents, eventsDocRef.id]
-                    }, { merge: true })
-                    .then(() => this.setState({ isFinished: true }))
-                    .catch(error => console.log(error));
+                    fire.firestore().collection('charities').doc(user.uid)
+                      .set({
+                        'organised-events': [...organisedEvents, eventsDocRef.id]
+                      }, { merge: true })
+                      .then(() => this.setState({ isFinished: true }))
+                      .catch(error => console.log(error));
                   })
                   .catch(error => console.log(error));
               })

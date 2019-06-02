@@ -120,7 +120,7 @@ class TimeSelection extends Component {
               <UI.PickerView
                 id="startHourPickerView"
                 options={range(0, 24)}
-                value={this.state.eventStartTime.hour}
+                value={this.state.eventStartTime.hour.toString().padStart(2, '0')}
                 onChange={handleStartTimeValueChange.bind(this, this.state.eventStartTime, 'hour')}/>
               <UI.PickerView
                 id="startMinutePickerView"
@@ -135,7 +135,7 @@ class TimeSelection extends Component {
             <div className="date-time-selection-date-picker">
               <UI.PickerView
                 id="endHourPickerView"
-                options={range(0, 24)} value={this.state.eventEndTime.hour}
+                options={range(0, 24)} value={this.state.eventEndTime.hour.toString().padStart(2, '0')}
                 onChange={handleEndTimeValueChange.bind(this, this.state.eventEndTime, 'hour')}
                 flex={5}/>
               <UI.PickerView
