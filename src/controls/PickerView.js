@@ -20,7 +20,6 @@ const styles = css`
 
     background: none;
     background-image: url('/assets/icons/up_arrow.svg'), url('/assets/icons/down_arrow.svg');
-    /* background-position: right 4px top 8px, right 4px bottom 8px; */
     background-position: center top, center bottom;
     background-repeat: no-repeat;
     color: rgba(0, 0, 0, 0);
@@ -69,12 +68,12 @@ const styles = css`
   }
 `;
 
-export const PickerView = ({ id=null, ref=null, options=[], value, onChange=null, flex=1 }) => {
+export const PickerView = ({ id=null, options=[], value, onChange=null }) => {
   return (
     <>
       <style type="text/css">{styles}</style>
       <div className="picker-view-container">
-        <select id={id} ref={ref} className="picker-view" name="picker-view" onChange={onChange} value={value}>
+        <select id={id} className="picker-view" name="picker-view" onChange={onChange} value={value}>
           {options.map((option, index) => {
             return (
               <option value={option} key={`${index}-${new Date().getTime()}`}>

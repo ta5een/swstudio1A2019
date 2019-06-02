@@ -154,8 +154,8 @@ export const Button = styled.button`
   `}
 `;
 
-export const BackButton = ({ to, from }) => {
-  return <img className="back-button" src="/assets/icons/back_button.svg" alt="back button" onClick={() => from.props.history.push(to)}/>;
+export const BackButton = ({ override=false, to, from }) => {
+  return <img className="back-button" src="/assets/icons/back_button.svg" alt="back button" onClick={override ? to : () => from.props.history.push(to)}/>;
 };
 
 // const segmentedButtonStyles = css`
@@ -262,7 +262,7 @@ const segmentedControlStyles = css`
     display: none;
     margin: 0;
     position: absolute;
-    
+
     -webkit-appearance: none;
     appearance: none;
   }
