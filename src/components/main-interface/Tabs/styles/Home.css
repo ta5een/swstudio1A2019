@@ -16,10 +16,9 @@
 .home-body {
   flex: 1;
 
-  margin-top: 132px;
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-bottom: 30px;
+  /* margin-top: 132px;
+  margin-bottom: 30px; */
+  margin-top: 100px;
 }
 
 .home-loading-container {
@@ -30,12 +29,55 @@
   align-items: center;
 }
 
-.home-cards-container {
+.home-scrolling-container {
   height: 100%;
   display: flex;
-  flex-direction: column;
+  flex: none;
+  flex-flow: row nowrap;
+
+  overflow-x: scroll;
+  overflow-y: visible;
+
+  -webkit-overflow-scrolling: touch;
+  -webkit-scroll-snap-destination: 50% 50%;
+  -webkit-scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory;
+
+  padding-left: 40px;
 }
 
-.home-card {
-  height: 100%;
+.home-scrolling-container::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.home-scrolling-container .event-card {
+  display: inline-block;
+  height: calc(100% - 60px);
+  margin-top: 30px;
+  margin-right: 40px;
+  width: 334px;
+  scroll-snap-align: center;
+  flex: none;
+}
+
+.home-scrolling-container > *:first-child {
+  margin-left: 40px;
+}
+
+.home-scrolling-container > *:last-child {
+  margin-right: 40px;
+}
+
+.home-scrolling-container > *:last-child:after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 40px;
+  width: 40px;
+  height: 1px;
+}
+
+.home-scrolling-container > *:not(:last-child) {
+  margin-right: 20px;
 }
