@@ -16,6 +16,7 @@ class Home extends Component {
       query: queryString.parse(this.props.location.search),
       user: null,
       isCharityOrg: JSON.parse(localStorage.getItem('is-charity-organiser')),
+      retrievedEvents: [],
       isLoading: true
     });
   }
@@ -24,18 +25,25 @@ class Home extends Component {
     document.title = `${Globals.app.name} – Home`;
 
     const getCharityUserData = (user) => {
-      fire.firestore().collection('charities').doc(user.uid).get()
+      if (localStorage.getItem('retrieved-events') !== null) {
+        this.setState({
+          user,
+          isCharityOrg: true,
+          retrievedEvents: JSON.parse(localStorage.getItem('retrieved-events')),
+          isLoading: false
+        });
+      } else {
+        fire.firestore().collection('charities').doc(user.uid).get()
         .then(charityDoc => {
           if (charityDoc.exists) {
             let charityData = charityDoc.data();
 
             this.setState({
               user,
-              organisedEvents: charityData['organised-events'],
+              isCharityOrg: true,
               retrievedEvents: [],
-              isCharityOrg: true
             }, () => {
-              this.state.organisedEvents.map((event) => {
+              charityData['organised-events'].map(event => {
                 fire.firestore().collection('events').doc(event).get()
                   .then(eventDoc => {
                     if (eventDoc.exists) {
@@ -58,7 +66,10 @@ class Home extends Component {
                                       }
                                     },
                                     isLoading: false
-                                  }, () => console.log(this.state.userData));
+                                  }, () => {
+                                    console.log(this.state.userData);
+                                    localStorage.setItem('retrieved-events', JSON.stringify(this.state.retrievedEvents));
+                                  });
                               })
                               .catch(error => console.log(error));
                           }
@@ -72,49 +83,61 @@ class Home extends Component {
           }
         })
         .catch(error => console.log(error));
+      }
     }
 
     const getVolunteerUserData = (user) => {
-      fire.firestore().collection('events').get()
-        .then(eventsDoc => {
-          this.setState({
-            user,
-            isCharityOrg: false
-          }, () => {
-            let events = {};
+      if (localStorage.getItem('retrieved-events') !== null) {
+        this.setState({
+          user,
+          isCharityOrg: false,
+          retrievedEvents: JSON.parse(localStorage.getItem('retrieved-events')),
+          isLoading: false
+        });
+      } else {
+        fire.firestore().collection('events').get()
+          .then(eventsDoc => {
+            this.setState({
+              user,
+              isCharityOrg: false
+            }, () => {
+              let retrievedEvents = {};
 
-            eventsDoc.docs.map(doc => {
-              let eventData = doc.data();
+              eventsDoc.docs.map(doc => {
+                let eventData = doc.data();
 
-              fire.firestore().collection('charities').doc(eventData['organiser']).get()
-                .then(charityDoc => {
-                  if (charityDoc.exists) {
-                    let charityData = charityDoc.data();
+                fire.firestore().collection('charities').doc(eventData['organiser']).get()
+                  .then(charityDoc => {
+                    if (charityDoc.exists) {
+                      let charityData = charityDoc.data();
 
-                    fire.storage().ref().child(`events/${doc.id}/cover.jpg`).getDownloadURL()
-                      .then(coverURL => {
-                        events = {
-                          ...events,
-                          [doc.id]: {
-                            name: eventData['name'],
-                            organiser: charityData['name'],
-                            coverURL
+                      fire.storage().ref().child(`events/${doc.id}/cover.jpg`).getDownloadURL()
+                        .then(coverURL => {
+                          retrievedEvents = {
+                            ...retrievedEvents,
+                            [doc.id]: {
+                              name: eventData['name'],
+                              organiser: charityData['name'],
+                              coverURL
+                            }
                           }
-                        }
 
-                        this.setState({
-                          events,
-                          isLoading: false
-                        });
-                      })
-                      .catch(error => console.log(error));
-                  }
-                })
-                .catch(error => console.log(error));
+                          this.setState({
+                            retrievedEvents,
+                            isLoading: false
+                          }, () => {
+                            localStorage.setItem('retrieved-events', JSON.stringify(this.state.retrievedEvents));
+                          });
+                        })
+                        .catch(error => console.log(error));
+                    }
+                  })
+                  .catch(error => console.log(error));
+              });
             });
-          });
-        })
-        .catch(error => console.log(error));
+          })
+          .catch(error => console.log(error));
+      }
     }
 
     attemptGetCurrentUser(10)
@@ -160,20 +183,17 @@ class Home extends Component {
 
     const volunteerCardView = () => {
       const buildCards = () => {
-        let events = this.state.events;
+        let retrievedEvents = this.state.retrievedEvents;
 
-        if (events !== undefined) {
-          if (Object.keys(events).length > 0) {
-            return Object.keys(events).map(event => {
-              console.log(event);
-              console.log(events[event]);
-
+        if (retrievedEvents !== undefined) {
+          if (Object.keys(retrievedEvents).length > 0) {
+            return Object.keys(retrievedEvents).map(event => {
               return (
                 <UI.EventCard
                   key={event}
-                  name={events[event].name}
-                  organisation={events[event].organiser}
-                  image={events[event].coverURL}/>
+                  name={retrievedEvents[event].name}
+                  organisation={retrievedEvents[event].organiser}
+                  image={retrievedEvents[event].coverURL}/>
               );
             });
           } else {
