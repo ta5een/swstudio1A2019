@@ -83,6 +83,7 @@ const styles = css`
 
   .event-card-image {
     flex: 1;
+    height: 300px;
     width: 100%;
     border-radius: ${globalBorderProps.radius} ${globalBorderProps.radius} 0 0;
     object-fit: cover;

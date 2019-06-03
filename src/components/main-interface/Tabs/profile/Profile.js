@@ -35,6 +35,7 @@ class Profile extends Component {
 
     fire.auth().signOut()
       .then(() => {
+        localStorage.removeItem('retrieved-events');
         console.log("Successfully signed out. Redirecting...");
         this.props.history.push('/start');
       })
