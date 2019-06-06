@@ -22,7 +22,11 @@
   margin-bottom: 30px;
 }
 
-.home-loading-container {
+.bookings-container {
+  height: 100%;
+}
+
+.bookings-loading-container {
   height: 100%;
   display: flex;
   flex-direction: column;

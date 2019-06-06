@@ -13,11 +13,23 @@
   z-index: 10;
 }
 
-.favourites-content {
+.favourites-body {
   flex: 1;
 
   margin-top: 132px;
   margin-left: 40px;
   margin-right: 40px;
   margin-bottom: 30px;
+}
+
+.favourites-container {
+  height: 100%;
+}
+
+.favourites-loading-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
