@@ -20,6 +20,8 @@ import TimeSelection from './components/main-interface/Tabs/profile/new-event/Ti
 import UploadImage from './components/main-interface/Tabs/profile/new-event/UploadImage';
 import SubmitAndFinish from './components/main-interface/Tabs/profile/new-event/Submit&Finish';
 
+import EventDetails from './components/main-interface/Tabs/EventDetails';
+
 const history = require('history').createBrowserHistory();
 
 const routes = (
@@ -51,6 +53,8 @@ const routes = (
       <Route path="/new-event-time" component={TimeSelection}/>
       <Route path="/new-event-upload-image" component={UploadImage}/>
       <Route path="/new-event-submit" component={SubmitAndFinish}/>
+
+      <Route path="/event-details" component={EventDetails}/>
 
       {/* 404 */}
       <Route render={() => <Redirect to="/"/>}/>
