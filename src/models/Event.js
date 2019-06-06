@@ -1,9 +1,11 @@
 export default class Event {
-  constructor({ name, when: { time, date }, location, details }) {
+  constructor({ name, organiser, isOneDayEvent, start, end, details, coverURL }) {
     this.name = name;
-    this.time = time;
-    this.date = date;
-    this.location = location;
+    this.organiser = organiser;
+    this.isOneDayEvent = isOneDayEvent;
+    this.start = start;
+    this.end = end;
     this.details = details;
+    this.coverURL = coverURL
   }
 }

@@ -1,4 +1,4 @@
-import React, { Component, useReducer } from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { PulseLoader } from 'react-spinners';
 
