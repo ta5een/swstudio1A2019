@@ -20,7 +20,10 @@ class Bookings extends Component {
 
   componentDidMount() {
     document.title = `${Globals.app.name} – Bookings`;
+    this.getData();
+  }
 
+  getData() {
     attemptGetCurrentUser(10)
       .then(user => {
         if (localStorage.getItem('booked-events') !== null) {
@@ -28,54 +31,63 @@ class Bookings extends Component {
             user,
             bookedEvents: JSON.parse(localStorage.getItem('booked-events')),
             isLoading: false
-          });
+          }, () => console.log(this.state));
         } else {
           fire.firestore().collection('volunteers').doc(user.uid).get()
             .then(volunteerDoc => {
               if (volunteerDoc.exists) {
                 let volunteerData = volunteerDoc.data();
+                let events = volunteerData['booked-events'];
 
                 this.setState({
                   user,
                   isCharityOrg: true,
                   bookedEvents: [],
                 }, () => {
-                  volunteerData['booked-events'].map(event => {
-                    fire.firestore().collection('events').doc(event).get()
-                      .then(eventDoc => {
-                        if (eventDoc.exists) {
-                          let eventData = eventDoc.data();
+                  if (events.length > 0) {
+                    events.map(event => {
+                      fire.firestore().collection('events').doc(event).get()
+                        .then(eventDoc => {
+                          console.log(event)
 
-                          fire.firestore().collection('charities').doc(eventData['organiser']).get()
-                            .then(charityDoc => {
-                              if (charityDoc.exists) {
-                                let charityData = charityDoc.data();
+                          if (eventDoc.exists) {
+                            let eventData = eventDoc.data();
 
-                                fire.storage().ref().child(`events/${event}/cover.jpg`).getDownloadURL()
-                                  .then(coverURL => {
-                                    this.setState({
-                                      bookedEvents: {
-                                        ...this.state.bookedEvents,
-                                        [event]: {
-                                          name: eventData['name'],
-                                          organiser: charityData['name'],
-                                          coverURL
-                                        }
-                                      },
-                                      isLoading: false
-                                    }, () => {
-                                      console.log(this.state);
-                                      localStorage.setItem('booked-events', JSON.stringify(this.state.bookedEvents));
-                                    });
-                                  })
-                                  .catch(error => console.log(error));
-                              }
-                            })
-                            .catch(error => console.log(error));
-                        }
-                      })
-                      .catch(error => console.log(error));
-                  });
+                            fire.firestore().collection('charities').doc(eventData['organiser']).get()
+                              .then(charityDoc => {
+                                if (charityDoc.exists) {
+                                  let charityData = charityDoc.data();
+
+                                  fire.storage().ref().child(`events/${event}/cover.jpg`).getDownloadURL()
+                                    .then(coverURL => {
+                                      this.setState({
+                                        bookedEvents: {
+                                          ...this.state.bookedEvents,
+                                          [event]: {
+                                            name: eventData['name'],
+                                            organiser: charityData['name'],
+                                            coverURL
+                                          }
+                                        },
+                                        isLoading: false
+                                      }, () => {
+                                        console.log(this.state);
+                                        localStorage.setItem('booked-events', JSON.stringify(this.state.bookedEvents));
+                                      });
+                                    })
+                                    .catch(error => console.log(error));
+                                }
+                              })
+                              .catch(error => console.log(error));
+                          } else {
+                            console.log(`Event with ID '${event}' does not exist!`);
+                          }
+                        })
+                        .catch(error => console.log(error));
+                    });
+                  } else {
+                    this.setState({ isLoading: false })
+                  }
                 });
               }
             })
@@ -90,7 +102,7 @@ class Bookings extends Component {
       const globalColours = require('../../../Globals').default.constants.styles.colours
 
       return (
-        <div className="home-loading-container">
+        <div className="bookings-loading-container">
           <PulseLoader color={globalColours.grey.contrast} size={12} margin={'7px'}/>
         </div>
       );
@@ -99,9 +111,7 @@ class Bookings extends Component {
     const bookedEventsView = () => {
       const buildCards = () => {
         let bookedEvents = this.state.bookedEvents;
-
         console.log(bookedEvents);
-        console.log(Object.keys(bookedEvents).length);
 
         if (bookedEvents !== undefined) {
           if (Object.keys(bookedEvents).length > 0) {
@@ -114,7 +124,15 @@ class Bookings extends Component {
                   image={bookedEvents[event].coverURL}/>
               );
             });
+          } else {
+            return (
+              <UI.EmptyEventCard heading="It's quiet here" subheading="Start booking events to see them listed here."/>
+            );
           }
+        } else {
+          return (
+            <UI.EmptyEventCard heading="It's quiet here" subheading="Start booking events to see them listed here."/>
+          );
         }
       }
 
@@ -126,10 +144,6 @@ class Bookings extends Component {
     }
 
     const getBody = () => {
-      console.log(this.state.user)
-      // console.log(this.state.isLoading)
-      // console.log(!this.state.isLoading && this.state.user)
-
       if (!this.state.isLoading && this.state.user) {
         return bookedEventsView();
       } else {
