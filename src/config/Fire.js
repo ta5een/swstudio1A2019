@@ -44,5 +44,9 @@ const getCurrentUser = () => new Promise((resolved, rejected) => {
 });
 
 export const attemptGetCurrentUser = (attempts=maximumAttempts) => {
-  return retryOperation(getCurrentUser, attempts, 1000);
+  if (localStorage.getItem('user') !== null) {
+    return new Promise((resolved, _) => resolved(JSON.parse(localStorage.getItem('user'))));
+  } else {
+    return retryOperation(getCurrentUser, attempts, 1000);
+  }
 }
