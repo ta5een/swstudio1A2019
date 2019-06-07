@@ -19,7 +19,8 @@ const styles = css`
 
   .card,
   .role-card,
-  .event-card {
+  .event-card,
+  .small-event-card {
     background: ${globalColours.basic.pure};
     border-radius: ${globalBorderProps.radius};
     box-shadow: 0 5px 45px 0 rgba(0,0,0,0.25);
@@ -52,6 +53,14 @@ const styles = css`
 
     display: flex;
     flex-direction: column;
+    justify-items: stretch;
+    align-content: flex-end;
+  }
+
+  .small-event-card-content {
+    height: 100%;
+
+    display: flex;
     justify-items: stretch;
     align-content: flex-end;
   }
@@ -89,6 +98,13 @@ const styles = css`
     object-fit: cover;
   }
 
+  .small-event-card-image {
+    height: 85px;
+    width: 85px;
+    border-radius: ${globalBorderProps.radius} 0 0 ${globalBorderProps.radius};
+    object-fit: cover;
+  }
+
   label {
     margin: 0;
   }
@@ -103,7 +119,8 @@ const styles = css`
   }
 
   .card-description > *,
-  .role-card-description > * {
+  .role-card-description > *,
+  .small-event-card-description > * {
     margin-top: 0px;
     margin-bottom: 5px;
   }
@@ -113,9 +130,15 @@ const styles = css`
     margin-bottom: 0px;
   }
 
+  .small-event-card-description {
+    width: 217px;
+    margin: 12px;
+  }
+
   .card-description > *:last-child,
   .role-card-description > *:last-child,
-  .event-card-description > *:last-child {
+  .event-card-description > *:last-child,
+  .small-event-card-description > *:last-child {
     margin-bottom: 0px;
   }
 `;
@@ -125,10 +148,6 @@ const RoleLabel = styled.h3`
   font-size: 18px;
   font-weight: 500;
 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
@@ -137,10 +156,6 @@ const RoleLabel = styled.h3`
 const RoleDescription = styled.p`
   font-family: ${globalFontFamily.default};
   font-size: 14px;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 
   color: ${globalColours.grey.contrast};
 
@@ -250,6 +265,23 @@ export const EmptyEventCard = ({ heading, subheading }) => {
           <img src="/assets/no_results.png" alt="no-results"/>
           <EmptyHeading>{heading}</EmptyHeading>
           <EmptySubheading>{subheading}</EmptySubheading>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export const SmallEventCard = ({ name, organisation, image, alt=name, onClick }) => {
+  return (
+    <>
+      <style type="text/css">{styles}</style>
+      <div className="small-event-card" onClick={onClick}>
+        <div className="small-event-card-content">
+          <img className="small-event-card-image" src={image} alt={alt}/>
+          <div className="small-event-card-description">
+            <EventName>{name}</EventName>
+            <EventOrganisation>{organisation.toLowerCase()}</EventOrganisation>
+          </div>
         </div>
       </div>
     </>

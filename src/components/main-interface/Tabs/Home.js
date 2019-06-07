@@ -295,7 +295,8 @@ class Home extends Component {
                   key={event}
                   name={retrievedEvents[event].name}
                   organisation={retrievedEvents[event].organiser}
-                  image={retrievedEvents[event].coverURL}/>
+                  image={retrievedEvents[event].coverURL}
+                  onClick={() => handleEventClick(event)}/>
               );
             });
           } else {
