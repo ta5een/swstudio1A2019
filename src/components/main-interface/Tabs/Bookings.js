@@ -117,7 +117,7 @@ class Bookings extends Component {
           if (Object.keys(bookedEvents).length > 0) {
             return Object.keys(bookedEvents).map(event => {
               return (
-                <UI.EventCard
+                <UI.SmallEventCard
                   key={event}
                   name={bookedEvents[event].name}
                   organisation={bookedEvents[event].organiser}
@@ -126,12 +126,12 @@ class Bookings extends Component {
             });
           } else {
             return (
-              <UI.EmptyEventCard heading="It's quiet here" subheading="Start booking events to see them listed here."/>
+              <UI.EmptyEventCard heading="It's quiet here" subheading="Start booking events to see them here."/>
             );
           }
         } else {
           return (
-            <UI.EmptyEventCard heading="It's quiet here" subheading="Start booking events to see them listed here."/>
+            <UI.EmptyEventCard heading="It's quiet here" subheading="Start booking events to see them here."/>
           );
         }
       }

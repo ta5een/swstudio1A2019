@@ -115,7 +115,7 @@ attemptGetCurrentUser(10)
           if (Object.keys(favouriteEvents).length > 0) {
             return Object.keys(favouriteEvents).map(event => {
               return (
-                <UI.EventCard
+                <UI.SmallEventCard
                   key={event}
                   name={favouriteEvents[event].name}
                   organisation={favouriteEvents[event].organiser}
@@ -124,12 +124,12 @@ attemptGetCurrentUser(10)
             });
           } else {
             return (
-              <UI.EmptyEventCard heading="It's quiet here" subheading="Start booking events to see them listed here."/>
+              <UI.EmptyEventCard heading="It's quiet here" subheading="Start adding events to your favourites to see them here."/>
             );
           }
         } else {
           return (
-            <UI.EmptyEventCard heading="It's quiet here" subheading="Start booking events to see them listed here."/>
+            <UI.EmptyEventCard heading="It's quiet here" subheading="Start adding events to your favourites to see them here."/>
           );
         }
       }

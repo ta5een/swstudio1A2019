@@ -99,9 +99,16 @@ class EventDetails extends Component {
               <UI.Label>{event.organiser.toUpperCase()}</UI.Label>
               <p>{event.isOneDayEvent ? `${eventStart}` : `${eventStart} - ${eventEnd}`}</p>
             </div>
-            {event.details.split('\n').map((item, key) => {
-              return (<p key={`${event.name}-${key}`}>{item}</p>);
-            })}
+            <div className="event-details-text">
+              {event.details.split('\n').map((item, key) => <p key={`${event.name}-${key}`}>{item}</p>)}
+              <label>Like what you've read? Consider booking below!</label>
+            </div>
+            <div className="event-details-book-button-container">
+              <div className="gradient-layer">
+                <UI.Button>ADD TO FAVOURITES</UI.Button>
+                <UI.Button primary>BOOK EVENT</UI.Button>
+              </div>
+            </div>
           </div>
         </div>
       );

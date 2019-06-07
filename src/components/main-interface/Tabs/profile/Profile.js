@@ -35,7 +35,10 @@ class Profile extends Component {
 
     fire.auth().signOut()
       .then(() => {
+        localStorage.removeItem('user');
         localStorage.removeItem('retrieved-events');
+        localStorage.removeItem('booked-events');
+        localStorage.removeItem('favourite-events');
         console.log("Successfully signed out. Redirecting...");
         this.props.history.push('/start');
       })
